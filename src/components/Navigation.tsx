@@ -11,9 +11,9 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onSectionChange 
     { id: 'intro', label: 'Introduction' },
     { id: 'diagnostic', label: 'C1: Diagnostic' },
     { id: 'methodologie', label: 'C2: Méthodologie' },
-    { id: 'deploiement', label: 'C3: Déploiement' },
-    { id: 'facilitation', label: 'C4: Facilitation' },
-    { id: 'conclusion', label: 'Conclusion' },
+    { id: 'deploiement', label: 'C3: Product Backlog' },
+    { id: 'facilitation', label: 'C4: Animation Jury' },
+    { id: 'conclusion', label: 'Bilan Agile' },
   ];
 
   return (
