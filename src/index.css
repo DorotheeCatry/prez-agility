@@ -146,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card {
-  @apply bg-[var(--color-surface)] p-6 rounded-lg shadow-lg border border-[var(--color-text)]/10 hover:shadow-xl transition-all duration-300;
+  @apply bg-[var(--color-surface)] p-6 rounded-lg shadow-lg border border-text/10 hover:shadow-xl transition-all duration-300;
 }
 
 .section {

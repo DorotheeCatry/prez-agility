@@ -21,6 +21,7 @@ export default {
         },
         surface: '#1e1e1e',
         background: '#121212',
+        text: 'var(--color-text)',
       },
       fontFamily: {
         display: ['Playfair Display', 'serif'],
