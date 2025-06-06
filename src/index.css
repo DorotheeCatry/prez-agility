@@ -130,23 +130,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Custom components */
 .btn {
-  @apply px-6 py-3 rounded-md font-medium transition-all duration-300 inline-block;
+  @apply px-6 py-3 rounded-md font-medium transition-all duration-300 inline-flex items-center justify-center;
 }
 
 .btn-primary {
-  @apply bg-[var(--color-primary)] hover:bg-[var(--color-primary-light)] text-white;
+  @apply bg-[var(--color-primary)] hover:bg-[var(--color-primary-light)] text-white shadow-lg hover:shadow-xl transform hover:scale-105;
 }
 
 .btn-secondary {
-  @apply bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-light)] text-black;
+  @apply bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-light)] text-black shadow-lg hover:shadow-xl transform hover:scale-105;
 }
 
 .btn-outline {
-  @apply border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white;
+  @apply border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white shadow-lg hover:shadow-xl transform hover:scale-105;
 }
 
 .card {
-  @apply bg-[var(--color-surface)] p-6 rounded-lg shadow-md;
+  @apply bg-[var(--color-surface)] p-6 rounded-lg shadow-lg border border-[var(--color-text)]/10 hover:shadow-xl transition-all duration-300;
 }
 
 .section {
@@ -155,4 +155,38 @@ h1, h2, h3, h4, h5, h6 {
 
 .container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Page transitions */
+.page-transition {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .section {
+    @apply py-8;
+  }
+  
+  .container {
+    @apply px-3;
+  }
 }

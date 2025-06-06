@@ -9,24 +9,38 @@ import FacilitationSection from './sections/FacilitationSection';
 import ConclusionSection from './sections/ConclusionSection';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('intro');
+  const [activePage, setActivePage] = useState('intro');
 
-  const handleSectionChange = (sectionId: string) => {
-    setActiveSection(sectionId);
+  const handlePageChange = (pageId: string) => {
+    setActivePage(pageId);
+  };
+
+  const renderActivePage = () => {
+    switch (activePage) {
+      case 'intro':
+        return <IntroSection isActive={true} />;
+      case 'diagnostic':
+        return <DiagnosticSection isActive={true} />;
+      case 'methodologie':
+        return <MethodologieSection isActive={true} />;
+      case 'deploiement':
+        return <DeploiementSection isActive={true} />;
+      case 'facilitation':
+        return <FacilitationSection isActive={true} />;
+      case 'conclusion':
+        return <ConclusionSection isActive={true} />;
+      default:
+        return <IntroSection isActive={true} />;
+    }
   };
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
       <Header />
-      <Navigation activeSection={activeSection} onSectionChange={handleSectionChange} />
+      <Navigation activePage={activePage} onPageChange={handlePageChange} />
       
-      <main>
-        <IntroSection isActive={activeSection === 'intro'} />
-        <DiagnosticSection isActive={activeSection === 'diagnostic'} />
-        <MethodologieSection isActive={activeSection === 'methodologie'} />
-        <DeploiementSection isActive={activeSection === 'deploiement'} />
-        <FacilitationSection isActive={activeSection === 'facilitation'} />
-        <ConclusionSection isActive={activeSection === 'conclusion'} />
+      <main className="transition-all duration-500 ease-in-out">
+        {renderActivePage()}
       </main>
     </div>
   );
