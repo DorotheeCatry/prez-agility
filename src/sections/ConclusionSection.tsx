@@ -10,7 +10,7 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
     <div className="min-h-screen pt-24 lg:pt-20 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-black to-green-900">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M60 60c0-33.137-26.863-60-60-60v60h60z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%22120%22 height=%22120%22 viewBox=%220 0 120 120%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.03%22%3E%3Cpath d=%22M60 60c0-33.137-26.863-60-60-60v60h60z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
       </div>
 
       <section className="section relative z-10">
