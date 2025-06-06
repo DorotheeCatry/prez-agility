@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { MessageSquare, ClipboardList, Users, PlayCircle, Clock, Target, CheckCircle, Monitor } from 'lucide-react';
+import { MessageSquare, ClipboardList, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, FileText, Mic } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
 }
 
 const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
-  const [activeTab, setActiveTab] = useState('preparation');
+  const [activeTab, setActiveTab] = useState('script');
   
   return (
     <section
@@ -19,37 +19,279 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
             C4: Animation d'un Échange avec le Jury
           </h2>
           <p className="text-xl text-[var(--color-text)]/80 max-w-3xl mx-auto fade-in delay-100">
-            Cas pratique : Animation d'un échange constructif avec le jury à la manière 
-            d'un rituel agile. Durée : 15 minutes + échange.
+            Script d'animation d'une Sprint Review adaptée - 15 minutes + échange
           </p>
         </div>
         
         <div className="flex flex-wrap gap-4 mb-8 justify-center">
           <button 
+            className={`btn ${activeTab === 'script' ? 'btn-primary' : 'btn-outline'}`}
+            onClick={() => setActiveTab('script')}
+          >
+            <FileText size={20} className="mr-2" />
+            Script d'animation
+          </button>
+          <button 
             className={`btn ${activeTab === 'preparation' ? 'btn-primary' : 'btn-outline'}`}
             onClick={() => setActiveTab('preparation')}
           >
+            <ClipboardList size={20} className="mr-2" />
             Préparation
-          </button>
-          <button 
-            className={`btn ${activeTab === 'rituel' ? 'btn-primary' : 'btn-outline'}`}
-            onClick={() => setActiveTab('rituel')}
-          >
-            Rituel choisi
-          </button>
-          <button 
-            className={`btn ${activeTab === 'animation' ? 'btn-primary' : 'btn-outline'}`}
-            onClick={() => setActiveTab('animation')}
-          >
-            Plan d'animation
           </button>
           <button 
             className={`btn ${activeTab === 'objectifs' ? 'btn-primary' : 'btn-outline'}`}
             onClick={() => setActiveTab('objectifs')}
           >
-            Objectifs & Résultats
+            <Target size={20} className="mr-2" />
+            Objectifs
           </button>
         </div>
+        
+        {activeTab === 'script' && (
+          <div className="space-y-8">
+            <div className="card slide-up">
+              <div className="flex items-center gap-3 mb-6">
+                <Mic size={28} className="text-[var(--color-primary)]" />
+                <h3 className="text-2xl font-display font-bold text-[var(--color-primary)]">
+                  Script d'Animation - Sprint Review (15 minutes)
+                </h3>
+              </div>
+              
+              <div className="bg-[var(--color-surface)]/30 p-4 rounded-lg border border-[var(--color-text)]/10 mb-6">
+                <h4 className="font-semibold text-[var(--color-secondary)] mb-2">
+                  Instructions pour l'équipe
+                </h4>
+                <p className="text-sm text-[var(--color-text)]/80">
+                  Ce script peut être lu à tour de rôle. Chaque section est clairement délimitée avec 
+                  des indications de timing. L'animateur principal guide l'ensemble, les autres membres 
+                  peuvent prendre la parole pour les démonstrations techniques.
+                </p>
+              </div>
+              
+              <div className="space-y-6">
+                {/* Phase 1 */}
+                <div className="bg-[var(--color-surface)]/50 p-6 rounded-lg border border-[var(--color-primary)]/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-[var(--color-primary)] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</div>
+                    <h4 className="text-xl font-semibold text-[var(--color-primary)]">
+                      OUVERTURE ET CONTEXTE (2 minutes)
+                    </h4>
+                    <div className="ml-auto text-sm text-[var(--color-text)]/60">⏱️ 0:00 - 2:00</div>
+                  </div>
+                  
+                  <div className="bg-[var(--color-background)] p-4 rounded-lg border border-[var(--color-text)]/10">
+                    <div className="mb-3">
+                      <span className="inline-block bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded text-sm font-semibold mb-2">
+                        ANIMATEUR PRINCIPAL
+                      </span>
+                    </div>
+                    <div className="space-y-3 text-[var(--color-text)]/90">
+                      <p>
+                        <strong>"Bonjour à tous et merci d'être présents pour cette Sprint Review."</strong>
+                      </p>
+                      <p>
+                        "Nous sommes ici pour vous présenter les livrables de notre projet de prédiction 
+                        de popularité des films, développé en 4 semaines avec la méthodologie Scrum."
+                      </p>
+                      <p>
+                        "L'objectif de cette session de 15 minutes est de vous montrer concrètement ce que 
+                        nous avons livré et de recueillir vos feedbacks en tant que stakeholders."
+                      </p>
+                      <p>
+                        <strong>"N'hésitez pas à poser des questions à tout moment - c'est exactement l'esprit 
+                        d'une Sprint Review !"</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Phase 2 */}
+                <div className="bg-[var(--color-surface)]/50 p-6 rounded-lg border border-[var(--color-secondary)]/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-[var(--color-secondary)] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</div>
+                    <h4 className="text-xl font-semibold text-[var(--color-secondary)]">
+                      DÉMONSTRATION DU DASHBOARD (6 minutes)
+                    </h4>
+                    <div className="ml-auto text-sm text-[var(--color-text)]/60">⏱️ 2:00 - 8:00</div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-[var(--color-background)] p-4 rounded-lg border border-[var(--color-text)]/10">
+                      <div className="mb-3">
+                        <span className="inline-block bg-[var(--color-secondary)]/20 text-[var(--color-secondary)] px-2 py-1 rounded text-sm font-semibold mb-2">
+                          DÉVELOPPEUR / DÉMONSTRATEUR
+                        </span>
+                      </div>
+                      <div className="space-y-3 text-[var(--color-text)]/90">
+                        <p>
+                          <strong>"Je vais maintenant vous présenter notre dashboard Django en action."</strong>
+                        </p>
+                        <p>
+                          "Voici l'interface principale où un exploitant de cinéma peut saisir les informations 
+                          d'un film avant sa sortie..."
+                        </p>
+                        <p>
+                          <em>[Démonstration live : saisie d'un film exemple]</em>
+                        </p>
+                        <p>
+                          "Comme vous pouvez le voir, notre modèle prédit X entrées en première semaine. 
+                          Le graphique montre la répartition par jour et la courbe de confiance."
+                        </p>
+                        <p>
+                          "Les filtres permettent d'analyser par genre, période de sortie, ou budget..."
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-[var(--color-background)] p-4 rounded-lg border border-[var(--color-text)]/10">
+                      <div className="mb-3">
+                        <span className="inline-block bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded text-sm font-semibold mb-2">
+                          ANIMATEUR - TRANSITION
+                        </span>
+                      </div>
+                      <div className="space-y-2 text-[var(--color-text)]/90">
+                        <p>
+                          "Cette interface s'appuie sur notre API FastAPI qui traite les données en temps réel. 
+                          Passons maintenant aux performances de notre modèle..."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Phase 3 */}
+                <div className="bg-[var(--color-surface)]/50 p-6 rounded-lg border border-[var(--color-accent-light)]/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-[var(--color-accent-light)] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</div>
+                    <h4 className="text-xl font-semibold text-[var(--color-accent-light)]">
+                      PERFORMANCES DU MODÈLE (3 minutes)
+                    </h4>
+                    <div className="ml-auto text-sm text-[var(--color-text)]/60">⏱️ 8:00 - 11:00</div>
+                  </div>
+                  
+                  <div className="bg-[var(--color-background)] p-4 rounded-lg border border-[var(--color-text)]/10">
+                    <div className="mb-3">
+                      <span className="inline-block bg-[var(--color-accent-light)]/20 text-[var(--color-accent-light)] px-2 py-1 rounded text-sm font-semibold mb-2">
+                        RESPONSABLE ML
+                      </span>
+                    </div>
+                    <div className="space-y-3 text-[var(--color-text)]/90">
+                      <p>
+                        <strong>"Parlons maintenant des performances de notre modèle prédictif."</strong>
+                      </p>
+                      <p>
+                        "Nous avons testé deux algorithmes : Random Forest et LightGBM. 
+                        Voici nos métriques finales..."
+                      </p>
+                      <p>
+                        <em>[Présentation des graphiques de performance]</em>
+                      </p>
+                      <p>
+                        "Notre RMSE de X et R² de Y montrent une capacité prédictive satisfaisante 
+                        pour l'aide à la décision."
+                      </p>
+                      <p>
+                        "Nous avons identifié que les données d'engagement sur les trailers Dailymotion 
+                        améliorent significativement les prédictions."
+                      </p>
+                      <p>
+                        <strong>"Bien sûr, nous avons aussi identifié des limites que je peux détailler 
+                        si vous le souhaitez..."</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Phase 4 */}
+                <div className="bg-[var(--color-surface)]/50 p-6 rounded-lg border border-[var(--color-success)]/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-[var(--color-success)] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">4</div>
+                    <h4 className="text-xl font-semibold text-[var(--color-success)]">
+                      ÉCHANGES ET FEEDBACKS (4 minutes)
+                    </h4>
+                    <div className="ml-auto text-sm text-[var(--color-text)]/60">⏱️ 11:00 - 15:00</div>
+                  </div>
+                  
+                  <div className="bg-[var(--color-background)] p-4 rounded-lg border border-[var(--color-text)]/10">
+                    <div className="mb-3">
+                      <span className="inline-block bg-[var(--color-success)]/20 text-[var(--color-success)] px-2 py-1 rounded text-sm font-semibold mb-2">
+                        ANIMATEUR PRINCIPAL
+                      </span>
+                    </div>
+                    <div className="space-y-3 text-[var(--color-text)]/90">
+                      <p>
+                        <strong>"Nous arrivons maintenant à la partie la plus importante : vos retours !"</strong>
+                      </p>
+                      <p>
+                        "En tant que stakeholders, que pensez-vous de cette approche pour aider 
+                        les exploitants de cinéma ?"
+                      </p>
+                      <p>
+                        <em>[Écoute active et prise de notes des réponses]</em>
+                      </p>
+                      <p>
+                        "Quelles améliorations ou fonctionnalités supplémentaires vous semblent prioritaires ?"
+                      </p>
+                      <p>
+                        <em>[Reformulation des suggestions]</em>
+                      </p>
+                      <p>
+                        "Y a-t-il des aspects techniques ou métier que vous aimeriez que nous détaillions ?"
+                      </p>
+                      <p>
+                        <strong>"Parfait ! Je note tous ces points précieux pour notre backlog d'amélioration."</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Clôture */}
+                <div className="bg-[var(--color-surface)]/50 p-6 rounded-lg border border-[var(--color-warning)]/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-[var(--color-warning)] text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">✓</div>
+                    <h4 className="text-xl font-semibold text-[var(--color-warning)]">
+                      CLÔTURE ET TRANSITION
+                    </h4>
+                    <div className="ml-auto text-sm text-[var(--color-text)]/60">⏱️ 15:00</div>
+                  </div>
+                  
+                  <div className="bg-[var(--color-background)] p-4 rounded-lg border border-[var(--color-text)]/10">
+                    <div className="mb-3">
+                      <span className="inline-block bg-[var(--color-warning)]/20 text-[var(--color-warning)] px-2 py-1 rounded text-sm font-semibold mb-2">
+                        ANIMATEUR PRINCIPAL
+                      </span>
+                    </div>
+                    <div className="space-y-3 text-[var(--color-text)]/90">
+                      <p>
+                        <strong>"Merci beaucoup pour cette Sprint Review très enrichissante !"</strong>
+                      </p>
+                      <p>
+                        "Nous avons présenté notre solution complète : dashboard, API, modèle ML et pipeline de données. 
+                        Vos feedbacks vont nous permettre d'identifier les prochaines priorités."
+                      </p>
+                      <p>
+                        <strong>"Nous sommes maintenant prêts pour vos questions complémentaires et l'échange libre."</strong>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8 p-4 bg-[var(--color-primary)]/10 rounded-lg border border-[var(--color-primary)]/20">
+                <h4 className="font-semibold text-[var(--color-primary)] mb-2">
+                  💡 Conseils pour l'animation
+                </h4>
+                <ul className="space-y-1 text-sm text-[var(--color-text)]/80">
+                  <li>• <strong>Gardez le rythme :</strong> Utilisez un chronomètre discret pour respecter les timings</li>
+                  <li>• <strong>Soyez authentiques :</strong> Adaptez le script à votre style naturel de communication</li>
+                  <li>• <strong>Encouragez l'interaction :</strong> Relancez si le jury est silencieux</li>
+                  <li>• <strong>Notez visuellement :</strong> Montrez que vous prenez en compte les feedbacks</li>
+                  <li>• <strong>Restez positifs :</strong> Même face aux critiques, montrez l'esprit d'amélioration continue</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
         
         {activeTab === 'preparation' && (
           <div className="card slide-up">
@@ -64,49 +306,42 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
               <div className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
-                    Contexte de l'exercice
-                  </h4>
-                  <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                    <ul className="space-y-2 text-[var(--color-text)]/80">
-                      <li>• <span className="font-semibold">Durée :</span> 15 minutes d'animation + échange</li>
-                      <li>• <span className="font-semibold">Participants :</span> Jury de certification agile</li>
-                      <li>• <span className="font-semibold">Objectif :</span> Démontrer les compétences de facilitation</li>
-                      <li>• <span className="font-semibold">Format :</span> Rituel Scrum adapté au contexte jury</li>
-                    </ul>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
-                    Choix du rituel Scrum
-                  </h4>
-                  <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                    <div className="grid grid-cols-1 gap-3">
-                      <div className="p-3 bg-[var(--color-primary)]/10 rounded border border-[var(--color-primary)]/20">
-                        <h5 className="font-semibold text-[var(--color-primary)] mb-1">Sprint Review ✓</h5>
-                        <p className="text-sm text-[var(--color-text)]/70">
-                          Idéal pour présenter les livrables et recueillir des feedbacks constructifs
-                        </p>
-                      </div>
-                      <div className="p-2 bg-[var(--color-text)]/5 rounded text-sm text-[var(--color-text)]/60">
-                        <span className="font-semibold">Autres options :</span> Daily Scrum (trop court), Sprint Planning (trop technique), Rétrospective (nécessite un vécu commun)
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
                     Matériel nécessaire
                   </h4>
                   <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                     <ul className="space-y-2 text-[var(--color-text)]/80">
-                      <li>• Support de présentation (slides du projet IA)</li>
-                      <li>• Démo fonctionnelle du dashboard Django</li>
-                      <li>• Tableau blanc ou support digital pour noter les feedbacks</li>
-                      <li>• Chronomètre pour la gestion du temps</li>
-                      <li>• Grille d'évaluation des retours</li>
+                      <li>• <strong>Dashboard fonctionnel :</strong> Interface Django prête à démontrer</li>
+                      <li>• <strong>Données de test :</strong> Films exemples pour la démonstration</li>
+                      <li>• <strong>Graphiques de performance :</strong> Métriques ML préparées</li>
+                      <li>• <strong>Support de notes :</strong> Tableau ou feuille pour les feedbacks</li>
+                      <li>• <strong>Chronomètre :</strong> Gestion discrète du timing</li>
                     </ul>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
+                    Répartition des rôles
+                  </h4>
+                  <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                    <div className="space-y-3">
+                      <div>
+                        <h5 className="font-semibold text-[var(--color-primary)]">Animateur principal</h5>
+                        <p className="text-sm text-[var(--color-text)]/70">Ouverture, transitions, facilitation des échanges, clôture</p>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-[var(--color-secondary)]">Démonstrateur</h5>
+                        <p className="text-sm text-[var(--color-text)]/70">Présentation live du dashboard et des fonctionnalités</p>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-[var(--color-accent-light)]">Expert ML</h5>
+                        <p className="text-sm text-[var(--color-text)]/70">Présentation des performances et métriques du modèle</p>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-[var(--color-success)]">Support</h5>
+                        <p className="text-sm text-[var(--color-text)]/70">Prise de notes, gestion technique, questions complémentaires</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -114,42 +349,33 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
               <div className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold text-[var(--color-accent-light)] mb-3">
-                    Compétences à démontrer
+                    Points de vigilance
                   </h4>
                   <div className="space-y-3">
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Animation de Sprint Review
-                      </h5>
-                      <p className="text-sm text-[var(--color-text)]/70">
-                        Structurer la présentation, faciliter les échanges, recueillir les feedbacks
-                      </p>
-                    </div>
-                    
-                    <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">
+                      <h5 className="font-semibold text-[var(--color-warning)] mb-1">
                         Gestion du temps
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Respecter le timeboxing de 15 minutes tout en maximisant la valeur
+                        Prévoir des signaux discrets entre équipiers pour respecter les 15 minutes
                       </p>
                     </div>
                     
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Facilitation d'échanges
+                      <h5 className="font-semibold text-[var(--color-warning)] mb-1">
+                        Niveau technique
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Encourager la participation, reformuler, synthétiser les retours
+                        Adapter le discours selon les réactions du jury (plus ou moins technique)
                       </p>
                     </div>
                     
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Adaptation au contexte
+                      <h5 className="font-semibold text-[var(--color-warning)] mb-1">
+                        Problèmes techniques
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Ajuster le rituel au contexte jury tout en gardant l'esprit Scrum
+                        Avoir un plan B (captures d'écran) si la démo ne fonctionne pas
                       </p>
                     </div>
                   </div>
@@ -163,236 +389,10 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
                     <p className="text-white text-sm">
-                      Animation d'une Sprint Review : présentation des livrables et recueil de feedbacks
+                      Animation collaborative d'une Sprint Review avec focus sur la valeur livrée
                     </p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {activeTab === 'rituel' && (
-          <div className="card scale-in">
-            <div className="flex items-center gap-3 mb-6">
-              <Monitor size={28} className="text-[var(--color-secondary)]" />
-              <h3 className="text-2xl font-display font-bold text-[var(--color-secondary)]">
-                Rituel choisi : Sprint Review adaptée
-              </h3>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-primary)]">
-                    Pourquoi une Sprint Review ?
-                  </h4>
-                  <ul className="space-y-2 text-[var(--color-text)]/80">
-                    <li>• <span className="font-semibold">Démonstrative :</span> Permet de présenter concrètement les livrables du projet</li>
-                    <li>• <span className="font-semibold">Interactive :</span> Favorise les échanges et les questions du jury</li>
-                    <li>• <span className="font-semibold">Structurée :</span> Format clair avec objectifs définis</li>
-                    <li>• <span className="font-semibold">Orientée valeur :</span> Focus sur ce qui a été livré et sa valeur métier</li>
-                    <li>• <span className="font-semibold">Collaborative :</span> Recueil de feedbacks pour amélioration continue</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-secondary)]">
-                    Adaptation au contexte jury
-                  </h4>
-                  <div className="space-y-3">
-                    <div>
-                      <h5 className="font-semibold text-sm">Sujet de la review</h5>
-                      <p className="text-sm text-[var(--color-text)]/70">
-                        "Présentation des livrables du projet de prédiction IA et recueil de feedbacks"
-                      </p>
-                    </div>
-                    <div>
-                      <h5 className="font-semibold text-sm">Participants</h5>
-                      <p className="text-sm text-[var(--color-text)]/70">
-                        Membres du jury jouant le rôle des stakeholders/clients
-                      </p>
-                    </div>
-                    <div>
-                      <h5 className="font-semibold text-sm">Objectif</h5>
-                      <p className="text-sm text-[var(--color-text)]/70">
-                        Démontrer la valeur livrée et recueillir des retours constructifs
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-warning)]">
-                    Livrables à présenter
-                  </h4>
-                  <ul className="space-y-2 text-sm text-[var(--color-text)]/80">
-                    <li>• <span className="font-semibold">Modèle prédictif :</span> Performances et métriques (RMSE, R²)</li>
-                    <li>• <span className="font-semibold">Dashboard Django :</span> Interface utilisateur fonctionnelle</li>
-                    <li>• <span className="font-semibold">API FastAPI :</span> Endpoint de prédiction déployé</li>
-                    <li>• <span className="font-semibold">Pipeline de données :</span> Scraping et feature engineering</li>
-                    <li>• <span className="font-semibold">Documentation :</span> Guide utilisateur et technique</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-accent-light)]">
-                    Structure de la Sprint Review
-                  </h4>
-                  <div className="grid grid-cols-1 gap-3">
-                    <div className="bg-[var(--color-primary)]/10 p-3 rounded border border-[var(--color-primary)]/20">
-                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">1. Contexte et objectifs</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Rappel du sprint goal et des User Stories planifiées
-                      </p>
-                    </div>
-                    
-                    <div className="bg-[var(--color-secondary)]/10 p-3 rounded border border-[var(--color-secondary)]/20">
-                      <h5 className="font-semibold text-[var(--color-secondary)] mb-1">2. Démonstration</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Présentation live des fonctionnalités développées
-                      </p>
-                    </div>
-                    
-                    <div className="bg-[var(--color-accent-light)]/10 p-3 rounded border border-[var(--color-accent-light)]/20">
-                      <h5 className="font-semibold text-[var(--color-accent-light)] mb-1">3. Métriques et résultats</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Performances du modèle et indicateurs de qualité
-                      </p>
-                    </div>
-                    
-                    <div className="bg-[var(--color-success)]/10 p-3 rounded border border-[var(--color-success)]/20">
-                      <h5 className="font-semibold text-[var(--color-success)] mb-1">4. Feedbacks et questions</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Échanges avec le jury et recueil de retours
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-warning)]">
-                    Techniques de facilitation
-                  </h4>
-                  <ul className="space-y-2 text-sm text-[var(--color-text)]/80">
-                    <li>• <span className="font-semibold">Timeboxing :</span> Gestion stricte du temps par phase</li>
-                    <li>• <span className="font-semibold">Storytelling :</span> Présentation narrative des fonctionnalités</li>
-                    <li>• <span className="font-semibold">Questions ouvertes :</span> Encourager les retours constructifs</li>
-                    <li>• <span className="font-semibold">Reformulation :</span> Clarification et synthèse des feedbacks</li>
-                    <li>• <span className="font-semibold">Prise de notes :</span> Capture des suggestions d'amélioration</li>
-                  </ul>
-                </div>
-                
-                <div className="text-center p-3 bg-[var(--color-primary)]/10 rounded-lg">
-                  <p className="text-sm text-[var(--color-text)]/80 italic">
-                    "L'objectif est de créer un échange authentique comme lors d'une vraie Sprint Review avec des stakeholders"
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {activeTab === 'animation' && (
-          <div className="card slide-in-right">
-            <div className="flex items-center gap-3 mb-6">
-              <PlayCircle size={28} className="text-[var(--color-accent-light)]" />
-              <h3 className="text-2xl font-display font-bold text-[var(--color-accent-light)]">
-                Plan d'animation détaillé (15 minutes)
-              </h3>
-            </div>
-            
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="text-center p-3 bg-[var(--color-primary)]/10 rounded-lg">
-                  <Clock size={24} className="text-[var(--color-primary)] mx-auto mb-1" />
-                  <div className="text-lg font-bold">15 min</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Durée totale</p>
-                </div>
-                <div className="text-center p-3 bg-[var(--color-secondary)]/10 rounded-lg">
-                  <Users size={24} className="text-[var(--color-secondary)] mx-auto mb-1" />
-                  <div className="text-lg font-bold">3-5</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Membres jury</p>
-                </div>
-                <div className="text-center p-3 bg-[var(--color-accent-light)]/10 rounded-lg">
-                  <Target size={24} className="text-[var(--color-accent-light)] mx-auto mb-1" />
-                  <div className="text-lg font-bold">4</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Livrables présentés</p>
-                </div>
-                <div className="text-center p-3 bg-[var(--color-success)]/10 rounded-lg">
-                  <CheckCircle size={24} className="text-[var(--color-success)] mx-auto mb-1" />
-                  <div className="text-lg font-bold">5+</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Feedbacks recueillis</p>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-[var(--color-primary)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</div>
-                    <h4 className="font-semibold text-[var(--color-primary)]">Ouverture et contexte (2 min)</h4>
-                  </div>
-                  <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Accueil et présentation du format Sprint Review</li>
-                    <li>• Rappel du contexte projet : prédiction popularité films</li>
-                    <li>• Objectifs du sprint 4 : finalisation et déploiement</li>
-                    <li>• Invitation à poser des questions et donner des feedbacks</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-[var(--color-secondary)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</div>
-                    <h4 className="font-semibold text-[var(--color-secondary)]">Démonstration du dashboard (6 min)</h4>
-                  </div>
-                  <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Présentation de l'interface utilisateur Django</li>
-                    <li>• Démonstration live : saisie d'un film et prédiction</li>
-                    <li>• Visualisation des graphiques et métriques</li>
-                    <li>• Explication des filtres et fonctionnalités</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-[var(--color-accent-light)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</div>
-                    <h4 className="font-semibold text-[var(--color-accent-light)]">Performances du modèle (3 min)</h4>
-                  </div>
-                  <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Présentation des métriques finales (RMSE, R², MAE)</li>
-                    <li>• Comparaison Random Forest vs LightGBM</li>
-                    <li>• Exemples de prédictions réussies</li>
-                    <li>• Limites identifiées et axes d'amélioration</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-[var(--color-success)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">4</div>
-                    <h4 className="font-semibold text-[var(--color-success)]">Échanges et feedbacks (4 min)</h4>
-                  </div>
-                  <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Questions ouvertes : "Que pensez-vous de cette approche ?"</li>
-                    <li>• Recueil des suggestions d'amélioration</li>
-                    <li>• Discussion sur l'applicabilité métier</li>
-                    <li>• Synthèse des points clés soulevés</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="mt-6 p-4 bg-[var(--color-warning)]/10 rounded-lg border border-[var(--color-warning)]/20">
-                <h4 className="font-semibold text-[var(--color-warning)] mb-2">
-                  Points d'attention pour l'animation
-                </h4>
-                <ul className="space-y-1 text-sm text-[var(--color-text)]/80">
-                  <li>• Maintenir l'énergie et l'engagement du jury</li>
-                  <li>• Adapter le niveau technique selon les réactions</li>
-                  <li>• Encourager les questions même si elles sortent du cadre</li>
-                  <li>• Noter visuellement les feedbacks pour montrer l'écoute active</li>
-                  <li>• Conclure par un remerciement et une ouverture sur la suite</li>
-                </ul>
               </div>
             </div>
           </div>
@@ -424,47 +424,6 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                 
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
-                    Critères de réussite
-                  </h4>
-                  <div className="space-y-3">
-                    <div>
-                      <h5 className="font-semibold text-sm">Clarté de la présentation</h5>
-                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
-                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '95%' }}></div>
-                      </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Livrables compréhensibles par tous</p>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-semibold text-sm">Engagement du jury</h5>
-                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
-                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '90%' }}></div>
-                      </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Questions et participation active</p>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-semibold text-sm">Gestion du temps</h5>
-                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
-                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '100%' }}></div>
-                      </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Respect strict des 15 minutes</p>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-semibold text-sm">Qualité des feedbacks</h5>
-                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
-                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '85%' }}></div>
-                      </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Retours constructifs et exploitables</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold text-[var(--color-accent-light)] mb-3">
                     Compétences évaluées
                   </h4>
                   <div className="space-y-3">
@@ -474,6 +433,16 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                         <h5 className="font-semibold text-sm">Animation de rituel Scrum</h5>
                         <p className="text-xs text-[var(--color-text)]/70">
                           Maîtrise du format Sprint Review et de ses objectifs
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
+                      <div>
+                        <h5 className="font-semibold text-sm">Travail d'équipe</h5>
+                        <p className="text-xs text-[var(--color-text)]/70">
+                          Coordination fluide entre les différents intervenants
                         </p>
                       </div>
                     </div>
@@ -497,25 +466,46 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                         </p>
                       </div>
                     </div>
-                    
-                    <div className="flex items-start gap-3">
-                      <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
-                      <div>
-                        <h5 className="font-semibold text-sm">Gestion du temps</h5>
-                        <p className="text-xs text-[var(--color-text)]/70">
-                          Respect du timeboxing et fluidité de l'animation
-                        </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <h4 className="text-lg font-semibold text-[var(--color-accent-light)] mb-3">
+                    Critères de réussite
+                  </h4>
+                  <div className="space-y-3">
+                    <div>
+                      <h5 className="font-semibold text-sm">Respect du timing</h5>
+                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
+                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '100%' }}></div>
                       </div>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Animation fluide en 15 minutes</p>
                     </div>
                     
-                    <div className="flex items-start gap-3">
-                      <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
-                      <div>
-                        <h5 className="font-semibold text-sm">Orientation valeur</h5>
-                        <p className="text-xs text-[var(--color-text)]/70">
-                          Focus sur la valeur métier des livrables présentés
-                        </p>
+                    <div>
+                      <h5 className="font-semibold text-sm">Engagement du jury</h5>
+                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
+                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '90%' }}></div>
                       </div>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Questions et participation active</p>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-semibold text-sm">Clarté de la présentation</h5>
+                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
+                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '95%' }}></div>
+                      </div>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Livrables compréhensibles par tous</p>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-semibold text-sm">Qualité des feedbacks</h5>
+                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
+                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '85%' }}></div>
+                      </div>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Retours constructifs et exploitables</p>
                     </div>
                   </div>
                 </div>
@@ -528,8 +518,8 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     <li>• <span className="font-semibold">Démonstration live</span> du dashboard fonctionnel</li>
                     <li>• <span className="font-semibold">Présentation des métriques</span> de performance du modèle</li>
                     <li>• <span className="font-semibold">Liste des feedbacks</span> recueillis auprès du jury</li>
-                    <li>• <span className="font-semibold">Synthèse des points</span> d'amélioration identifiés</li>
-                    <li>• <span className="font-semibold">Évaluation positive</span> de l'animation par le jury</li>
+                    <li>• <span className="font-semibold">Animation collaborative</span> fluide et professionnelle</li>
+                    <li>• <span className="font-semibold">Évaluation positive</span> de l'expérience par le jury</li>
                   </ul>
                 </div>
                 
@@ -538,9 +528,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     Objectif final
                   </h4>
                   <p className="text-sm text-[var(--color-text)]/80 italic">
-                    Démontrer la capacité à animer efficacement une Sprint Review en créant 
-                    un échange authentique et constructif avec les stakeholders, tout en 
-                    valorisant les livrables du projet dans un temps contraint.
+                    Démontrer la capacité à animer efficacement une Sprint Review en équipe, 
+                    en créant un échange authentique et constructif avec les stakeholders, 
+                    tout en valorisant les livrables du projet dans un temps contraint.
                   </p>
                 </div>
               </div>
