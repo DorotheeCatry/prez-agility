@@ -297,7 +297,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card {
-  @apply bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-surface)]/80 p-8 rounded-2xl shadow-2xl border border-white/10 backdrop-blur-sm relative overflow-hidden;
+  @apply bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-2xl shadow-2xl border border-white/10 backdrop-blur-sm relative overflow-hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -541,4 +541,14 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-100px) rotate(360deg);
     opacity: 0;
   }
+}
+
+/* Hide scrollbar for mobile navigation */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
