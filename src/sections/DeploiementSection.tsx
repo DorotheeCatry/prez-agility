@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, CalendarClock, BarChart3, ArrowDownUp, FileText, Code2, Database } from 'lucide-react';
+import { Users, CalendarClock, BarChart3, ArrowDownUp, FileText, Code2, Database, Target } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -14,124 +14,127 @@ const DeploiementSection: React.FC<SectionProps> = ({ isActive }) => {
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 fade-in">
-            C3: Préparation du Déploiement
+            C3: Construction du Product Backlog
           </h2>
           <p className="text-xl text-[var(--color-text)]/80 max-w-3xl mx-auto fade-in delay-100">
-            Organisation de l'équipe, planification des rituels agiles et 
-            mise en place des outils pour le projet de prédiction IA.
+            Structuration des epics, user stories et définition des critères 
+            d'acceptation pour le projet de prédiction IA.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-16">
-          <div className="lg:col-span-2 slide-up">
-            <div className="card h-full">
-              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-secondary)]">
-                Cahier des charges fonctionnel
-              </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <div className="card slide-up">
+            <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-secondary)]">
+              Epics et User Stories
+            </h3>
+            
+            <div className="space-y-6">
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-primary)] mb-3">
+                  Epic: Collecte et traitement des données
+                </h4>
+                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
+                  <li>• Scraper les fiches Allociné (films, casting, box-office)</li>
+                  <li>• Enrichir avec données Dailymotion (engagement trailers)</li>
+                  <li>• Nettoyer et transformer les données collectées</li>
+                  <li>• Créer les embeddings acteurs/réalisateurs</li>
+                </ul>
+              </div>
               
-              <div className="space-y-6">
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="font-semibold text-[var(--color-primary)] mb-2">
-                    Fonctionnalités principales
-                  </h4>
-                  <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
-                    <li>• Prédiction de popularité des films</li>
-                    <li>• Dashboard de visualisation</li>
-                    <li>• Scraping automatisé des données</li>
-                    <li>• API Machine Learning</li>
-                    <li>• Gestion des expériences ML</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="font-semibold text-[var(--color-primary)] mb-2">
-                    Architecture technique
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Code2 size={16} className="text-[var(--color-secondary)]" />
-                      <span>Frontend: Django + Tailwind</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Database size={16} className="text-[var(--color-secondary)]" />
-                      <span>Backend: FastAPI + PostgreSQL</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <FileText size={16} className="text-[var(--color-secondary)]" />
-                      <span>ML: MLflow + Azure ML</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-primary)] mb-3">
+                  Epic: Modélisation prédictive
+                </h4>
+                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
+                  <li>• Entraîner un modèle Random Forest</li>
+                  <li>• Développer un modèle LightGBM</li>
+                  <li>• Évaluer les performances (RMSE, MAE, R²)</li>
+                  <li>• Implémenter la cross-validation</li>
+                </ul>
+              </div>
+              
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-primary)] mb-3">
+                  Epic: Développement de l'application
+                </h4>
+                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
+                  <li>• Créer une API de prédiction FastAPI</li>
+                  <li>• Développer l'interface Django</li>
+                  <li>• Visualiser les prédictions via graphiques</li>
+                  <li>• Intégrer filtres et fonctionnalités utilisateur</li>
+                </ul>
               </div>
             </div>
           </div>
           
-          <div className="lg:col-span-3 slide-in-right delay-200">
-            <div className="card h-full">
-              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
-                Product Backlog Initial
-              </h3>
+          <div className="card slide-in-right delay-200">
+            <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
+              Exemple de backlog détaillé
+            </h3>
+            
+            <div className="space-y-4">
+              <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-semibold text-[var(--color-secondary)]">Scraping Allociné</h4>
+                  <span className="text-xs bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded">
+                    Haute
+                  </span>
+                </div>
+                <p className="text-sm text-[var(--color-text)]/70 mb-2">
+                  <span className="font-semibold">Sprint:</span> 1 | 
+                  <span className="font-semibold"> Epic:</span> Collecte données
+                </p>
+                <p className="text-xs text-[var(--color-text)]/60 mb-2">
+                  <span className="font-semibold">DoD:</span> Scrapy fonctionnel, tests OK, stockage PostgreSQL
+                </p>
+              </div>
               
-              <div className="space-y-6">
-                <div className="flex gap-4 items-start">
-                  <div className="bg-[var(--color-primary)]/10 p-3 rounded-lg">
-                    <Users size={24} className="text-[var(--color-primary)]" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold">Sprint 1: Collecte et BDD</h4>
-                    <ul className="mt-2 space-y-1 text-[var(--color-text)]/70">
-                      <li>• Configuration de l'environnement de développement</li>
-                      <li>• Mise en place du scraping Allociné/IMDB</li>
-                      <li>• Création des schémas de base de données</li>
-                      <li>• Intégration avec Azure ML</li>
-                    </ul>
-                  </div>
+              <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-semibold text-[var(--color-secondary)]">Suivi performance modèle</h4>
+                  <span className="text-xs bg-[var(--color-secondary)]/20 text-[var(--color-secondary)] px-2 py-1 rounded">
+                    Moyenne
+                  </span>
                 </div>
-                
-                <div className="flex gap-4 items-start">
-                  <div className="bg-[var(--color-secondary)]/10 p-3 rounded-lg">
-                    <ArrowDownUp size={24} className="text-[var(--color-secondary)]" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold">Sprint 2: ML et API</h4>
-                    <ul className="mt-2 space-y-1 text-[var(--color-text)]/70">
-                      <li>• Développement du modèle de prédiction</li>
-                      <li>• Feature engineering</li>
-                      <li>• Mise en place de l'API FastAPI</li>
-                      <li>• Tests et validation du modèle</li>
-                    </ul>
-                  </div>
+                <p className="text-sm text-[var(--color-text)]/70 mb-2">
+                  <span className="font-semibold">Sprint:</span> 2 | 
+                  <span className="font-semibold"> Epic:</span> Modélisation
+                </p>
+                <p className="text-xs text-[var(--color-text)]/60 mb-2">
+                  <span className="font-semibold">DoD:</span> Courbes d'apprentissage générées, RMSE/R² calculés
+                </p>
+              </div>
+              
+              <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-semibold text-[var(--color-secondary)]">Formulaire de prédiction</h4>
+                  <span className="text-xs bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded">
+                    Haute
+                  </span>
                 </div>
-                
-                <div className="flex gap-4 items-start">
-                  <div className="bg-[var(--color-accent-light)]/10 p-3 rounded-lg">
-                    <BarChart3 size={24} className="text-[var(--color-accent-light)]" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold">Sprint 3: Interface</h4>
-                    <ul className="mt-2 space-y-1 text-[var(--color-text)]/70">
-                      <li>• Développement du dashboard Django</li>
-                      <li>• Intégration des visualisations</li>
-                      <li>• Système de notifications</li>
-                      <li>• Interface de configuration</li>
-                    </ul>
-                  </div>
+                <p className="text-sm text-[var(--color-text)]/70 mb-2">
+                  <span className="font-semibold">Sprint:</span> 3 | 
+                  <span className="font-semibold"> Epic:</span> Application
+                </p>
+                <p className="text-xs text-[var(--color-text)]/60 mb-2">
+                  <span className="font-semibold">DoD:</span> Interface fonctionnelle et intégrée
+                </p>
+              </div>
+              
+              <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-semibold text-[var(--color-secondary)]">API de prédiction</h4>
+                  <span className="text-xs bg-[var(--color-primary)]/20 text-[var(--color-primary)] px-2 py-1 rounded">
+                    Haute
+                  </span>
                 </div>
-                
-                <div className="flex gap-4 items-start">
-                  <div className="bg-[var(--color-success)]/10 p-3 rounded-lg">
-                    <CalendarClock size={24} className="text-[var(--color-success)]" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold">Sprint 4: Finalisation</h4>
-                    <ul className="mt-2 space-y-1 text-[var(--color-text)]/70">
-                      <li>• Déploiement sur Azure</li>
-                      <li>• Tests d'intégration</li>
-                      <li>• Documentation utilisateur</li>
-                      <li>• Formation du client</li>
-                    </ul>
-                  </div>
-                </div>
+                <p className="text-sm text-[var(--color-text)]/70 mb-2">
+                  <span className="font-semibold">Sprint:</span> 4 | 
+                  <span className="font-semibold"> Epic:</span> Mise en production
+                </p>
+                <p className="text-xs text-[var(--color-text)]/60 mb-2">
+                  <span className="font-semibold">DoD:</span> Endpoint FastAPI déployé localement
+                </p>
               </div>
             </div>
           </div>
@@ -140,18 +143,26 @@ const DeploiementSection: React.FC<SectionProps> = ({ isActive }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div className="card scale-in">
             <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-accent-light)]">
-              Suivi et KPIs
+              Suivi de la vélocité
             </h3>
             
             <div className="space-y-4">
               <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                <h4 className="text-lg font-semibold mb-4">Vélocité de l'équipe</h4>
+                <h4 className="text-lg font-semibold mb-4">User Stories complétées par sprint</h4>
                 <div className="h-40 w-full bg-[var(--color-background)] rounded-lg p-4">
                   <div className="h-full w-full flex items-end justify-around">
-                    <div className="w-1/4 h-[60%] bg-[var(--color-primary)]/50 rounded-t"></div>
-                    <div className="w-1/4 h-[75%] bg-[var(--color-primary)]/50 rounded-t"></div>
-                    <div className="w-1/4 h-[85%] bg-[var(--color-primary)]/50 rounded-t"></div>
-                    <div className="w-1/4 h-[90%] bg-[var(--color-primary)]/50 rounded-t"></div>
+                    <div className="w-1/5 h-[50%] bg-[var(--color-primary)]/50 rounded-t flex items-end justify-center pb-2">
+                      <span className="text-xs text-white">6</span>
+                    </div>
+                    <div className="w-1/5 h-[75%] bg-[var(--color-primary)]/50 rounded-t flex items-end justify-center pb-2">
+                      <span className="text-xs text-white">9</span>
+                    </div>
+                    <div className="w-1/5 h-[85%] bg-[var(--color-primary)]/50 rounded-t flex items-end justify-center pb-2">
+                      <span className="text-xs text-white">10</span>
+                    </div>
+                    <div className="w-1/5 h-[90%] bg-[var(--color-primary)]/50 rounded-t flex items-end justify-center pb-2">
+                      <span className="text-xs text-white">11</span>
+                    </div>
                   </div>
                   <div className="flex justify-around mt-2 text-sm text-[var(--color-text)]/60">
                     <span>S1</span>
@@ -160,49 +171,66 @@ const DeploiementSection: React.FC<SectionProps> = ({ isActive }) => {
                     <span>S4</span>
                   </div>
                 </div>
+                <p className="text-sm text-[var(--color-text)]/70 mt-3">
+                  Amélioration progressive de la vélocité avec l'expérience de l'équipe.
+                </p>
               </div>
             </div>
           </div>
           
           <div className="card scale-in">
             <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
-              Métriques ML
+              Adaptations du backlog
             </h3>
             
             <div className="space-y-4">
               <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                <h4 className="text-lg font-semibold mb-2">Précision du modèle</h4>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between mb-1">
-                      <span>MAE</span>
-                      <span>±150 entrées</span>
-                    </div>
-                    <div className="w-full bg-[var(--color-background)] rounded-full h-2">
-                      <div className="bg-[var(--color-success)] h-2 rounded-full" style={{width: '85%'}}></div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="flex justify-between mb-1">
-                      <span>RMSE</span>
-                      <span>200 entrées</span>
-                    </div>
-                    <div className="w-full bg-[var(--color-background)] rounded-full h-2">
-                      <div className="bg-[var(--color-success)] h-2 rounded-full" style={{width: '80%'}}></div>
+                <h4 className="text-lg font-semibold mb-2 text-[var(--color-secondary)]">
+                  Ajustements réalisés
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <Target size={16} className="text-[var(--color-success)] mt-1" />
+                    <div>
+                      <h5 className="font-semibold text-sm">Intégration Dailymotion</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Ajout de nouvelles données d'engagement sur les trailers
+                      </p>
                     </div>
                   </div>
                   
-                  <div>
-                    <div className="flex justify-between mb-1">
-                      <span>R²</span>
-                      <span>0.82</span>
+                  <div className="flex items-start gap-3">
+                    <Target size={16} className="text-[var(--color-success)] mt-1" />
+                    <div>
+                      <h5 className="font-semibold text-sm">Stabilisation scraping</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Priorisation des corrections techniques critiques
+                      </p>
                     </div>
-                    <div className="w-full bg-[var(--color-background)] rounded-full h-2">
-                      <div className="bg-[var(--color-success)] h-2 rounded-full" style={{width: '82%'}}></div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <Target size={16} className="text-[var(--color-success)] mt-1" />
+                    <div>
+                      <h5 className="font-semibold text-sm">Métriques avancées</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Ajout de nouvelles métriques d'évaluation ML
+                      </p>
                     </div>
                   </div>
                 </div>
+              </div>
+              
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="text-lg font-semibold mb-2 text-[var(--color-warning)]">
+                  Défis rencontrés
+                </h4>
+                <ul className="space-y-2 text-sm text-[var(--color-text)]/80">
+                  <li>• Découpage parfois complexe des User Stories</li>
+                  <li>• Gestion des dépendances techniques</li>
+                  <li>• Équilibrage des charges avec rotation des rôles</li>
+                  <li>• Formalisation des Definitions of Done</li>
+                </ul>
               </div>
             </div>
           </div>

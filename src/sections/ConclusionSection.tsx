@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, ArrowRight, Star, ChevronRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, Star, ChevronRight, AlertTriangle, Target } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -14,19 +14,19 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 fade-in">
-            Conclusion
+            Bilan Agile
           </h2>
           <p className="text-xl text-[var(--color-text)]/80 max-w-3xl mx-auto fade-in delay-100">
-            Synthèse de l'approche agile pour le projet cinématographique CinéFlex 
-            et perspectives d'évolution.
+            Synthèse de l'expérience Scrum, enseignements tirés et perspectives 
+            d'amélioration pour les futurs projets IA.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-8 slide-up">
             <div className="card">
-              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
-                Bénéfices constatés
+              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-success)]">
+                Points forts identifiés
               </h3>
               
               <div className="space-y-4">
@@ -35,10 +35,10 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
                     <CheckCircle size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Réduction des risques</h4>
+                    <h4 className="font-semibold">Hiérarchisation rapide</h4>
                     <p className="text-sm text-[var(--color-text)]/70">
-                      L'approche incrémentale a permis d'identifier et de résoudre les problèmes 
-                      plus tôt dans le processus de production.
+                      Identification et priorisation efficace des tâches critiques 
+                      grâce aux rituels de planification.
                     </p>
                   </div>
                 </div>
@@ -48,10 +48,10 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
                     <CheckCircle size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Amélioration de la qualité</h4>
+                    <h4 className="font-semibold">Adaptation continue</h4>
                     <p className="text-sm text-[var(--color-text)]/70">
-                      Les revues régulières ont permis d'affiner la vision artistique et 
-                      d'optimiser la qualité technique.
+                      Ajustement régulier de la roadmap selon les retours et 
+                      les découvertes techniques.
                     </p>
                   </div>
                 </div>
@@ -61,10 +61,10 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
                     <CheckCircle size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Collaboration renforcée</h4>
+                    <h4 className="font-semibold">Implication collective</h4>
                     <p className="text-sm text-[var(--color-text)]/70">
-                      Les rituels agiles ont favorisé une meilleure communication entre les 
-                      équipes créatives et techniques.
+                      Co-construction du produit avec rotation des rôles favorisant 
+                      l'apprentissage transversal.
                     </p>
                   </div>
                 </div>
@@ -74,10 +74,10 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
                     <CheckCircle size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Optimisation des ressources</h4>
+                    <h4 className="font-semibold">Apprentissage accéléré</h4>
                     <p className="text-sm text-[var(--color-text)]/70">
-                      La planification par sprint a permis une allocation plus efficace des 
-                      ressources humaines et matérielles.
+                      Montée en compétences rapide malgré les contraintes temporelles 
+                      et la complexité technique.
                     </p>
                   </div>
                 </div>
@@ -85,47 +85,61 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
             </div>
             
             <div className="card">
-              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-secondary)]">
-                Challenges rencontrés
+              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-warning)]">
+                Difficultés rencontrées
               </h3>
               
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="font-semibold text-[var(--color-primary)] mb-2">
-                    Résistance au changement
-                  </h4>
-                  <p className="text-sm text-[var(--color-text)]/70">
-                    Certains membres de l'équipe, habitués aux méthodes traditionnelles de production 
-                    cinématographique, ont initialement montré de la résistance face aux pratiques agiles.
-                  </p>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-xs text-[var(--color-text)]/60">Solution:</span>
-                    <span className="text-xs bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 py-0.5 rounded">
-                      Formation progressive
-                    </span>
-                    <span className="text-xs bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 py-0.5 rounded">
-                      Mentorat personnalisé
-                    </span>
+                  <div className="flex items-start gap-3 mb-2">
+                    <AlertTriangle size={20} className="text-[var(--color-warning)] mt-1" />
+                    <h4 className="font-semibold text-[var(--color-warning)]">
+                      Rigueur des rituels
+                    </h4>
                   </div>
+                  <p className="text-sm text-[var(--color-text)]/70">
+                    Rigueur parfois allégée en période de rush, impactant la qualité 
+                    des échanges et du suivi.
+                  </p>
                 </div>
                 
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="font-semibold text-[var(--color-primary)] mb-2">
-                    Contraintes externes
-                  </h4>
-                  <p className="text-sm text-[var(--color-text)]/70">
-                    Les facteurs externes comme la météo, la disponibilité des lieux de tournage et 
-                    des acteurs ont parfois perturbé la planification des sprints.
-                  </p>
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-xs text-[var(--color-text)]/60">Solution:</span>
-                    <span className="text-xs bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 py-0.5 rounded">
-                      Buffers planifiés
-                    </span>
-                    <span className="text-xs bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 py-0.5 rounded">
-                      Plans alternatifs
-                    </span>
+                  <div className="flex items-start gap-3 mb-2">
+                    <AlertTriangle size={20} className="text-[var(--color-warning)] mt-1" />
+                    <h4 className="font-semibold text-[var(--color-warning)]">
+                      Découpage des User Stories
+                    </h4>
                   </div>
+                  <p className="text-sm text-[var(--color-text)]/70">
+                    Complexité du découpage en contexte d'apprentissage avec 
+                    technologies nouvelles pour l'équipe.
+                  </p>
+                </div>
+                
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <div className="flex items-start gap-3 mb-2">
+                    <AlertTriangle size={20} className="text-[var(--color-warning)] mt-1" />
+                    <h4 className="font-semibold text-[var(--color-warning)]">
+                      Prise de décision PO
+                    </h4>
+                  </div>
+                  <p className="text-sm text-[var(--color-text)]/70">
+                    Arbitrages délicats pour le Product Owner en contexte égalitaire 
+                    d'apprentissage collectif.
+                  </p>
+                </div>
+                
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <div className="flex items-start gap-3 mb-2">
+                    <AlertTriangle size={20} className="text-[var(--color-warning)] mt-1" />
+                    <h4 className="font-semibold text-[var(--color-warning)]">
+                      Charge organisationnelle
+                    </h4>
+                  </div>
+                  <p className="text-sm text-[var(--color-text)]/70">
+                    Rotation des rôles créant une charge organisationnelle élevée 
+                    en parallèle de l'apprentissage technique.
+                  </p>
                 </div>
               </div>
             </div>
@@ -133,8 +147,8 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
           
           <div className="space-y-8 slide-in-right delay-200">
             <div className="card">
-              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-accent-light)]">
-                Résultats obtenus
+              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
+                Résultats du projet
               </h3>
               
               <div className="relative h-64 w-full rounded-xl overflow-hidden shadow-lg mb-6">
@@ -145,133 +159,123 @@ const ConclusionSection: React.FC<SectionProps> = ({ isActive }) => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                   <h4 className="text-xl font-display font-bold text-white mb-2">
-                    CinéFlex: Un succès agile
+                    Produit fonctionnel livré
                   </h4>
+                  <p className="text-sm text-[var(--color-text)]/90">
+                    Modèle prédictif + Dashboard + API en 4 semaines
+                  </p>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="text-center p-4 bg-[var(--color-surface)]/50 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="text-3xl font-bold text-[var(--color-primary)] mb-1">15%</div>
-                  <p className="text-sm text-[var(--color-text)]/70">Réduction des coûts de production</p>
+              <div className="space-y-4">
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <h4 className="font-semibold text-[var(--color-secondary)] mb-2">
+                    Livrables techniques
+                  </h4>
+                  <ul className="space-y-1 text-sm text-[var(--color-text)]/80">
+                    <li>• Scraping Allociné et Dailymotion fonctionnel</li>
+                    <li>• Modèles Random Forest et LightGBM entraînés</li>
+                    <li>• API FastAPI de prédiction déployée</li>
+                    <li>• Dashboard Django avec visualisations</li>
+                    <li>• Documentation technique complète</li>
+                  </ul>
                 </div>
                 
-                <div className="text-center p-4 bg-[var(--color-surface)]/50 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="text-3xl font-bold text-[var(--color-secondary)] mb-1">20%</div>
-                  <p className="text-sm text-[var(--color-text)]/70">Diminution des reshoots</p>
-                </div>
-                
-                <div className="text-center p-4 bg-[var(--color-surface)]/50 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="text-3xl font-bold text-[var(--color-accent-light)] mb-1">30%</div>
-                  <p className="text-sm text-[var(--color-text)]/70">Amélioration de la satisfaction de l'équipe</p>
-                </div>
-                
-                <div className="text-center p-4 bg-[var(--color-surface)]/50 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="text-3xl font-bold text-[var(--color-success)] mb-1">10j</div>
-                  <p className="text-sm text-[var(--color-text)]/70">Avance sur le planning initial</p>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-[var(--color-primary)] mb-2">
-                  Témoignages des parties prenantes
-                </h4>
-                
-                <div className="space-y-3">
-                  <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[var(--color-secondary)]">
-                        <Star size={16} />
-                      </span>
-                      <h5 className="font-semibold text-sm">Réalisateur</h5>
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <h4 className="font-semibold text-[var(--color-accent-light)] mb-2">
+                    Métriques de performance
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-[var(--color-primary)]">RMSE</div>
+                      <p className="text-xs text-[var(--color-text)]/70">Optimisé</p>
                     </div>
-                    <p className="text-xs text-[var(--color-text)]/70 italic">
-                      "L'approche agile m'a permis d'affiner ma vision artistique tout au long du projet,
-                      tout en gardant le contrôle sur les aspects techniques et budgétaires."
-                    </p>
-                  </div>
-                  
-                  <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[var(--color-secondary)]">
-                        <Star size={16} />
-                      </span>
-                      <h5 className="font-semibold text-sm">Producteur</h5>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-[var(--color-secondary)]">R²</div>
+                      <p className="text-xs text-[var(--color-text)]/70">Satisfaisant</p>
                     </div>
-                    <p className="text-xs text-[var(--color-text)]/70 italic">
-                      "La transparence et la prévisibilité apportées par les méthodes agiles ont 
-                      considérablement réduit les risques financiers du projet."
-                    </p>
-                  </div>
-                  
-                  <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[var(--color-secondary)]">
-                        <Star size={16} />
-                      </span>
-                      <h5 className="font-semibold text-sm">Directeur de la photographie</h5>
-                    </div>
-                    <p className="text-xs text-[var(--color-text)]/70 italic">
-                      "Les revues régulières nous ont permis d'ajuster notre approche visuelle en fonction
-                      des rushes, améliorant considérablement la qualité finale."
-                    </p>
                   </div>
                 </div>
               </div>
             </div>
             
             <div className="card">
-              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
-                Perspectives d'évolution
+              <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-accent-light)]">
+                Axes d'amélioration
               </h3>
               
               <div className="space-y-4">
-                <div className="flex gap-3 items-center">
-                  <ArrowRight size={20} className="text-[var(--color-secondary)]" />
-                  <p className="text-[var(--color-text)]/80">
-                    <span className="font-semibold">Standardisation des pratiques agiles</span> à l'échelle
-                    de la société de production
-                  </p>
+                <div className="flex gap-3 items-start">
+                  <Target size={20} className="text-[var(--color-secondary)] mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Anticipation des risques</h4>
+                    <p className="text-sm text-[var(--color-text)]/80">
+                      Identifier plus tôt les risques techniques et prévoir des plans de contingence.
+                    </p>
+                  </div>
                 </div>
                 
-                <div className="flex gap-3 items-center">
-                  <ArrowRight size={20} className="text-[var(--color-secondary)]" />
-                  <p className="text-[var(--color-text)]/80">
-                    <span className="font-semibold">Formation</span> de l'ensemble des équipes aux méthodes agiles
-                  </p>
+                <div className="flex gap-3 items-start">
+                  <Target size={20} className="text-[var(--color-secondary)] mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Critères d'acceptation</h4>
+                    <p className="text-sm text-[var(--color-text)]/80">
+                      Détailler davantage les critères d'acceptation et mieux formaliser les DoD.
+                    </p>
+                  </div>
                 </div>
                 
-                <div className="flex gap-3 items-center">
-                  <ArrowRight size={20} className="text-[var(--color-secondary)]" />
-                  <p className="text-[var(--color-text)]/80">
-                    <span className="font-semibold">Développement d'outils spécifiques</span> pour la gestion
-                    agile de projets cinématographiques
-                  </p>
+                <div className="flex gap-3 items-start">
+                  <Target size={20} className="text-[var(--color-secondary)] mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Suivi des contributions</h4>
+                    <p className="text-sm text-[var(--color-text)]/80">
+                      Suivre de façon plus précise les contributions individuelles et collectives.
+                    </p>
+                  </div>
                 </div>
                 
-                <div className="flex gap-3 items-center">
-                  <ArrowRight size={20} className="text-[var(--color-secondary)]" />
-                  <p className="text-[var(--color-text)]/80">
-                    <span className="font-semibold">Publication d'un livre blanc</span> sur l'expérience CinéFlex
-                    pour partager les bonnes pratiques
-                  </p>
+                <div className="flex gap-3 items-start">
+                  <Target size={20} className="text-[var(--color-secondary)] mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Valorisation des livrables</h4>
+                    <p className="text-sm text-[var(--color-text)]/80">
+                      Valoriser davantage les livrables aux Sprint Reviews et documenter systématiquement.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="mt-6 flex justify-center">
-                <a href="#" className="btn btn-primary flex items-center gap-2">
-                  <span>Explorer d'autres projets agiles</span>
-                  <ChevronRight size={18} />
-                </a>
               </div>
             </div>
           </div>
         </div>
         
         <div className="mt-16 text-center">
-          <p className="text-lg font-display italic text-[var(--color-text)]/60 bounce-in delay-300">
-            "Le cinéma est un art collectif qui s'épanouit pleinement dans un cadre agile."
-          </p>
+          <div className="card max-w-4xl mx-auto">
+            <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
+              Conclusion générale
+            </h3>
+            
+            <div className="space-y-4 text-left">
+              <p className="text-lg text-[var(--color-text)]/90">
+                L'intégration de Scrum dans un projet pédagogique IA a été aussi enrichissante que challengeante. 
+                Avec une équipe en phase d'apprentissage de technologies complexes, chaque membre a dû alterner 
+                entre technique et gestion Agile, dans un cadre restreint de 4 semaines.
+              </p>
+              
+              <p className="text-lg text-[var(--color-text)]/90">
+                Malgré les obstacles (prise en main de Jira, scraping complexe, arbitrages PO délicats), 
+                l'équipe a livré un produit fonctionnel en respectant les principes fondamentaux de l'agilité : 
+                <span className="font-semibold text-[var(--color-primary)]"> communication, adaptation et collaboration</span>.
+              </p>
+              
+              <div className="mt-6 p-4 bg-[var(--color-primary)]/10 rounded-lg border border-[var(--color-primary)]/20">
+                <p className="text-lg font-display italic text-[var(--color-primary)] text-center">
+                  "L'essentiel appris : l'agilité est avant tout une dynamique humaine, une capacité à réagir 
+                  face aux imprévus, et une méthode évolutive qui va bien au-delà des outils et des rituels."
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

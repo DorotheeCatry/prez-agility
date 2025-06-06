@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileSearch, Clock, AlertTriangle, Target, Database, Code, Layout } from 'lucide-react';
+import { FileSearch, Clock, AlertTriangle, Target, Database, Code, Layout, Users } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -17,53 +17,53 @@ const DiagnosticSection: React.FC<SectionProps> = ({ isActive }) => {
             C1: Diagnostic du Projet
           </h2>
           <p className="text-xl text-[var(--color-text)]/80 max-w-3xl mx-auto fade-in delay-100">
-            Analyse complète des paramètres du projet de prédiction IA, 
-            identification des forces, contraintes et risques.
+            Analyse du contexte, des besoins client et identification des enjeux 
+            pour le projet de prédiction de popularité des films.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-6 slide-up">
             <h3 className="text-2xl font-display font-bold text-[var(--color-secondary)]">
-              Paramètres du Projet
+              Contexte et Enjeux
             </h3>
             
             <div className="space-y-4">
               <div className="flex gap-4 items-start">
                 <div className="bg-[var(--color-primary)]/10 p-3 rounded-lg">
-                  <Clock size={24} className="text-[var(--color-primary)]" />
+                  <Target size={24} className="text-[var(--color-primary)]" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold">Délais et planification</h4>
+                  <h4 className="text-lg font-semibold">Besoin client</h4>
                   <p className="text-[var(--color-text)]/70">
-                    Développement sur 4 semaines avec des sprints hebdomadaires, 
-                    livraison d'un MVP fonctionnel.
+                    Anticiper le succès commercial des films en salle pour optimiser 
+                    la programmation des exploitants de cinéma et réduire les risques financiers.
                   </p>
                 </div>
               </div>
               
               <div className="flex gap-4 items-start">
                 <div className="bg-[var(--color-secondary)]/10 p-3 rounded-lg">
-                  <Target size={24} className="text-[var(--color-secondary)]" />
+                  <Clock size={24} className="text-[var(--color-secondary)]" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold">Équipe et ressources</h4>
+                  <h4 className="text-lg font-semibold">Contraintes temporelles</h4>
                   <p className="text-[var(--color-text)]/70">
-                    4 développeurs IA avec rotation des rôles (Scrum Master, Product Owner),
-                    stack technique complet.
+                    Projet pédagogique de 4 semaines dans le cadre de la formation 
+                    Développement IA - Simplon HDF (2025).
                   </p>
                 </div>
               </div>
               
               <div className="flex gap-4 items-start">
                 <div className="bg-[var(--color-accent-light)]/10 p-3 rounded-lg">
-                  <Code size={24} className="text-[var(--color-accent-light)]" />
+                  <Users size={24} className="text-[var(--color-accent-light)]" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold">Stack technique</h4>
+                  <h4 className="text-lg font-semibold">Équipe et compétences</h4>
                   <p className="text-[var(--color-text)]/70">
-                    Django, FastAPI, Docker, Azure ML, Scrapy, MLflow pour une 
-                    architecture microservices complète.
+                    4 développeurs IA en formation avec rotation des rôles Scrum 
+                    (Scrum Master, Product Owner, Responsable ML, Développeur).
                   </p>
                 </div>
               </div>
@@ -72,45 +72,48 @@ const DiagnosticSection: React.FC<SectionProps> = ({ isActive }) => {
           
           <div className="card slide-in-right">
             <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-primary)]">
-              Analyse SWOT du Projet
+              Cahier des Charges Fonctionnel
             </h3>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-emerald-900/20 p-4 rounded-lg">
-                <h4 className="font-semibold text-emerald-400 mb-2">Forces</h4>
-                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
-                  <li>• Équipe technique expérimentée</li>
-                  <li>• Stack technologique maîtrisé</li>
-                  <li>• Architecture microservices moderne</li>
-                  <li>• Méthodologie agile établie</li>
-                </ul>
+            <div className="space-y-4">
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-secondary)] mb-2">
+                  Collecte des données
+                </h4>
+                <p className="text-sm text-[var(--color-text)]/80">
+                  Scraping Allociné (fiches films, box-office, casting), 
+                  enrichissement via Dailymotion pour l'engagement sur les trailers.
+                </p>
               </div>
               
-              <div className="bg-yellow-900/20 p-4 rounded-lg">
-                <h4 className="font-semibold text-yellow-400 mb-2">Faiblesses</h4>
-                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
-                  <li>• Délai court (4 semaines)</li>
-                  <li>• Complexité du ML et scraping</li>
-                  <li>• Rotation des rôles agiles</li>
-                </ul>
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-secondary)] mb-2">
+                  Feature Engineering
+                </h4>
+                <p className="text-sm text-[var(--color-text)]/80">
+                  Nettoyage, transformation, encodage, embeddings acteurs/réalisateurs 
+                  pour optimiser les performances du modèle.
+                </p>
               </div>
               
-              <div className="bg-blue-900/20 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-400 mb-2">Opportunités</h4>
-                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
-                  <li>• Innovation dans le secteur cinéma</li>
-                  <li>• Automatisation des décisions</li>
-                  <li>• Potentiel d'expansion futur</li>
-                </ul>
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-secondary)] mb-2">
+                  Modélisation
+                </h4>
+                <p className="text-sm text-[var(--color-text)]/80">
+                  Modèles Random Forest et LightGBM avec évaluation via 
+                  métriques RMSE, MAE, R² et cross-validation.
+                </p>
               </div>
               
-              <div className="bg-red-900/20 p-4 rounded-lg">
-                <h4 className="font-semibold text-red-400 mb-2">Menaces</h4>
-                <ul className="space-y-2 text-[var(--color-text)]/80 text-sm">
-                  <li>• Qualité des données scrapées</li>
-                  <li>• Précision des prédictions ML</li>
-                  <li>• Dépendances externes (APIs)</li>
-                </ul>
+              <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                <h4 className="font-semibold text-[var(--color-secondary)] mb-2">
+                  Application finale
+                </h4>
+                <p className="text-sm text-[var(--color-text)]/80">
+                  API FastAPI de prédiction + Dashboard Django avec filtres, 
+                  graphiques et interface utilisateur intuitive.
+                </p>
               </div>
             </div>
           </div>
@@ -118,46 +121,93 @@ const DiagnosticSection: React.FC<SectionProps> = ({ isActive }) => {
         
         <div className="mt-16 card scale-in delay-300">
           <h3 className="text-2xl font-display font-bold mb-6 text-[var(--color-accent-light)]">
-            Pertinence de l'approche Agile
+            Pertinence de l'approche Agile Scrum
           </h3>
           
-          <div className="space-y-4">
-            <div className="flex gap-4 items-start">
-              <div className="bg-[var(--color-success)]/10 p-3 rounded-lg">
-                <Database size={24} className="text-[var(--color-success)]" />
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold">Itérations sur le modèle ML</h4>
-                <p className="text-[var(--color-text)]/70">
-                  L'approche agile permet d'affiner progressivement le modèle de prédiction
-                  et d'améliorer sa précision à chaque sprint.
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="text-lg font-semibold text-[var(--color-success)] mb-4">
+                Avantages identifiés
+              </h4>
+              <div className="space-y-3">
+                <div className="flex gap-3 items-start">
+                  <div className="bg-[var(--color-success)]/10 p-2 rounded-lg">
+                    <Database size={20} className="text-[var(--color-success)]" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold">Adaptation aux incertitudes</h5>
+                    <p className="text-sm text-[var(--color-text)]/70">
+                      Approche itérative adaptée aux incertitudes inhérentes à la data science.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 items-start">
+                  <div className="bg-[var(--color-success)]/10 p-2 rounded-lg">
+                    <Layout size={20} className="text-[var(--color-success)]" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold">Livrables concrets</h5>
+                    <p className="text-sm text-[var(--color-text)]/70">
+                      Production de livrables concrets à chaque cycle de 1-2 semaines.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 items-start">
+                  <div className="bg-[var(--color-success)]/10 p-2 rounded-lg">
+                    <Users size={20} className="text-[var(--color-success)]" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold">Collaboration renforcée</h5>
+                    <p className="text-sm text-[var(--color-text)]/70">
+                      Réévaluation continue des priorités et apprentissage collectif.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <div className="flex gap-4 items-start">
-              <div className="bg-[var(--color-success)]/10 p-3 rounded-lg">
-                <Layout size={24} className="text-[var(--color-success)]" />
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold">Développement incrémental</h4>
-                <p className="text-[var(--color-text)]/70">
-                  Construction progressive du dashboard et des microservices, permettant
-                  des retours rapides du client sur les fonctionnalités.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex gap-4 items-start">
-              <div className="bg-[var(--color-success)]/10 p-3 rounded-lg">
-                <AlertTriangle size={24} className="text-[var(--color-success)]" />
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold">Gestion des risques</h4>
-                <p className="text-[var(--color-text)]/70">
-                  Identification précoce des problèmes techniques et adaptation rapide
-                  des priorités selon les retours et les performances du modèle.
-                </p>
+            <div>
+              <h4 className="text-lg font-semibold text-[var(--color-warning)] mb-4">
+                Défis anticipés
+              </h4>
+              <div className="space-y-3">
+                <div className="flex gap-3 items-start">
+                  <div className="bg-[var(--color-warning)]/10 p-2 rounded-lg">
+                    <AlertTriangle size={20} className="text-[var(--color-warning)]" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold">Complexité technique</h5>
+                    <p className="text-sm text-[var(--color-text)]/70">
+                      Stabilisation du scraping et gestion des nouveaux outils ML.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 items-start">
+                  <div className="bg-[var(--color-warning)]/10 p-2 rounded-lg">
+                    <Clock size={20} className="text-[var(--color-warning)]" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold">Rotation des rôles</h5>
+                    <p className="text-sm text-[var(--color-text)]/70">
+                      Charge organisationnelle élevée avec alternance des responsabilités.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-3 items-start">
+                  <div className="bg-[var(--color-warning)]/10 p-2 rounded-lg">
+                    <Target size={20} className="text-[var(--color-warning)]" />
+                  </div>
+                  <div>
+                    <h5 className="font-semibold">Prise de décision PO</h5>
+                    <p className="text-sm text-[var(--color-text)]/70">
+                      Arbitrages délicats en contexte égalitaire d'apprentissage.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

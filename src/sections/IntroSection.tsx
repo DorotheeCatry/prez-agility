@@ -15,17 +15,20 @@ const IntroSection: React.FC<SectionProps> = ({ isActive }) => {
         <div className="flex flex-col md:flex-row gap-10 items-center">
           <div className="md:w-1/2 space-y-6">
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 fade-in">
-              <span className="text-[var(--color-primary)]">New is</span> Always Better
+              <span className="text-[var(--color-primary)]">Projet Agile</span> IA
             </h2>
             <p className="text-xl md:text-2xl text-[var(--color-text)]/80 fade-in delay-100">
-              Projet de prédiction de popularité des films avec une approche agile
+              Prédiction de la popularité des films - Formation Développement IA Simplon HDF (2025)
             </p>
             <p className="text-lg slide-up delay-200">
-              Découvrez comment nous utilisons l'intelligence artificielle et les méthodologies agiles 
-              pour optimiser la programmation cinématographique.
+              Découvrez comment notre équipe de 4 développeurs IA a utilisé la méthodologie Scrum 
+              pour créer un modèle prédictif du succès commercial des films en salle.
             </p>
             
             <div className="pt-4 slide-up delay-300">
+              <div className="text-sm text-[var(--color-text)]/60 mb-2">
+                Par Dorothée Catry
+              </div>
               <button className="btn btn-primary">Explorer le projet</button>
             </div>
           </div>
@@ -39,10 +42,10 @@ const IntroSection: React.FC<SectionProps> = ({ isActive }) => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                 <h3 className="text-2xl font-display font-bold text-white mb-2">
-                  Projet: Prédiction IA
+                  Prédiction IA - Popularité Films
                 </h3>
                 <p className="text-[var(--color-text)]/90">
-                  Optimisation de la programmation cinématographique
+                  Estimation du nombre d'entrées en première semaine
                 </p>
               </div>
             </div>
@@ -53,33 +56,33 @@ const IntroSection: React.FC<SectionProps> = ({ isActive }) => {
           <div className="card slide-up">
             <div className="flex items-center gap-3 mb-4">
               <Brain size={24} className="text-[var(--color-primary)]" />
-              <h3 className="text-xl font-display font-bold">Intelligence Artificielle</h3>
+              <h3 className="text-xl font-display font-bold">Modélisation ML</h3>
             </div>
             <p className="text-[var(--color-text)]/70">
-              Modèle de machine learning pour prédire la popularité des films et optimiser 
-              la programmation hebdomadaire.
+              Modèles Random Forest et LightGBM pour prédire le succès commercial 
+              à partir de données Allociné et Dailymotion.
             </p>
           </div>
           
           <div className="card slide-up delay-100">
             <div className="flex items-center gap-3 mb-4">
               <Film size={24} className="text-[var(--color-secondary)]" />
-              <h3 className="text-xl font-display font-bold">Gestion Adaptative</h3>
+              <h3 className="text-xl font-display font-bold">Scraping & Data</h3>
             </div>
             <p className="text-[var(--color-text)]/70">
-              Sélection hebdomadaire des films basée sur les prédictions IA et 
-              l'analyse des données en temps réel.
+              Collecte automatisée des données films (casting, box-office, engagement trailers) 
+              avec feature engineering avancé.
             </p>
           </div>
           
           <div className="card slide-up delay-200">
             <div className="flex items-center gap-3 mb-4">
               <Clapperboard size={24} className="text-[var(--color-accent-light)]" />
-              <h3 className="text-xl font-display font-bold">Dashboard Interactif</h3>
+              <h3 className="text-xl font-display font-bold">Dashboard Django</h3>
             </div>
             <p className="text-[var(--color-text)]/70">
-              Interface utilisateur intuitive pour visualiser les prédictions, 
-              suivre les performances et optimiser les décisions.
+              Interface web avec API FastAPI pour visualiser les prédictions, 
+              filtres et graphiques interactifs.
             </p>
           </div>
         </div>
