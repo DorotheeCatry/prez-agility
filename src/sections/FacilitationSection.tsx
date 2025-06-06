@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, ClipboardList, Users, PlayCircle, Clock, Target, CheckCircle } from 'lucide-react';
+import { MessageSquare, ClipboardList, Users, PlayCircle, Clock, Target, CheckCircle, Monitor } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -71,8 +71,27 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                       <li>• <span className="font-semibold">Durée :</span> 15 minutes d'animation + échange</li>
                       <li>• <span className="font-semibold">Participants :</span> Jury de certification agile</li>
                       <li>• <span className="font-semibold">Objectif :</span> Démontrer les compétences de facilitation</li>
-                      <li>• <span className="font-semibold">Format :</span> Rituel agile adapté au contexte</li>
+                      <li>• <span className="font-semibold">Format :</span> Rituel Scrum adapté au contexte jury</li>
                     </ul>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
+                    Choix du rituel Scrum
+                  </h4>
+                  <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="p-3 bg-[var(--color-primary)]/10 rounded border border-[var(--color-primary)]/20">
+                        <h5 className="font-semibold text-[var(--color-primary)] mb-1">Sprint Review ✓</h5>
+                        <p className="text-sm text-[var(--color-text)]/70">
+                          Idéal pour présenter les livrables et recueillir des feedbacks constructifs
+                        </p>
+                      </div>
+                      <div className="p-2 bg-[var(--color-text)]/5 rounded text-sm text-[var(--color-text)]/60">
+                        <span className="font-semibold">Autres options :</span> Daily Scrum (trop court), Sprint Planning (trop technique), Rétrospective (nécessite un vécu commun)
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
@@ -82,26 +101,11 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                   </h4>
                   <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                     <ul className="space-y-2 text-[var(--color-text)]/80">
-                      <li>• Tableau blanc ou support digital (Miro/Mural)</li>
-                      <li>• Post-its virtuels ou physiques</li>
+                      <li>• Support de présentation (slides du projet IA)</li>
+                      <li>• Démo fonctionnelle du dashboard Django</li>
+                      <li>• Tableau blanc ou support digital pour noter les feedbacks</li>
                       <li>• Chronomètre pour la gestion du temps</li>
-                      <li>• Support visuel du projet (slides de présentation)</li>
-                      <li>• Grille d'évaluation préparée</li>
-                    </ul>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-lg font-semibold text-[var(--color-secondary)] mb-3">
-                    Compétences à démontrer
-                  </h4>
-                  <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                    <ul className="space-y-2 text-[var(--color-text)]/80">
-                      <li>• Facilitation d'échanges constructifs</li>
-                      <li>• Gestion du temps et des interventions</li>
-                      <li>• Création d'un environnement de confiance</li>
-                      <li>• Animation participative et inclusive</li>
-                      <li>• Synthèse et prise de décision collective</li>
+                      <li>• Grille d'évaluation des retours</li>
                     </ul>
                   </div>
                 </div>
@@ -110,42 +114,42 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
               <div className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold text-[var(--color-accent-light)] mb-3">
-                    Préparation en amont
+                    Compétences à démontrer
                   </h4>
                   <div className="space-y-3">
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
                       <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Analyse du contexte
+                        Animation de Sprint Review
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Comprendre les attentes du jury et adapter le rituel au contexte de certification.
+                        Structurer la présentation, faciliter les échanges, recueillir les feedbacks
                       </p>
                     </div>
                     
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
                       <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Définition des objectifs
+                        Gestion du temps
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Clarifier les résultats attendus et les critères de réussite de l'animation.
+                        Respecter le timeboxing de 15 minutes tout en maximisant la valeur
                       </p>
                     </div>
                     
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
                       <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Préparation du matériel
+                        Facilitation d'échanges
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Tester les outils, préparer les supports visuels et anticiper les besoins techniques.
+                        Encourager la participation, reformuler, synthétiser les retours
                       </p>
                     </div>
                     
                     <div className="bg-[var(--color-surface)]/50 p-3 rounded-lg border border-[var(--color-text)]/10">
                       <h5 className="font-semibold text-[var(--color-primary)] mb-1">
-                        Scénario d'animation
+                        Adaptation au contexte
                       </h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Structurer le déroulé minute par minute avec des alternatives selon les réactions.
+                        Ajuster le rituel au contexte jury tout en gardant l'esprit Scrum
                       </p>
                     </div>
                   </div>
@@ -154,12 +158,12 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                 <div className="relative overflow-hidden rounded-lg">
                   <img 
                     src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg" 
-                    alt="Team facilitation" 
+                    alt="Sprint Review facilitation" 
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
                     <p className="text-white text-sm">
-                      Facilitation d'un échange constructif avec focus sur la participation active
+                      Animation d'une Sprint Review : présentation des livrables et recueil de feedbacks
                     </p>
                   </div>
                 </div>
@@ -171,9 +175,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
         {activeTab === 'rituel' && (
           <div className="card scale-in">
             <div className="flex items-center gap-3 mb-6">
-              <Users size={28} className="text-[var(--color-secondary)]" />
+              <Monitor size={28} className="text-[var(--color-secondary)]" />
               <h3 className="text-2xl font-display font-bold text-[var(--color-secondary)]">
-                Rituel choisi : Rétrospective adaptée
+                Rituel choisi : Sprint Review adaptée
               </h3>
             </div>
             
@@ -181,14 +185,14 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
               <div className="space-y-6">
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <h4 className="text-lg font-semibold mb-3 text-[var(--color-primary)]">
-                    Pourquoi une rétrospective ?
+                    Pourquoi une Sprint Review ?
                   </h4>
                   <ul className="space-y-2 text-[var(--color-text)]/80">
-                    <li>• <span className="font-semibold">Participative :</span> Implique activement tous les membres du jury</li>
+                    <li>• <span className="font-semibold">Démonstrative :</span> Permet de présenter concrètement les livrables du projet</li>
+                    <li>• <span className="font-semibold">Interactive :</span> Favorise les échanges et les questions du jury</li>
                     <li>• <span className="font-semibold">Structurée :</span> Format clair avec objectifs définis</li>
-                    <li>• <span className="font-semibold">Constructive :</span> Focus sur l'amélioration continue</li>
-                    <li>• <span className="font-semibold">Adaptable :</span> Peut être ajustée selon le contexte</li>
-                    <li>• <span className="font-semibold">Démonstrative :</span> Permet de montrer plusieurs techniques de facilitation</li>
+                    <li>• <span className="font-semibold">Orientée valeur :</span> Focus sur ce qui a été livré et sa valeur métier</li>
+                    <li>• <span className="font-semibold">Collaborative :</span> Recueil de feedbacks pour amélioration continue</li>
                   </ul>
                 </div>
                 
@@ -198,51 +202,21 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                   </h4>
                   <div className="space-y-3">
                     <div>
-                      <h5 className="font-semibold text-sm">Sujet de la rétrospective</h5>
+                      <h5 className="font-semibold text-sm">Sujet de la review</h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        "Retour d'expérience sur l'approche agile dans le projet de prédiction IA"
+                        "Présentation des livrables du projet de prédiction IA et recueil de feedbacks"
                       </p>
                     </div>
                     <div>
                       <h5 className="font-semibold text-sm">Participants</h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Membres du jury jouant le rôle de l'équipe projet
+                        Membres du jury jouant le rôle des stakeholders/clients
                       </p>
                     </div>
                     <div>
                       <h5 className="font-semibold text-sm">Objectif</h5>
                       <p className="text-sm text-[var(--color-text)]/70">
-                        Identifier les points forts, axes d'amélioration et actions concrètes
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-accent-light)]">
-                    Format : "Start, Stop, Continue"
-                  </h4>
-                  <div className="grid grid-cols-1 gap-3">
-                    <div className="bg-[var(--color-success)]/10 p-3 rounded border border-[var(--color-success)]/20">
-                      <h5 className="font-semibold text-[var(--color-success)] mb-1">START</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Quelles pratiques devrions-nous commencer à adopter ?
-                      </p>
-                    </div>
-                    
-                    <div className="bg-[var(--color-error)]/10 p-3 rounded border border-[var(--color-error)]/20">
-                      <h5 className="font-semibold text-[var(--color-error)] mb-1">STOP</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Quelles pratiques devrions-nous arrêter ou éviter ?
-                      </p>
-                    </div>
-                    
-                    <div className="bg-[var(--color-primary)]/10 p-3 rounded border border-[var(--color-primary)]/20">
-                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">CONTINUE</h5>
-                      <p className="text-xs text-[var(--color-text)]/70">
-                        Quelles pratiques fonctionnent bien et doivent être maintenues ?
+                        Démontrer la valeur livrée et recueillir des retours constructifs
                       </p>
                     </div>
                   </div>
@@ -250,15 +224,71 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                 
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <h4 className="text-lg font-semibold mb-3 text-[var(--color-warning)]">
-                    Techniques de facilitation utilisées
+                    Livrables à présenter
+                  </h4>
+                  <ul className="space-y-2 text-sm text-[var(--color-text)]/80">
+                    <li>• <span className="font-semibold">Modèle prédictif :</span> Performances et métriques (RMSE, R²)</li>
+                    <li>• <span className="font-semibold">Dashboard Django :</span> Interface utilisateur fonctionnelle</li>
+                    <li>• <span className="font-semibold">API FastAPI :</span> Endpoint de prédiction déployé</li>
+                    <li>• <span className="font-semibold">Pipeline de données :</span> Scraping et feature engineering</li>
+                    <li>• <span className="font-semibold">Documentation :</span> Guide utilisateur et technique</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-accent-light)]">
+                    Structure de la Sprint Review
+                  </h4>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="bg-[var(--color-primary)]/10 p-3 rounded border border-[var(--color-primary)]/20">
+                      <h5 className="font-semibold text-[var(--color-primary)] mb-1">1. Contexte et objectifs</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Rappel du sprint goal et des User Stories planifiées
+                      </p>
+                    </div>
+                    
+                    <div className="bg-[var(--color-secondary)]/10 p-3 rounded border border-[var(--color-secondary)]/20">
+                      <h5 className="font-semibold text-[var(--color-secondary)] mb-1">2. Démonstration</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Présentation live des fonctionnalités développées
+                      </p>
+                    </div>
+                    
+                    <div className="bg-[var(--color-accent-light)]/10 p-3 rounded border border-[var(--color-accent-light)]/20">
+                      <h5 className="font-semibold text-[var(--color-accent-light)] mb-1">3. Métriques et résultats</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Performances du modèle et indicateurs de qualité
+                      </p>
+                    </div>
+                    
+                    <div className="bg-[var(--color-success)]/10 p-3 rounded border border-[var(--color-success)]/20">
+                      <h5 className="font-semibold text-[var(--color-success)] mb-1">4. Feedbacks et questions</h5>
+                      <p className="text-xs text-[var(--color-text)]/70">
+                        Échanges avec le jury et recueil de retours
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
+                  <h4 className="text-lg font-semibold mb-3 text-[var(--color-warning)]">
+                    Techniques de facilitation
                   </h4>
                   <ul className="space-y-2 text-sm text-[var(--color-text)]/80">
                     <li>• <span className="font-semibold">Timeboxing :</span> Gestion stricte du temps par phase</li>
-                    <li>• <span className="font-semibold">Brainstorming silencieux :</span> Réflexion individuelle puis partage</li>
-                    <li>• <span className="font-semibold">Dot voting :</span> Priorisation collective des idées</li>
-                    <li>• <span className="font-semibold">Reformulation :</span> Clarification et synthèse des contributions</li>
-                    <li>• <span className="font-semibold">Plan d'action :</span> Définition d'actions concrètes</li>
+                    <li>• <span className="font-semibold">Storytelling :</span> Présentation narrative des fonctionnalités</li>
+                    <li>• <span className="font-semibold">Questions ouvertes :</span> Encourager les retours constructifs</li>
+                    <li>• <span className="font-semibold">Reformulation :</span> Clarification et synthèse des feedbacks</li>
+                    <li>• <span className="font-semibold">Prise de notes :</span> Capture des suggestions d'amélioration</li>
                   </ul>
+                </div>
+                
+                <div className="text-center p-3 bg-[var(--color-primary)]/10 rounded-lg">
+                  <p className="text-sm text-[var(--color-text)]/80 italic">
+                    "L'objectif est de créer un échange authentique comme lors d'une vraie Sprint Review avec des stakeholders"
+                  </p>
                 </div>
               </div>
             </div>
@@ -284,17 +314,17 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                 <div className="text-center p-3 bg-[var(--color-secondary)]/10 rounded-lg">
                   <Users size={24} className="text-[var(--color-secondary)] mx-auto mb-1" />
                   <div className="text-lg font-bold">3-5</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Participants jury</p>
+                  <p className="text-xs text-[var(--color-text)]/70">Membres jury</p>
                 </div>
                 <div className="text-center p-3 bg-[var(--color-accent-light)]/10 rounded-lg">
                   <Target size={24} className="text-[var(--color-accent-light)] mx-auto mb-1" />
-                  <div className="text-lg font-bold">3</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Catégories d'analyse</p>
+                  <div className="text-lg font-bold">4</div>
+                  <p className="text-xs text-[var(--color-text)]/70">Livrables présentés</p>
                 </div>
                 <div className="text-center p-3 bg-[var(--color-success)]/10 rounded-lg">
                   <CheckCircle size={24} className="text-[var(--color-success)] mx-auto mb-1" />
-                  <div className="text-lg font-bold">5</div>
-                  <p className="text-xs text-[var(--color-text)]/70">Actions définies</p>
+                  <div className="text-lg font-bold">5+</div>
+                  <p className="text-xs text-[var(--color-text)]/70">Feedbacks recueillis</p>
                 </div>
               </div>
               
@@ -302,66 +332,67 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="bg-[var(--color-primary)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</div>
-                    <h4 className="font-semibold text-[var(--color-primary)]">Introduction et cadrage (2 min)</h4>
+                    <h4 className="font-semibold text-[var(--color-primary)]">Ouverture et contexte (2 min)</h4>
                   </div>
                   <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Accueil et présentation de l'exercice</li>
-                    <li>• Explication du format "Start, Stop, Continue"</li>
-                    <li>• Définition des règles d'échange (bienveillance, écoute active)</li>
-                    <li>• Présentation du timing et des objectifs</li>
+                    <li>• Accueil et présentation du format Sprint Review</li>
+                    <li>• Rappel du contexte projet : prédiction popularité films</li>
+                    <li>• Objectifs du sprint 4 : finalisation et déploiement</li>
+                    <li>• Invitation à poser des questions et donner des feedbacks</li>
                   </ul>
                 </div>
                 
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="bg-[var(--color-secondary)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</div>
-                    <h4 className="font-semibold text-[var(--color-secondary)]">Réflexion individuelle (3 min)</h4>
+                    <h4 className="font-semibold text-[var(--color-secondary)]">Démonstration du dashboard (6 min)</h4>
                   </div>
                   <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Chaque participant réfléchit individuellement</li>
-                    <li>• Utilisation de post-its (1 idée par post-it)</li>
-                    <li>• Focus sur l'expérience agile du projet présenté</li>
-                    <li>• Encouragement à la diversité des perspectives</li>
+                    <li>• Présentation de l'interface utilisateur Django</li>
+                    <li>• Démonstration live : saisie d'un film et prédiction</li>
+                    <li>• Visualisation des graphiques et métriques</li>
+                    <li>• Explication des filtres et fonctionnalités</li>
                   </ul>
                 </div>
                 
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="bg-[var(--color-accent-light)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</div>
-                    <h4 className="font-semibold text-[var(--color-accent-light)]">Partage et regroupement (6 min)</h4>
+                    <h4 className="font-semibold text-[var(--color-accent-light)]">Performances du modèle (3 min)</h4>
                   </div>
                   <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Tour de table structuré (1 min par participant)</li>
-                    <li>• Placement des post-its sur le tableau par catégorie</li>
-                    <li>• Regroupement des idées similaires</li>
-                    <li>• Clarification et reformulation si nécessaire</li>
+                    <li>• Présentation des métriques finales (RMSE, R², MAE)</li>
+                    <li>• Comparaison Random Forest vs LightGBM</li>
+                    <li>• Exemples de prédictions réussies</li>
+                    <li>• Limites identifiées et axes d'amélioration</li>
                   </ul>
                 </div>
                 
                 <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="bg-[var(--color-success)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">4</div>
-                    <h4 className="font-semibold text-[var(--color-success)]">Priorisation et actions (3 min)</h4>
+                    <h4 className="font-semibold text-[var(--color-success)]">Échanges et feedbacks (4 min)</h4>
                   </div>
                   <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Dot voting pour prioriser les éléments les plus importants</li>
-                    <li>• Sélection de 2-3 actions concrètes à retenir</li>
-                    <li>• Définition rapide des responsabilités et échéances</li>
-                    <li>• Validation collective des décisions</li>
+                    <li>• Questions ouvertes : "Que pensez-vous de cette approche ?"</li>
+                    <li>• Recueil des suggestions d'amélioration</li>
+                    <li>• Discussion sur l'applicabilité métier</li>
+                    <li>• Synthèse des points clés soulevés</li>
                   </ul>
                 </div>
-                
-                <div className="bg-[var(--color-surface)]/50 p-4 rounded-lg border border-[var(--color-text)]/10">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-[var(--color-warning)] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">5</div>
-                    <h4 className="font-semibold text-[var(--color-warning)]">Synthèse et clôture (1 min)</h4>
-                  </div>
-                  <ul className="space-y-1 text-sm text-[var(--color-text)]/80 ml-9">
-                    <li>• Récapitulatif des principales conclusions</li>
-                    <li>• Remerciements pour la participation active</li>
-                    <li>• Transition vers l'échange libre avec le jury</li>
-                  </ul>
-                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-[var(--color-warning)]/10 rounded-lg border border-[var(--color-warning)]/20">
+                <h4 className="font-semibold text-[var(--color-warning)] mb-2">
+                  Points d'attention pour l'animation
+                </h4>
+                <ul className="space-y-1 text-sm text-[var(--color-text)]/80">
+                  <li>• Maintenir l'énergie et l'engagement du jury</li>
+                  <li>• Adapter le niveau technique selon les réactions</li>
+                  <li>• Encourager les questions même si elles sortent du cadre</li>
+                  <li>• Noter visuellement les feedbacks pour montrer l'écoute active</li>
+                  <li>• Conclure par un remerciement et une ouverture sur la suite</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -383,11 +414,11 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     Objectifs de l'animation
                   </h4>
                   <ul className="space-y-2 text-[var(--color-text)]/80">
-                    <li>• <span className="font-semibold">Démontrer la maîtrise</span> des techniques de facilitation agile</li>
-                    <li>• <span className="font-semibold">Créer un environnement</span> de confiance et de participation</li>
-                    <li>• <span className="font-semibold">Gérer efficacement</span> le temps et les interventions</li>
-                    <li>• <span className="font-semibold">Produire des résultats concrets</span> en 15 minutes</li>
-                    <li>• <span className="font-semibold">Adapter le rituel</span> au contexte spécifique</li>
+                    <li>• <span className="font-semibold">Démontrer la maîtrise</span> de l'animation d'une Sprint Review</li>
+                    <li>• <span className="font-semibold">Présenter efficacement</span> les livrables du projet</li>
+                    <li>• <span className="font-semibold">Faciliter les échanges</span> avec les stakeholders (jury)</li>
+                    <li>• <span className="font-semibold">Recueillir des feedbacks</span> constructifs et pertinents</li>
+                    <li>• <span className="font-semibold">Respecter le timeboxing</span> de 15 minutes</li>
                   </ul>
                 </div>
                 
@@ -397,35 +428,35 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                   </h4>
                   <div className="space-y-3">
                     <div>
-                      <h5 className="font-semibold text-sm">Participation active</h5>
-                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
-                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '100%' }}></div>
-                      </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Tous les participants s'expriment</p>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-semibold text-sm">Respect du timing</h5>
+                      <h5 className="font-semibold text-sm">Clarté de la présentation</h5>
                       <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
                         <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '95%' }}></div>
                       </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Animation dans les 15 minutes</p>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Livrables compréhensibles par tous</p>
                     </div>
                     
                     <div>
-                      <h5 className="font-semibold text-sm">Qualité des échanges</h5>
+                      <h5 className="font-semibold text-sm">Engagement du jury</h5>
                       <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
                         <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '90%' }}></div>
                       </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Discussions constructives et bienveillantes</p>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Questions et participation active</p>
                     </div>
                     
                     <div>
-                      <h5 className="font-semibold text-sm">Actions concrètes</h5>
+                      <h5 className="font-semibold text-sm">Gestion du temps</h5>
+                      <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
+                        <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '100%' }}></div>
+                      </div>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Respect strict des 15 minutes</p>
+                    </div>
+                    
+                    <div>
+                      <h5 className="font-semibold text-sm">Qualité des feedbacks</h5>
                       <div className="w-full bg-[var(--color-background)] rounded-full h-2 mt-1">
                         <div className="bg-[var(--color-success)] h-2 rounded-full" style={{ width: '85%' }}></div>
                       </div>
-                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Définition d'au moins 3 actions</p>
+                      <p className="text-xs text-[var(--color-text)]/70 mt-1">Retours constructifs et exploitables</p>
                     </div>
                   </div>
                 </div>
@@ -440,9 +471,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     <div className="flex items-start gap-3">
                       <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
                       <div>
-                        <h5 className="font-semibold text-sm">Leadership de facilitation</h5>
+                        <h5 className="font-semibold text-sm">Animation de rituel Scrum</h5>
                         <p className="text-xs text-[var(--color-text)]/70">
-                          Capacité à guider le groupe vers les objectifs
+                          Maîtrise du format Sprint Review et de ses objectifs
                         </p>
                       </div>
                     </div>
@@ -452,7 +483,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                       <div>
                         <h5 className="font-semibold text-sm">Communication efficace</h5>
                         <p className="text-xs text-[var(--color-text)]/70">
-                          Clarté des consignes et reformulation
+                          Présentation claire et adaptée au public
                         </p>
                       </div>
                     </div>
@@ -460,9 +491,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     <div className="flex items-start gap-3">
                       <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
                       <div>
-                        <h5 className="font-semibold text-sm">Gestion de groupe</h5>
+                        <h5 className="font-semibold text-sm">Facilitation d'échanges</h5>
                         <p className="text-xs text-[var(--color-text)]/70">
-                          Équilibrage des prises de parole
+                          Encouragement de la participation et gestion des interventions
                         </p>
                       </div>
                     </div>
@@ -470,9 +501,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     <div className="flex items-start gap-3">
                       <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
                       <div>
-                        <h5 className="font-semibold text-sm">Adaptabilité</h5>
+                        <h5 className="font-semibold text-sm">Gestion du temps</h5>
                         <p className="text-xs text-[var(--color-text)]/70">
-                          Ajustement selon les réactions du groupe
+                          Respect du timeboxing et fluidité de l'animation
                         </p>
                       </div>
                     </div>
@@ -480,9 +511,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     <div className="flex items-start gap-3">
                       <CheckCircle size={16} className="text-[var(--color-success)] mt-1" />
                       <div>
-                        <h5 className="font-semibold text-sm">Orientation résultats</h5>
+                        <h5 className="font-semibold text-sm">Orientation valeur</h5>
                         <p className="text-xs text-[var(--color-text)]/70">
-                          Production de livrables concrets
+                          Focus sur la valeur métier des livrables présentés
                         </p>
                       </div>
                     </div>
@@ -494,11 +525,11 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     Livrables attendus
                   </h4>
                   <ul className="space-y-2 text-sm text-[var(--color-text)]/80">
-                    <li>• <span className="font-semibold">Tableau Start/Stop/Continue</span> complété</li>
-                    <li>• <span className="font-semibold">3-5 actions prioritaires</span> identifiées</li>
-                    <li>• <span className="font-semibold">Consensus du groupe</span> sur les décisions</li>
-                    <li>• <span className="font-semibold">Plan de suivi</span> des actions définies</li>
-                    <li>• <span className="font-semibold">Feedback positif</span> du jury sur l'animation</li>
+                    <li>• <span className="font-semibold">Démonstration live</span> du dashboard fonctionnel</li>
+                    <li>• <span className="font-semibold">Présentation des métriques</span> de performance du modèle</li>
+                    <li>• <span className="font-semibold">Liste des feedbacks</span> recueillis auprès du jury</li>
+                    <li>• <span className="font-semibold">Synthèse des points</span> d'amélioration identifiés</li>
+                    <li>• <span className="font-semibold">Évaluation positive</span> de l'animation par le jury</li>
                   </ul>
                 </div>
                 
@@ -507,9 +538,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
                     Objectif final
                   </h4>
                   <p className="text-sm text-[var(--color-text)]/80 italic">
-                    Démontrer la capacité à animer efficacement un rituel agile en créant 
-                    de la valeur collective en un temps contraint, tout en maintenant 
-                    l'engagement et la satisfaction des participants.
+                    Démontrer la capacité à animer efficacement une Sprint Review en créant 
+                    un échange authentique et constructif avec les stakeholders, tout en 
+                    valorisant les livrables du projet dans un temps contraint.
                   </p>
                 </div>
               </div>
