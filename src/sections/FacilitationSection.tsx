@@ -19,7 +19,8 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
         <div className="container">
           {/* Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-blue-600/20 rounded-full border border-white/20 backdrop-blur-sm fade-in mb-6">
+            <div cla  )
+ssName="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-blue-600/20 rounded-full border border-white/20 backdrop-blur-sm fade-in mb-6">
               <Users size={16} className="text-indigo-400" />
               <span className="text-sm font-medium text-white">Animation Jury</span>
             </div>
