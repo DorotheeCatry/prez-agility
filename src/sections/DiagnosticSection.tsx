@@ -316,6 +316,7 @@ const DiagnosticSection: React.FC<SectionProps> = ({ isActive }) => {
         </div>
       </section>
     </div>
+  )
   );
 };
 
