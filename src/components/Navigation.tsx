@@ -98,7 +98,7 @@ const Navigation: React.FC<NavigationProps> = ({ activePage, onPageChange }) => 
       </nav>
 
       {/* Navigation mobile - top bar */}
-      <nav className="fixed top-16 left-0 right-0 z-40 lg:hidden bg-[var(--color-surface)]/95 backdrop-blur-sm border-b border-[var(--color-text)]/10">
+      <nav className="fixed top-20 left-0 right-0 z-40 lg:hidden bg-[var(--color-surface)]/95 backdrop-blur-sm border-b border-[var(--color-text)]/10">
         <div className="container mx-auto px-4">
           <div className="flex overflow-x-auto py-3 gap-2">
             {pages.map((page) => {

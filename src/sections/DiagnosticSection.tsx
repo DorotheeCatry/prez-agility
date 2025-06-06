@@ -7,7 +7,7 @@ interface SectionProps {
 
 const DiagnosticSection: React.FC<SectionProps> = ({ isActive }) => {
   return (
-    <div className="min-h-screen pt-16 lg:pt-20">
+    <div className="min-h-screen pt-24 lg:pt-20">
       <section className="section">
         <div className="container">
           <div className="text-center mb-16">
