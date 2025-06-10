@@ -1,13 +1,210 @@
-import React, { useState } from 'react';
-import { MessageSquare, ClipboardList, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, FileText, Mic, Video, Star, Zap } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
 }
 
 const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
-  const [activeTab, setActiveTab] = useState('script');
-  
+  const [activeDemo, setActiveDemo] = useState('overview');
+  const [currentDialogueStep, setCurrentDialogueStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(false);
+
+  // Données des participants
+  const participants = [
+    { 
+      name: 'Dorothée', 
+      role: 'Scrum Master', 
+      color: 'from-red-500 to-red-600',
+      avatar: '👩‍💼',
+      responsibilities: ['Animation générale', 'Gestion du temps', 'Facilitation des échanges']
+    },
+    { 
+      name: 'Nicolas', 
+      role: 'Product Owner', 
+      color: 'from-blue-500 to-blue-600',
+      avatar: '👨‍💻',
+      responsibilities: ['Vision produit', 'Priorisation', 'Critères d\'acceptation']
+    },
+    { 
+      name: 'Maxime', 
+      role: 'Développeur ML', 
+      color: 'from-green-500 to-green-600',
+      avatar: '🧑‍🔬',
+      responsibilities: ['Démonstration technique', 'Métriques ML', 'Performance modèles']
+    },
+    { 
+      name: 'Eliandy', 
+      role: 'Développeur Full-Stack', 
+      color: 'from-purple-500 to-purple-600',
+      avatar: '👨‍💻',
+      responsibilities: ['Interface utilisateur', 'API', 'Intégration']
+    },
+    { 
+      name: 'Jury', 
+      role: 'Stakeholders', 
+      color: 'from-yellow-500 to-orange-500',
+      avatar: '👥',
+      responsibilities: ['Feedback', 'Questions', 'Validation']
+    }
+  ];
+
+  // Script de dialogue interactif
+  const sprintReviewDialogue = [
+    {
+      phase: 'Ouverture',
+      duration: '2 min',
+      timeCode: '0:00',
+      speaker: 'Dorothée',
+      role: 'Scrum Master',
+      content: "Bonjour à tous ! Bienvenue à notre Sprint Review du Sprint 4. Je suis Dorothée, votre Scrum Master aujourd'hui. Nous avons 15 minutes pour vous présenter ce que nous avons livré et recueillir vos précieux feedbacks.",
+      action: 'Présentation du cadre',
+      tips: 'Ton chaleureux, cadrage temporel clair'
+    },
+    {
+      phase: 'Ouverture',
+      duration: '2 min',
+      timeCode: '0:30',
+      speaker: 'Nicolas',
+      role: 'Product Owner',
+      content: "En tant que Product Owner, je rappelle notre Sprint Goal : livrer une application complète de prédiction de popularité des films avec interface utilisateur et API fonctionnelle. Nous allons vous montrer concrètement ce qui a été réalisé.",
+      action: 'Rappel des objectifs',
+      tips: 'Vision produit claire, lien avec la valeur business'
+    },
+    {
+      phase: 'Démonstration',
+      duration: '6 min',
+      timeCode: '2:00',
+      speaker: 'Eliandy',
+      role: 'Développeur Full-Stack',
+      content: "Je vais vous faire une démonstration live de notre dashboard Django. Voici l'interface principale où un exploitant de cinéma peut saisir les informations d'un film...",
+      action: 'Démonstration en direct',
+      tips: 'Manipulation réelle, cas d\'usage concret'
+    },
+    {
+      phase: 'Démonstration',
+      duration: '6 min',
+      timeCode: '4:00',
+      speaker: 'Eliandy',
+      role: 'Développeur Full-Stack',
+      content: "Regardez, je saisis 'Dune 2' avec Denis Villeneuve comme réalisateur, Timothée Chalamet au casting... Notre modèle prédit 2.3 millions d'entrées en première semaine !",
+      action: 'Exemple concret',
+      tips: 'Données réelles, résultat immédiat'
+    },
+    {
+      phase: 'Démonstration',
+      duration: '6 min',
+      timeCode: '5:30',
+      speaker: 'Maxime',
+      role: 'Développeur ML',
+      content: "Cette prédiction s'appuie sur notre modèle LightGBM entraîné sur 5000+ films. Voici nos métriques : RMSE de 0.23 et R² de 0.78. Les features les plus importantes sont le budget, le genre et l'engagement sur les trailers.",
+      action: 'Explication technique',
+      tips: 'Métriques claires, vulgarisation adaptée'
+    },
+    {
+      phase: 'Démonstration',
+      duration: '6 min',
+      timeCode: '7:00',
+      speaker: 'Jury',
+      role: 'Stakeholders',
+      content: "Très impressionnant ! Comment gérez-vous les films sans données historiques ? Et quelle est la fiabilité pour les films d'auteur versus les blockbusters ?",
+      action: 'Questions techniques',
+      tips: 'Engagement du jury, questions pertinentes'
+    },
+    {
+      phase: 'Échanges',
+      duration: '4 min',
+      timeCode: '8:00',
+      speaker: 'Maxime',
+      role: 'Développeur ML',
+      content: "Excellente question ! Pour les nouveaux réalisateurs, nous utilisons des embeddings basés sur les genres et collaborations passées. Pour les films d'auteur, notre modèle est effectivement moins précis - c'est une limitation que nous documentons.",
+      action: 'Réponse technique honnête',
+      tips: 'Transparence sur les limites, solutions proposées'
+    },
+    {
+      phase: 'Échanges',
+      duration: '4 min',
+      timeCode: '9:30',
+      speaker: 'Nicolas',
+      role: 'Product Owner',
+      content: "C'est exactement le type de feedback qu'on recherche ! Nous pourrions ajouter un indicateur de confiance de la prédiction selon le type de film. Qu'en pensez-vous ?",
+      action: 'Proposition d\'amélioration',
+      tips: 'Transformation du feedback en User Story'
+    },
+    {
+      phase: 'Échanges',
+      duration: '4 min',
+      timeCode: '11:00',
+      speaker: 'Jury',
+      role: 'Stakeholders',
+      content: "Parfait ! Et pour l'utilisation pratique, est-ce que vous avez prévu une API pour intégrer ça dans nos systèmes existants ?",
+      action: 'Question d\'intégration',
+      tips: 'Préoccupation business réelle'
+    },
+    {
+      phase: 'Échanges',
+      duration: '4 min',
+      timeCode: '11:30',
+      speaker: 'Eliandy',
+      role: 'Développeur Full-Stack',
+      content: "Absolument ! Notre API FastAPI est déjà fonctionnelle. Voici la documentation Swagger avec tous les endpoints. Vous pouvez faire des appels REST pour obtenir des prédictions en temps réel.",
+      action: 'Démonstration API',
+      tips: 'Preuve technique, documentation prête'
+    },
+    {
+      phase: 'Clôture',
+      duration: '3 min',
+      timeCode: '13:00',
+      speaker: 'Dorothée',
+      role: 'Scrum Master',
+      content: "Merci pour ces échanges très riches ! Je note : indicateur de confiance, amélioration pour films d'auteur, et documentation API étendue. Ces points enrichiront notre Product Backlog.",
+      action: 'Synthèse des feedbacks',
+      tips: 'Prise de notes visible, engagement sur le suivi'
+    },
+    {
+      phase: 'Clôture',
+      duration: '3 min',
+      timeCode: '14:30',
+      speaker: 'Nicolas',
+      role: 'Product Owner',
+      content: "En résumé, nous avons livré un produit fonctionnel qui répond au besoin initial. Vos retours nous donnent une roadmap claire pour les prochaines itérations. Merci pour votre engagement !",
+      action: 'Conclusion et perspectives',
+      tips: 'Bilan positif, ouverture sur l\'avenir'
+    }
+  ];
+
+  // Auto-play functionality
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (autoPlay && isPlaying && currentDialogueStep < sprintReviewDialogue.length - 1) {
+      interval = setInterval(() => {
+        setCurrentDialogueStep(prev => prev + 1);
+      }, 4000);
+    }
+    return () => clearInterval(interval);
+  }, [autoPlay, isPlaying, currentDialogueStep]);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+    if (!isPlaying) {
+      setAutoPlay(true);
+    } else {
+      setAutoPlay(false);
+    }
+  };
+
+  const resetDialogue = () => {
+    setCurrentDialogueStep(0);
+    setIsPlaying(false);
+    setAutoPlay(false);
+  };
+
+  const getCurrentSpeaker = () => {
+    const current = sprintReviewDialogue[currentDialogueStep];
+    return participants.find(p => p.name === current?.speaker || p.role === current?.role);
+  };
+
   return (
     <div className="min-h-screen pt-24 lg:pt-20 relative overflow-hidden">
       {/* Animated background */}
@@ -21,551 +218,825 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-blue-600/20 rounded-full border border-white/20 backdrop-blur-sm fade-in mb-6">
               <Users size={16} className="text-indigo-400" />
-              <span className="text-sm font-medium text-white">Animation Jury</span>
+              <span className="text-sm font-medium text-white">Animation Sprint Review</span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 fade-in delay-200">
               <span className="gradient-text">C4: Animation</span>
               <br />
-              <span className="text-white">d'un Échange avec le Jury</span>
+              <span className="text-white">d'une Sprint Review</span>
             </h2>
             
             <p className="text-xl text-white/80 max-w-4xl mx-auto fade-in delay-400 leading-relaxed">
-              Script d'animation d'une Sprint Review adaptée - 15 minutes + échange
+              Démonstration interactive d'une Sprint Review : dialogue, rôles et bonnes pratiques
             </p>
           </div>
-          
-          {/* Tab navigation */}
+
+          {/* Navigation principale */}
           <div className="flex flex-wrap gap-4 mb-12 justify-center">
             {[
-              { id: 'script', label: 'Script d\'animation', icon: FileText, color: 'from-blue-500 to-indigo-600' },
-              { id: 'preparation', label: 'Préparation', icon: ClipboardList, color: 'from-green-500 to-emerald-600' },
-              { id: 'objectifs', label: 'Objectifs', icon: Target, color: 'from-purple-500 to-pink-600' }
+              { id: 'overview', label: 'Vue d\'ensemble', icon: Eye, color: 'from-blue-500 to-indigo-600' },
+              { id: 'dialogue', label: 'Dialogue interactif', icon: MessageSquare, color: 'from-green-500 to-emerald-600' },
+              { id: 'roles', label: 'Rôles & Responsabilités', icon: Users, color: 'from-purple-500 to-pink-600' },
+              { id: 'best-practices', label: 'Bonnes pratiques', icon: Star, color: 'from-orange-500 to-red-600' }
             ].map((tab) => (
               <button 
                 key={tab.id}
                 className={`btn transition-all duration-500 ${
-                  activeTab === tab.id 
+                  activeDemo === tab.id 
                     ? 'btn-primary scale-105' 
                     : 'btn-outline hover:scale-105'
                 }`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => setActiveDemo(tab.id)}
               >
                 <tab.icon size={20} className="mr-2" />
                 {tab.label}
               </button>
             ))}
           </div>
-          
-          {/* Script content */}
-          {activeTab === 'script' && (
-            <div className="space-y-8">
-              <div className="card card-glow slide-up">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center">
-                    <Mic size={28} className="text-white" />
-                  </div>
-                  <h3 className="text-3xl font-display font-bold text-white">
-                    Script d'Animation - Sprint Review (15 minutes)
-                  </h3>
-                </div>
-                
-                <div className="glass p-6 rounded-xl border border-white/20 mb-8">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Star size={20} className="text-yellow-400" />
-                    <h4 className="font-bold text-white">Instructions pour l'équipe</h4>
-                  </div>
-                  <p className="text-white/80 leading-relaxed">
-                    Ce script peut être lu à tour de rôle. Chaque section est clairement délimitée avec 
-                    des indications de timing. L'animateur principal guide l'ensemble, les autres membres 
-                    peuvent prendre la parole pour les démonstrations techniques.
-                  </p>
-                </div>
-                
-                <div className="space-y-8">
-                  {/* Phase 1 */}
-                  <div className="glass p-8 rounded-2xl border border-red-600/30 group hover:border-red-600/50 transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                        1
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white">OUVERTURE ET CONTEXTE</h4>
-                        <p className="text-white/60">2 minutes</p>
-                      </div>
-                      <div className="flex items-center gap-2 text-white/60">
-                        <Clock size={16} />
-                        <span className="text-sm">0:00 - 2:00</span>
-                      </div>
-                    </div>
-                    
-                    <div className="glass p-6 rounded-xl border border-white/20">
-                      <div className="mb-4">
-                        <span className="inline-block bg-red-600/20 text-red-400 px-3 py-1 rounded-full text-sm font-bold">
-                          ANIMATEUR PRINCIPAL
-                        </span>
-                      </div>
-                      <div className="space-y-4 text-white/90 leading-relaxed">
-                        <p className="font-bold text-lg">
-                          "Bonjour à tous et merci d'être présents pour cette Sprint Review."
-                        </p>
-                        <p>
-                          "Nous sommes ici pour vous présenter les livrables de notre projet de prédiction 
-                          de popularité des films, développé en 4 semaines avec la méthodologie Scrum."
-                        </p>
-                        <p>
-                          "L'objectif de cette session de 15 minutes est de vous montrer concrètement ce que 
-                          nous avons livré et de recueillir vos feedbacks en tant que stakeholders."
-                        </p>
-                        <p className="font-bold text-yellow-400">
-                          "N'hésitez pas à poser des questions à tout moment - c'est exactement l'esprit 
-                          d'une Sprint Review !"
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Phase 2 */}
-                  <div className="glass p-8 rounded-2xl border border-yellow-500/30 group hover:border-yellow-500/50 transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center text-black font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                        2
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white">DÉMONSTRATION DU DASHBOARD</h4>
-                        <p className="text-white/60">6 minutes</p>
-                      </div>
-                      <div className="flex items-center gap-2 text-white/60">
-                        <Clock size={16} />
-                        <span className="text-sm">2:00 - 8:00</span>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-6">
-                      <div className="glass p-6 rounded-xl border border-white/20">
-                        <div className="mb-4">
-                          <span className="inline-block bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-bold">
-                            DÉVELOPPEUR / DÉMONSTRATEUR
-                          </span>
-                        </div>
-                        <div className="space-y-3 text-white/90 leading-relaxed">
-                          <p className="font-bold">
-                            "Je vais maintenant vous présenter notre dashboard Django en action."
-                          </p>
-                          <p>
-                            "Voici l'interface principale où un exploitant de cinéma peut saisir les informations 
-                            d'un film avant sa sortie..."
-                          </p>
-                          <p className="italic text-blue-400">
-                            [Démonstration live : saisie d'un film exemple]
-                          </p>
-                          <p>
-                            "Comme vous pouvez le voir, notre modèle prédit X entrées en première semaine. 
-                            Le graphique montre la répartition par jour et la courbe de confiance."
-                          </p>
-                          <p>
-                            "Les filtres permettent d'analyser par genre, période de sortie, ou budget..."
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="glass p-6 rounded-xl border border-white/20">
-                        <div className="mb-4">
-                          <span className="inline-block bg-red-600/20 text-red-400 px-3 py-1 rounded-full text-sm font-bold">
-                            ANIMATEUR - TRANSITION
-                          </span>
-                        </div>
-                        <p className="text-white/90 leading-relaxed">
-                          "Cette interface s'appuie sur notre API FastAPI qui traite les données en temps réel. 
-                          Passons maintenant aux performances de notre modèle..."
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Phase 3 */}
-                  <div className="glass p-8 rounded-2xl border border-blue-500/30 group hover:border-blue-500/50 transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                        3
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white">PERFORMANCES DU MODÈLE</h4>
-                        <p className="text-white/60">3 minutes</p>
-                      </div>
-                      <div className="flex items-center gap-2 text-white/60">
-                        <Clock size={16} />
-                        <span className="text-sm">8:00 - 11:00</span>
-                      </div>
-                    </div>
-                    
-                    <div className="glass p-6 rounded-xl border border-white/20">
-                      <div className="mb-4">
-                        <span className="inline-block bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-bold">
-                          RESPONSABLE ML
-                        </span>
-                      </div>
-                      <div className="space-y-3 text-white/90 leading-relaxed">
-                        <p className="font-bold">
-                          "Parlons maintenant des performances de notre modèle prédictif."
-                        </p>
-                        <p>
-                          "Nous avons testé deux algorithmes : Random Forest et LightGBM. 
-                          Voici nos métriques finales..."
-                        </p>
-                        <p className="italic text-blue-400">
-                          [Présentation des graphiques de performance]
-                        </p>
-                        <p>
-                          "Notre RMSE de X et R² de Y montrent une capacité prédictive satisfaisante 
-                          pour l'aide à la décision."
-                        </p>
-                        <p>
-                          "Nous avons identifié que les données d'engagement sur les trailers Dailymotion 
-                          améliorent significativement les prédictions."
-                        </p>
-                        <p className="font-bold text-yellow-400">
-                          "Bien sûr, nous avons aussi identifié des limites que je peux détailler 
-                          si vous le souhaitez..."
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Phase 4 */}
-                  <div className="glass p-8 rounded-2xl border border-green-500/30 group hover:border-green-500/50 transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                        4
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white">ÉCHANGES ET FEEDBACKS</h4>
-                        <p className="text-white/60">4 minutes</p>
-                      </div>
-                      <div className="flex items-center gap-2 text-white/60">
-                        <Clock size={16} />
-                        <span className="text-sm">11:00 - 15:00</span>
-                      </div>
-                    </div>
-                    
-                    <div className="glass p-6 rounded-xl border border-white/20">
-                      <div className="mb-4">
-                        <span className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-bold">
-                          ANIMATEUR PRINCIPAL
-                        </span>
-                      </div>
-                      <div className="space-y-3 text-white/90 leading-relaxed">
-                        <p className="font-bold">
-                          "Nous arrivons maintenant à la partie la plus importante : vos retours !"
-                        </p>
-                        <p>
-                          "En tant que stakeholders, que pensez-vous de cette approche pour aider 
-                          les exploitants de cinéma ?"
-                        </p>
-                        <p className="italic text-green-400">
-                          [Écoute active et prise de notes des réponses]
-                        </p>
-                        <p>
-                          "Quelles améliorations ou fonctionnalités supplémentaires vous semblent prioritaires ?"
-                        </p>
-                        <p className="italic text-green-400">
-                          [Reformulation des suggestions]
-                        </p>
-                        <p>
-                          "Y a-t-il des aspects techniques ou métier que vous aimeriez que nous détaillions ?"
-                        </p>
-                        <p className="font-bold text-yellow-400">
-                          "Parfait ! Je note tous ces points précieux pour notre backlog d'amélioration."
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Closing */}
-                  <div className="glass p-8 rounded-2xl border border-orange-500/30 group hover:border-orange-500/50 transition-all duration-300">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 transition-transform duration-300">
-                        ✓
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white">CLÔTURE ET TRANSITION</h4>
-                        <p className="text-white/60">15:00</p>
-                      </div>
-                    </div>
-                    
-                    <div className="glass p-6 rounded-xl border border-white/20">
-                      <div className="mb-4">
-                        <span className="inline-block bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full text-sm font-bold">
-                          ANIMATEUR PRINCIPAL
-                        </span>
-                      </div>
-                      <div className="space-y-3 text-white/90 leading-relaxed">
-                        <p className="font-bold">
-                          "Merci beaucoup pour cette Sprint Review très enrichissante !"
-                        </p>
-                        <p>
-                          "Nous avons présenté notre solution complète : dashboard, API, modèle ML et pipeline de données. 
-                          Vos feedbacks vont nous permettre d'identifier les prochaines priorités."
-                        </p>
-                        <p className="font-bold text-yellow-400">
-                          "Nous sommes maintenant prêts pour vos questions complémentaires et l'échange libre."
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Tips */}
-                <div className="glass p-6 rounded-xl border border-red-600/30 mt-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Zap size={20} className="text-red-400" />
-                    <h4 className="font-bold text-white">Conseils pour l'animation</h4>
-                  </div>
-                  <ul className="space-y-2 text-white/80 text-sm">
-                    <li><strong>Gardez le rythme :</strong> Utilisez un chronomètre discret pour respecter les timings</li>
-                    <li><strong>Soyez authentiques :</strong> Adaptez le script à votre style naturel de communication</li>
-                    <li><strong>Encouragez l'interaction :</strong> Relancez si le jury est silencieux</li>
-                    <li><strong>Notez visuellement :</strong> Montrez que vous prenez en compte les feedbacks</li>
-                    <li><strong>Restez positifs :</strong> Même face aux critiques, montrez l'esprit d'amélioration continue</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+
+          {/* Contenu selon l'onglet actif */}
+          {activeDemo === 'overview' && (
+            <OverviewContent />
           )}
-          
-          {/* Preparation content */}
-          {activeTab === 'preparation' && (
-            <div className="card card-glow slide-up">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
-                  <ClipboardList size={28} className="text-white" />
-                </div>
-                <h3 className="text-3xl font-display font-bold text-white">
-                  Préparation de l'animation
-                </h3>
-              </div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div className="space-y-8">
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <Monitor size={20} className="text-yellow-400" />
-                      Matériel nécessaire
-                    </h4>
-                    <div className="glass p-6 rounded-xl border border-white/20">
-                      <ul className="space-y-3">
-                        {[
-                          { item: 'Dashboard fonctionnel', desc: 'Interface Django prête à démontrer' },
-                          { item: 'Données de test', desc: 'Films exemples pour la démonstration' },
-                          { item: 'Graphiques de performance', desc: 'Métriques ML préparées' },
-                          { item: 'Support de notes', desc: 'Tableau ou feuille pour les feedbacks' },
-                          { item: 'Chronomètre', desc: 'Gestion discrète du timing' }
-                        ].map((material, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2"></div>
-                            <div>
-                              <span className="font-bold text-white">{material.item}:</span>
-                              <span className="text-white/70 ml-1">{material.desc}</span>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <Users size={20} className="text-yellow-400" />
-                      Répartition des rôles
-                    </h4>
-                    <div className="space-y-4">
-                      {[
-                        { role: 'Animateur principal', color: 'from-red-600 to-red-700', desc: 'Ouverture, transitions, facilitation des échanges, clôture' },
-                        { role: 'Démonstrateur', color: 'from-yellow-500 to-yellow-600', desc: 'Présentation live du dashboard et des fonctionnalités' },
-                        { role: 'Expert ML', color: 'from-blue-500 to-blue-600', desc: 'Présentation des performances et métriques du modèle' },
-                        { role: 'Support', color: 'from-green-500 to-emerald-600', desc: 'Prise de notes, gestion technique, questions complémentaires' }
-                      ].map((roleItem, index) => (
-                        <div key={index} className="glass p-4 rounded-xl border border-white/20 group hover:border-white/30 transition-all duration-300">
-                          <div className="flex items-center gap-3 mb-2">
-                            <div className={`w-8 h-8 bg-gradient-to-br ${roleItem.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                              <span className="text-white font-bold text-sm">{index + 1}</span>
-                            </div>
-                            <h5 className="font-bold text-white">{roleItem.role}</h5>
-                          </div>
-                          <p className="text-white/70 text-sm leading-relaxed">{roleItem.desc}</p>
-                        </div>
-                      ))}
-                
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <Target size={20} className="text-orange-400" />
-                      Points de vigilance
-                    </h4>
-                    <div className="space-y-4">
-                      {[
-                        { title: 'Gestion du temps', desc: 'Prévoir des signaux discrets entre équipiers pour respecter les 15 minutes', color: 'border-orange-400/30' },
-                        { title: 'Niveau technique', desc: 'Adapter le discours selon les réactions du jury (plus ou moins technique)', color: 'border-yellow-400/30' },
-                        { title: 'Problèmes techniques', desc: 'Avoir un plan B (captures d\'écran) si la démo ne fonctionne pas', color: 'border-red-400/30' }
-                      ].map((point, index) => (
-                        <div key={index} className={`glass p-4 rounded-xl border ${point.color} group hover:scale-105 transition-all duration-300`}>
-                          <h5 className="font-bold text-white mb-2">{point.title}</h5>
-                          <p className="text-white/70 text-sm leading-relaxed">{point.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="relative overflow-hidden rounded-2xl group">
-                    <img 
-                      src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg" 
-                      alt="Sprint Review facilitation" 
-                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                      <p className="text-white font-medium">
-                        Animation collaborative d'une Sprint Review avec focus sur la valeur livrée
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          {activeDemo === 'dialogue' && (
+            <DialogueInteractifContent 
+              dialogue={sprintReviewDialogue}
+              participants={participants}
+              currentStep={currentDialogueStep}
+              setCurrentStep={setCurrentDialogueStep}
+              isPlaying={isPlaying}
+              onPlayPause={handlePlayPause}
+              onReset={resetDialogue}
+              getCurrentSpeaker={getCurrentSpeaker}
+            />
           )}
-          
-          {/* Objectives content */}
-          {activeTab === 'objectifs' && (
-            <div className="card card-glow bounce-in">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
-                  <Target size={28} className="text-white" />
-                </div>
-                <h3 className="text-3xl font-display font-bold text-white">
-                  Objectifs et résultats attendus
-                </h3>
-              </div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div className="space-y-8">
-                  <div className="glass p-6 rounded-xl border border-white/20">
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <Target size={20} className="text-red-400" />
-                      Objectifs de l'animation
-                    </h4>
-                    <ul className="space-y-3">
-                      {[
-                        'Démontrer la maîtrise de l\'animation d\'une Sprint Review',
-                        'Présenter efficacement les livrables du projet',
-                        'Faciliter les échanges avec les stakeholders (jury)',
-                        'Recueillir des feedbacks constructifs et pertinents',
-                        'Respecter le timeboxing de 15 minutes'
-                      ].map((objective, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-red-400 rounded-full mt-2"></div>
-                          <span className="text-white/80">{objective}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="glass p-6 rounded-xl border border-white/20">
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <CheckCircle size={20} className="text-green-400" />
-                      Compétences évaluées
-                    </h4>
-                    <div className="space-y-4">
-                      {[
-                        { skill: 'Animation de rituel Scrum', desc: 'Maîtrise du format Sprint Review et de ses objectifs' },
-                        { skill: 'Travail d\'équipe', desc: 'Coordination fluide entre les différents intervenants' },
-                        { skill: 'Communication efficace', desc: 'Présentation claire et adaptée au public' },
-                        { skill: 'Facilitation d\'échanges', desc: 'Encouragement de la participation et gestion des interventions' }
-                      ].map((item, index) => (
-                        <div key={index} className="flex items-start gap-3 group">
-                          <div className="w-6 h-6 bg-green-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <CheckCircle size={14} className="text-green-400" />
-                          </div>
-                          <div>
-                            <h5 className="font-bold text-white text-sm mb-1">{item.skill}</h5>
-                            <p className="text-white/70 text-xs leading-relaxed">{item.desc}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="space-y-8">
-                  <div className="glass p-6 rounded-xl border border-white/20">
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <Star size={20} className="text-blue-400" />
-                      Critères de réussite
-                    </h4>
-                    <div className="space-y-4">
-                      {[
-                        { criterion: 'Respect du timing', progress: 100, desc: 'Animation fluide en 15 minutes' },
-                        { criterion: 'Engagement du jury', progress: 90, desc: 'Questions et participation active' },
-                        { criterion: 'Clarté de la présentation', progress: 95, desc: 'Livrables compréhensibles par tous' },
-                        { criterion: 'Qualité des feedbacks', progress: 85, desc: 'Retours constructifs et exploitables' }
-                      ].map((item, index) => (
-                        <div key={index}>
-                          <div className="flex justify-between items-center mb-2">
-                            <h5 className="font-bold text-white text-sm">{item.criterion}</h5>
-                            <span className="text-yellow-400 text-sm font-bold">{item.progress}%</span>
-                          </div>
-                          <div className="w-full bg-black/30 rounded-full h-2 mb-2">
-                            <div 
-                              className="bg-gradient-to-r from-red-600 to-yellow-400 h-2 rounded-full transition-all duration-1000"
-                              style={{ width: `${item.progress}%` }}
-                            ></div>
-                          </div>
-                          <p className="text-white/70 text-xs">{item.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="glass p-6 rounded-xl border border-white/20">
-                    <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                      <FileText size={20} className="text-orange-400" />
-                      Livrables attendus
-                    </h4>
-                    <ul className="space-y-2">
-                      {[
-                        'Démonstration live du dashboard fonctionnel',
-                        'Présentation des métriques de performance du modèle',
-                        'Liste des feedbacks recueillis auprès du jury',
-                        'Animation collaborative fluide et professionnelle',
-                        'Évaluation positive de l\'expérience par le jury'
-                      ].map((deliverable, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
-                          <span className="text-white/80 text-sm">{deliverable}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="text-center glass p-6 rounded-xl border border-red-600/30">
-                    <h4 className="font-bold text-white mb-3 flex items-center justify-center gap-2">
-                      <Target size={20} className="text-red-400" />
-                      Objectif final
-                    </h4>
-                    <p className="text-white/80 text-sm italic leading-relaxed">
-                      Démontrer la capacité à animer efficacement une Sprint Review en équipe, 
-                      en créant un échange authentique et constructif avec les stakeholders, 
-                      tout en valorisant les livrables du projet dans un temps contraint.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          {activeDemo === 'roles' && (
+            <RolesResponsabilitesContent participants={participants} />
+          )}
+
+          {activeDemo === 'best-practices' && (
+            <BestPracticesContent />
           )}
         </div>
       </section>
+    </div>
+  );
+};
+
+// Composant Vue d'ensemble
+const OverviewContent: React.FC = () => {
+  return (
+    <div className="space-y-12">
+      <div className="card card-glow scale-in">
+        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+          Qu'est-ce qu'une Sprint Review ?
+        </h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <Target size={20} className="text-white" />
+                </div>
+                Objectif principal
+              </h4>
+              <p className="text-white/80 leading-relaxed">
+                Démontrer les fonctionnalités développées pendant le sprint aux stakeholders, 
+                recueillir leurs feedbacks et valider que la valeur livrée correspond aux attentes.
+              </p>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                  <Clock size={20} className="text-white" />
+                </div>
+                Format et timing
+              </h4>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Durée :</span>
+                  <span className="text-white font-bold">15 minutes</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Fréquence :</span>
+                  <span className="text-white font-bold">Fin de chaque sprint</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Participants :</span>
+                  <span className="text-white font-bold">Équipe + Stakeholders</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                  <CheckCircle size={20} className="text-white" />
+                </div>
+                Livrables attendus
+              </h4>
+              <ul className="space-y-2">
+                {[
+                  'Démonstration des fonctionnalités terminées',
+                  'Métriques de performance et qualité',
+                  'Feedbacks structurés des stakeholders',
+                  'Mise à jour du Product Backlog'
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="relative overflow-hidden rounded-2xl group">
+              <img 
+                src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg"
+                alt="Sprint Review en action"
+                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                <h4 className="text-xl font-display font-bold text-white mb-2">
+                  Sprint Review collaborative
+                </h4>
+                <p className="text-white/90">
+                  Échange direct entre l'équipe de développement et les stakeholders
+                </p>
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-orange-400/30">
+              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
+                <Zap size={20} />
+                Spécificités de notre contexte
+              </h4>
+              <div className="space-y-3">
+                <p className="text-white/80 text-sm leading-relaxed">
+                  <strong>Contexte pédagogique :</strong> Formateurs comme stakeholders, 
+                  rotation des rôles d'animation, apprentissage des rituels Scrum.
+                </p>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  <strong>Projet IA :</strong> Démonstration de modèles ML, métriques techniques, 
+                  vulgarisation pour un public non-technique.
+                </p>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  <strong>Équipe apprenante :</strong> Chaque membre découvre l'animation, 
+                  apprentissage par la pratique des soft skills.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Structure de la Sprint Review */}
+      <div className="card card-glow scale-in delay-200">
+        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+          Structure de notre Sprint Review
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[
+            {
+              phase: 'Ouverture',
+              duration: '2 min',
+              icon: Coffee,
+              color: 'from-blue-500 to-indigo-600',
+              activities: ['Accueil', 'Cadrage', 'Objectifs']
+            },
+            {
+              phase: 'Démonstration',
+              duration: '6 min',
+              icon: Monitor,
+              color: 'from-green-500 to-emerald-600',
+              activities: ['Demo live', 'Cas d\'usage', 'Métriques']
+            },
+            {
+              phase: 'Échanges',
+              duration: '4 min',
+              icon: MessageSquare,
+              color: 'from-orange-500 to-red-600',
+              activities: ['Questions', 'Feedbacks', 'Discussions']
+            },
+            {
+              phase: 'Clôture',
+              duration: '3 min',
+              icon: CheckCircle,
+              color: 'from-purple-500 to-pink-600',
+              activities: ['Synthèse', 'Actions', 'Remerciements']
+            }
+          ].map((phase, index) => (
+            <div key={index} className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
+              <div className={`w-16 h-16 bg-gradient-to-br ${phase.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <phase.icon size={28} className="text-white" />
+              </div>
+              <h4 className="text-lg font-bold text-white mb-2">{phase.phase}</h4>
+              <p className="text-[var(--color-secondary)] font-bold mb-4">{phase.duration}</p>
+              <ul className="space-y-1">
+                {phase.activities.map((activity, actIndex) => (
+                  <li key={actIndex} className="text-white/70 text-sm">{activity}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Composant Dialogue Interactif
+const DialogueInteractifContent: React.FC<{
+  dialogue: any[];
+  participants: any[];
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+  isPlaying: boolean;
+  onPlayPause: () => void;
+  onReset: () => void;
+  getCurrentSpeaker: () => any;
+}> = ({ dialogue, participants, currentStep, setCurrentStep, isPlaying, onPlayPause, onReset, getCurrentSpeaker }) => {
+  
+  const currentDialogue = dialogue[currentStep];
+  const currentSpeaker = getCurrentSpeaker();
+
+  return (
+    <div className="space-y-8">
+      {/* Contrôles de lecture */}
+      <div className="card card-glow">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl font-display font-bold text-white">
+            Dialogue interactif - Sprint Review
+          </h3>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={onPlayPause}
+              className={`btn ${isPlaying ? 'btn-secondary' : 'btn-primary'} flex items-center gap-2`}
+            >
+              {isPlaying ? <Pause size={20} /> : <PlayCircle size={20} />}
+              {isPlaying ? 'Pause' : 'Play'}
+            </button>
+            <button
+              onClick={onReset}
+              className="btn btn-outline flex items-center gap-2"
+            >
+              <RotateCcw size={20} />
+              Reset
+            </button>
+          </div>
+        </div>
+
+        {/* Progress bar */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-white/70 text-sm">Progression</span>
+            <span className="text-white/70 text-sm">{currentStep + 1} / {dialogue.length}</span>
+          </div>
+          <div className="w-full bg-black/30 rounded-full h-2">
+            <div 
+              className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] h-2 rounded-full transition-all duration-500"
+              style={{ width: `${((currentStep + 1) / dialogue.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Navigation par étapes */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-6">
+          {dialogue.map((step, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentStep(index)}
+              className={`p-2 rounded-lg text-xs transition-all duration-300 ${
+                index === currentStep
+                  ? 'bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] text-white'
+                  : index < currentStep
+                  ? 'bg-green-500/20 text-green-400 border border-green-400/30'
+                  : 'bg-white/10 text-white/60 border border-white/20'
+              }`}
+            >
+              <div className="font-bold">{step.timeCode}</div>
+              <div>{step.phase}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Scène de dialogue */}
+      <div className="card card-glow">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Participants visuels */}
+          <div className="lg:col-span-1">
+            <h4 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+              <Users size={20} className="text-blue-400" />
+              Participants
+            </h4>
+            <div className="space-y-4">
+              {participants.map((participant, index) => (
+                <div 
+                  key={index} 
+                  className={`glass p-4 rounded-xl border transition-all duration-500 ${
+                    currentSpeaker?.name === participant.name
+                      ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10 scale-105'
+                      : 'border-white/20'
+                  }`}
+                >
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${participant.color} rounded-full flex items-center justify-center text-2xl`}>
+                      {participant.avatar}
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-white">{participant.name}</h5>
+                      <p className="text-white/60 text-sm">{participant.role}</p>
+                    </div>
+                    {currentSpeaker?.name === participant.name && (
+                      <div className="ml-auto">
+                        <Volume2 size={20} className="text-[var(--color-primary)] animate-pulse" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dialogue principal */}
+          <div className="lg:col-span-2">
+            <div className="glass p-8 rounded-xl border border-white/20 min-h-[400px]">
+              {/* Header du dialogue */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className={`w-16 h-16 bg-gradient-to-br ${currentSpeaker?.color || 'from-gray-500 to-gray-600'} rounded-full flex items-center justify-center text-3xl`}>
+                    {currentSpeaker?.avatar || '👤'}
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white">{currentDialogue?.speaker}</h4>
+                    <p className="text-[var(--color-secondary)] font-semibold">{currentDialogue?.role}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-[var(--color-primary)]">{currentDialogue?.timeCode}</div>
+                  <div className="text-white/60 text-sm">{currentDialogue?.phase} - {currentDialogue?.duration}</div>
+                </div>
+              </div>
+
+              {/* Contenu du dialogue */}
+              <div className="space-y-6">
+                <div className="glass p-6 rounded-xl border border-[var(--color-primary)]/30">
+                  <div className="flex items-center gap-2 mb-3">
+                    <MessageSquare size={16} className="text-[var(--color-primary)]" />
+                    <span className="font-bold text-white text-sm">Dialogue</span>
+                  </div>
+                  <p className="text-white/90 leading-relaxed text-lg italic">
+                    "{currentDialogue?.content}"
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="glass p-4 rounded-xl border border-white/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target size={16} className="text-green-400" />
+                      <span className="font-bold text-white text-sm">Action</span>
+                    </div>
+                    <p className="text-white/80 text-sm">{currentDialogue?.action}</p>
+                  </div>
+
+                  <div className="glass p-4 rounded-xl border border-white/20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Star size={16} className="text-yellow-400" />
+                      <span className="font-bold text-white text-sm">Conseil</span>
+                    </div>
+                    <p className="text-white/80 text-sm">{currentDialogue?.tips}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Navigation */}
+              <div className="flex justify-between items-center mt-8">
+                <button
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                  className="btn btn-outline disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  ← Précédent
+                </button>
+                
+                <div className="text-center">
+                  <div className="text-white/60 text-sm">
+                    Étape {currentStep + 1} sur {dialogue.length}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setCurrentStep(Math.min(dialogue.length - 1, currentStep + 1))}
+                  disabled={currentStep === dialogue.length - 1}
+                  className="btn btn-primary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  Suivant →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Composant Rôles et Responsabilités
+const RolesResponsabilitesContent: React.FC<{ participants: any[] }> = ({ participants }) => {
+  return (
+    <div className="space-y-12">
+      <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+        Rôles et responsabilités dans la Sprint Review
+      </h3>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {participants.slice(0, -1).map((participant, index) => (
+          <div key={index} className="card card-glow scale-in" style={{ animationDelay: `${index * 200}ms` }}>
+            <div className="text-center mb-6">
+              <div className={`w-20 h-20 bg-gradient-to-br ${participant.color} rounded-full flex items-center justify-center text-4xl mx-auto mb-4`}>
+                {participant.avatar}
+              </div>
+              <h4 className="text-2xl font-bold text-white mb-2">{participant.name}</h4>
+              <p className="text-[var(--color-secondary)] font-semibold">{participant.role}</p>
+            </div>
+
+            <div className="space-y-4">
+              <h5 className="font-bold text-white mb-3 flex items-center gap-2">
+                <CheckCircle size={16} className="text-green-400" />
+                Responsabilités clés
+              </h5>
+              <ul className="space-y-3">
+                {participant.responsibilities.map((resp: string, respIndex: number) => (
+                  <li key={respIndex} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-white/80 text-sm leading-relaxed">{resp}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Phrases clés selon le rôle */}
+              <div className="glass p-4 rounded-xl border border-white/20 mt-6">
+                <h6 className="font-bold text-white mb-2 flex items-center gap-2">
+                  <MessageSquare size={14} className="text-blue-400" />
+                  Phrases clés
+                </h6>
+                <div className="space-y-2">
+                  {participant.name === 'Dorothée' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"Nous avons 15 minutes pour..."</p>
+                      <p className="text-white/70 text-xs italic">"Je note vos feedbacks pour..."</p>
+                      <p className="text-white/70 text-xs italic">"Avez-vous des questions ?"</p>
+                    </>
+                  )}
+                  {participant.name === 'Nicolas' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"Notre Sprint Goal était..."</p>
+                      <p className="text-white/70 text-xs italic">"Cette fonctionnalité apporte..."</p>
+                      <p className="text-white/70 text-xs italic">"Nous pourrions ajouter..."</p>
+                    </>
+                  )}
+                  {participant.name === 'Maxime' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"Nos métriques montrent..."</p>
+                      <p className="text-white/70 text-xs italic">"Le modèle prédit..."</p>
+                      <p className="text-white/70 text-xs italic">"Voici les performances..."</p>
+                    </>
+                  )}
+                  {participant.name === 'Eliandy' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"Voici une démonstration..."</p>
+                      <p className="text-white/70 text-xs italic">"L'interface permet de..."</p>
+                      <p className="text-white/70 text-xs italic">"L'API est documentée..."</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Stakeholders */}
+      <div className="card card-glow scale-in delay-500">
+        <h4 className="text-2xl font-display font-bold text-white mb-6 text-center">
+          Rôle des Stakeholders (Jury)
+        </h4>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h5 className="font-bold text-white mb-4 flex items-center gap-2">
+                <Eye size={16} className="text-blue-400" />
+                Attitude attendue
+              </h5>
+              <ul className="space-y-2">
+                {[
+                  'Écoute active et bienveillante',
+                  'Questions constructives et pertinentes',
+                  'Feedback orienté valeur business',
+                  'Suggestions d\'amélioration concrètes'
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h5 className="font-bold text-white mb-4 flex items-center gap-2">
+                <MessageSquare size={16} className="text-green-400" />
+                Types de questions efficaces
+              </h5>
+              <div className="space-y-3">
+                <div className="p-3 bg-black/20 rounded-lg">
+                  <p className="text-green-400 text-sm font-bold mb-1">Questions de clarification :</p>
+                  <p className="text-white/70 text-xs italic">"Comment gérez-vous les cas où... ?"</p>
+                </div>
+                <div className="p-3 bg-black/20 rounded-lg">
+                  <p className="text-blue-400 text-sm font-bold mb-1">Questions d'usage :</p>
+                  <p className="text-white/70 text-xs italic">"Dans quel contexte utiliserait-on... ?"</p>
+                </div>
+                <div className="p-3 bg-black/20 rounded-lg">
+                  <p className="text-purple-400 text-sm font-bold mb-1">Questions d'évolution :</p>
+                  <p className="text-white/70 text-xs italic">"Avez-vous prévu d'ajouter... ?"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl group">
+            <img 
+              src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
+              alt="Stakeholders en Sprint Review"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+              <h4 className="text-xl font-display font-bold text-white mb-2">
+                Engagement des stakeholders
+              </h4>
+              <p className="text-white/90">
+                Participation active et feedback constructif pour l'amélioration continue
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Composant Bonnes Pratiques
+const BestPracticesContent: React.FC = () => {
+  return (
+    <div className="space-y-12">
+      <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+        Bonnes pratiques pour une Sprint Review réussie
+      </h3>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Avant la Sprint Review */}
+        <div className="card card-glow scale-in">
+          <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+              <Calendar size={20} className="text-white" />
+            </div>
+            Préparation en amont
+          </h4>
+          
+          <div className="space-y-4">
+            {[
+              {
+                title: 'Préparer la démonstration',
+                items: ['Tester tous les cas d\'usage', 'Préparer des données réalistes', 'Vérifier la stabilité technique'],
+                icon: Monitor,
+                color: 'text-blue-400'
+              },
+              {
+                title: 'Définir les rôles',
+                items: ['Qui anime ?', 'Qui démontre ?', 'Qui prend les notes ?'],
+                icon: Users,
+                color: 'text-green-400'
+              },
+              {
+                title: 'Préparer le matériel',
+                items: ['Support de présentation', 'Environnement de démo', 'Outils de prise de notes'],
+                icon: FileText,
+                color: 'text-orange-400'
+              }
+            ].map((section, index) => (
+              <div key={index} className="glass p-4 rounded-xl border border-white/20">
+                <h5 className={`font-bold ${section.color} mb-3 flex items-center gap-2`}>
+                  <section.icon size={16} />
+                  {section.title}
+                </h5>
+                <ul className="space-y-1">
+                  {section.items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                      <span className="text-white/80 text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pendant la Sprint Review */}
+        <div className="card card-glow scale-in delay-200">
+          <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+              <PlayCircle size={20} className="text-white" />
+            </div>
+            Pendant l'animation
+          </h4>
+          
+          <div className="space-y-4">
+            {[
+              {
+                title: 'Gestion du temps',
+                tips: ['Chronomètre discret', 'Signaux entre équipiers', 'Prioriser les éléments clés'],
+                icon: Clock,
+                color: 'text-red-400'
+              },
+              {
+                title: 'Facilitation des échanges',
+                tips: ['Poser des questions ouvertes', 'Reformuler les feedbacks', 'Encourager la participation'],
+                icon: MessageSquare,
+                color: 'text-purple-400'
+              },
+              {
+                title: 'Gestion des imprévus',
+                tips: ['Plan B si problème technique', 'Captures d\'écran de secours', 'Rester calme et positif'],
+                icon: Zap,
+                color: 'text-yellow-400'
+              }
+            ].map((section, index) => (
+              <div key={index} className="glass p-4 rounded-xl border border-white/20">
+                <h5 className={`font-bold ${section.color} mb-3 flex items-center gap-2`}>
+                  <section.icon size={16} />
+                  {section.title}
+                </h5>
+                <ul className="space-y-1">
+                  {section.tips.map((tip, tipIndex) => (
+                    <li key={tipIndex} className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+                      <span className="text-white/80 text-sm">{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Phrases clés et formulations */}
+      <div className="card card-glow scale-in delay-400">
+        <h4 className="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-secondary-light)] rounded-lg flex items-center justify-center">
+            <MessageSquare size={20} className="text-black" />
+          </div>
+          Phrases clés et formulations efficaces
+        </h4>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              category: 'Ouverture',
+              color: 'border-blue-400/30',
+              phrases: [
+                '"Bienvenue à notre Sprint Review"',
+                '"Nous avons X minutes pour..."',
+                '"Notre objectif aujourd\'hui est..."',
+                '"N\'hésitez pas à poser des questions"'
+              ]
+            },
+            {
+              category: 'Démonstration',
+              color: 'border-green-400/30',
+              phrases: [
+                '"Voici une démonstration en direct"',
+                '"Comme vous pouvez le voir..."',
+                '"Cette fonctionnalité permet de..."',
+                '"Regardez ce qui se passe quand..."'
+              ]
+            },
+            {
+              category: 'Facilitation',
+              color: 'border-orange-400/30',
+              phrases: [
+                '"Qu\'en pensez-vous ?"',
+                '"Avez-vous des questions ?"',
+                '"Si je comprends bien..."',
+                '"C\'est un excellent point !"'
+              ]
+            },
+            {
+              category: 'Gestion du temps',
+              color: 'border-red-400/30',
+              phrases: [
+                '"Il nous reste X minutes"',
+                '"Passons au point suivant"',
+                '"Nous reviendrons sur ce point"',
+                '"Gardons cette question pour après"'
+              ]
+            },
+            {
+              category: 'Feedbacks',
+              color: 'border-purple-400/30',
+              phrases: [
+                '"Je note ce point important"',
+                '"Nous allons étudier cette suggestion"',
+                '"C\'est exactement le type de retour qu\'on cherche"',
+                '"Nous intégrerons ça au backlog"'
+              ]
+            },
+            {
+              category: 'Clôture',
+              color: 'border-yellow-400/30',
+              phrases: [
+                '"Merci pour ces échanges riches"',
+                '"En résumé, nous avons..."',
+                '"Vos retours nous donnent..."',
+                '"À bientôt pour la prochaine review !"'
+              ]
+            }
+          ].map((category, index) => (
+            <div key={index} className={`glass p-6 rounded-xl border ${category.color} group hover:scale-105 transition-all duration-300`}>
+              <h5 className="font-bold text-white mb-4 text-center">{category.category}</h5>
+              <div className="space-y-3">
+                {category.phrases.map((phrase, phraseIndex) => (
+                  <div key={phraseIndex} className="p-3 bg-black/20 rounded-lg group-hover:bg-black/30 transition-colors duration-300">
+                    <p className="text-white/80 text-sm italic leading-relaxed">{phrase}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Métriques de succès */}
+      <div className="card card-glow scale-in delay-600">
+        <h4 className="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg flex items-center justify-center">
+            <Award size={20} className="text-white" />
+          </div>
+          Comment mesurer le succès de votre Sprint Review
+        </h4>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <h5 className="text-xl font-bold text-green-400 mb-4">✅ Indicateurs de réussite</h5>
+            <div className="space-y-4">
+              {[
+                'Participation active des stakeholders',
+                'Questions pertinentes et constructives',
+                'Feedbacks exploitables pour le backlog',
+                'Respect du timing (15 minutes)',
+                'Démonstration fluide sans blocage technique',
+                'Ambiance positive et collaborative'
+              ].map((indicator, index) => (
+                <div key={index} className="flex items-center gap-3 glass p-3 rounded-lg border border-green-400/20">
+                  <CheckCircle size={16} className="text-green-400" />
+                  <span className="text-white/80 text-sm">{indicator}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="space-y-6">
+            <h5 className="text-xl font-bold text-orange-400 mb-4">⚠️ Signaux d'alerte</h5>
+            <div className="space-y-4">
+              {[
+                'Silence prolongé des stakeholders',
+                'Questions uniquement techniques',
+                'Dépassement significatif du temps',
+                'Problèmes techniques récurrents',
+                'Feedbacks vagues ou non exploitables',
+                'Tension ou incompréhension'
+              ].map((warning, index) => (
+                <div key={index} className="flex items-center gap-3 glass p-3 rounded-lg border border-orange-400/20">
+                  <Target size={16} className="text-orange-400" />
+                  <span className="text-white/80 text-sm">{warning}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
