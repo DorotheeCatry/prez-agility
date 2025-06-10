@@ -33,6 +33,93 @@ body {
   background: var(--gradient-dark);
   color: var(--color-text);
   overflow-x: hidden;
+  /* Curseur de présentation personnalisé */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" fill="%23e50914" opacity="0.8"/><circle cx="12" cy="12" r="8" stroke="%23e50914" stroke-width="1" fill="none" opacity="0.4"/><circle cx="12" cy="12" r="1" fill="%23ffffff"/></svg>') 12 12, auto;
+}
+
+/* Curseur spécial pour les éléments interactifs */
+button, a, .btn, [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="4" fill="%23ffbe0b" opacity="0.9"/><circle cx="14" cy="14" r="10" stroke="%23ffbe0b" stroke-width="1.5" fill="none" opacity="0.6"/><circle cx="14" cy="14" r="1.5" fill="%23000000"/><path d="M14 4 L14 8 M14 20 L14 24 M4 14 L8 14 M20 14 L24 14" stroke="%23ffbe0b" stroke-width="1" opacity="0.7"/></svg>') 14 14, pointer;
+}
+
+/* Curseur pour les zones de texte */
+input, textarea, [contenteditable] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 24" fill="none"><rect x="8" y="2" width="4" height="20" fill="%233b82f6" opacity="0.8"/><rect x="6" y="2" width="8" height="2" fill="%233b82f6" opacity="0.6"/><rect x="6" y="20" width="8" height="2" fill="%233b82f6" opacity="0.6"/></svg>') 10 12, text;
+}
+
+/* Effet de traînée laser */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle 100px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 9, 20, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Animation du curseur au survol */
+button:hover, a:hover, .btn:hover {
+  position: relative;
+}
+
+button:hover::after, a:hover::after, .btn:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-secondary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulseRing 1s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Effet de focus pour la présentation */
+.presentation-focus {
+  position: relative;
+  z-index: 10;
+}
+
+.presentation-focus::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid var(--color-primary);
+  border-radius: 12px;
+  animation: focusPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes focusPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -469,6 +556,15 @@ h1, h2, h3, h4, h5, h6 {
   .btn {
     @apply px-6 py-3;
   }
+
+  /* Curseur simplifié sur mobile */
+  body {
+    cursor: auto;
+  }
+  
+  button, a, .btn, [role="button"] {
+    cursor: pointer;
+  }
 }
 
 /* Dark mode enhancements */
@@ -486,6 +582,15 @@ h1, h2, h3, h4, h5, h6 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  /* Désactiver le curseur animé pour les utilisateurs sensibles au mouvement */
+  body {
+    cursor: auto;
+  }
+  
+  button, a, .btn, [role="button"] {
+    cursor: pointer;
   }
 }
 
@@ -551,4 +656,47 @@ h1, h2, h3, h4, h5, h6 {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Spotlight effect pour la présentation */
+.spotlight-mode {
+  position: relative;
+}
+
+.spotlight-mode::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
+  z-index: 1000;
+  transition: all 0.1s ease;
+}
+
+/* Laser pointer effect */
+.laser-pointer {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #e50914 0%, #f8323c 50%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px #e50914, 0 0 40px #e50914, 0 0 60px #e50914;
+  animation: laserPulse 1s ease-in-out infinite;
+}
+
+@keyframes laserPulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
 }
