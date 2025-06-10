@@ -184,25 +184,52 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                 <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-secondary-light)] rounded-lg flex items-center justify-center">
                   <GitMerge size={20} className="text-black" />
                 </div>
-                Outils collaboratifs
+                Outils collaboratifs utilisés
               </h3>
               
               <div className="space-y-4">
                 {[
-                  { name: 'GitHub', icon: Github, color: 'from-gray-600 to-gray-800', desc: 'Versioning, branches dédiées, Pull Requests collaboratives' },
-                  { name: 'Jira', icon: Users, color: 'from-blue-600 to-indigo-700', desc: 'Planification, backlog, suivi des tâches, documentation centralisée' },
-                  { name: 'Slack & Discord', icon: MessageSquare, color: 'from-green-600 to-teal-700', desc: 'Communication quotidienne, échanges techniques, debugging' },
-                  { name: 'Confluence & Miro', icon: Repeat, color: 'from-purple-600 to-pink-700', desc: 'Documentation centralisée, rétrospectives visuelles' }
+                  { 
+                    name: 'GitHub', 
+                    icon: Github, 
+                    color: 'from-gray-600 to-gray-800', 
+                    desc: 'Repository "popularity_movie_prediction_project" avec 19 branches, gestion des Pull Requests',
+                    details: 'Structure: django_cinema_interface, ml_model, prediction_api, scrapy'
+                  },
+                  { 
+                    name: 'Jira', 
+                    icon: Users, 
+                    color: 'from-blue-600 to-indigo-700', 
+                    desc: 'Planification des sprints, timeline des epics PRED-1 à PRED-7, suivi des User Stories',
+                    details: 'Epics: Cadrage, Collecte données, Modélisation, Développement app, Interface, Production'
+                  },
+                  { 
+                    name: 'Slack', 
+                    icon: MessageSquare, 
+                    color: 'from-green-600 to-teal-700', 
+                    desc: 'Canal #daily pour les standups quotidiens, entretiens hebdomadaires, communication équipe',
+                    details: 'Canaux: #azure, #dashboard, #general, #help-debug, #ml-model, #scrapping'
+                  },
+                  { 
+                    name: 'Confluence', 
+                    icon: Repeat, 
+                    color: 'from-purple-600 to-pink-700', 
+                    desc: 'Documentation centralisée, bilans de sprints, schémas d\'architecture applicative',
+                    details: 'Pages: Cahier des charges, Bilans sprints 1-4, Schéma architecture, Variables scrapping'
+                  }
                 ].map((tool, index) => (
                   <div key={tool.name} className="glass p-4 rounded-xl border border-white/20 group hover:border-white/30 transition-all duration-300">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-10 h-10 bg-gradient-to-br ${tool.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <div className="flex items-start gap-4">
+                      <div className={`w-10 h-10 bg-gradient-to-br ${tool.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                         <tool.icon size={20} className="text-white" />
                       </div>
                       <div className="flex-1">
                         <h4 className="font-bold text-white mb-1">{tool.name}</h4>
-                        <p className="text-white/70 text-sm leading-relaxed">
+                        <p className="text-white/70 text-sm leading-relaxed mb-2">
                           {tool.desc}
+                        </p>
+                        <p className="text-white/50 text-xs leading-relaxed italic">
+                          {tool.details}
                         </p>
                       </div>
                     </div>
@@ -227,7 +254,7 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                   freq: 'Lundi',
                   duration: '30 min',
                   objective: 'Sélection des User Stories',
-                  support: 'Jira'
+                  support: 'Jira Timeline'
                 },
                 { 
                   name: 'Daily Scrum', 
@@ -236,7 +263,7 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                   freq: 'Lun-Ven',
                   duration: '10 min',
                   objective: 'Synchronisation équipe',
-                  support: 'Slack & Jira'
+                  support: 'Slack #daily'
                 },
                 { 
                   name: 'Sprint Review', 
@@ -245,7 +272,7 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                   freq: 'Mercredi',
                   duration: '45 min',
                   objective: 'Démo et feedback',
-                  support: 'Google Meet'
+                  support: 'Entretien hebdomadaire'
                 },
                 { 
                   name: 'Rétrospective', 
@@ -254,7 +281,7 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                   freq: 'Vendredi',
                   duration: '60 min',
                   objective: 'Bilan et amélioration',
-                  support: 'Miro Board'
+                  support: 'Confluence'
                 }
               ].map((ritual, index) => (
                 <div key={ritual.name} className="glass p-6 rounded-xl border border-white/20 group hover:border-white/30 transition-all duration-300 hover:scale-105">
@@ -286,6 +313,66 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Architecture technique */}
+          <div className="card card-glow scale-in delay-600">
+            <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+              Architecture technique du projet
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-xs">🏗️</span>
+                  </div>
+                  Structure du repository GitHub
+                </h4>
+                
+                <div className="glass p-6 rounded-xl border border-white/20">
+                  <div className="space-y-3 font-mono text-sm">
+                    <div className="text-white/80">📁 <span className="text-blue-400">django_cinema_interface/</span></div>
+                    <div className="text-white/80 ml-4">└── Interface utilisateur Django</div>
+                    
+                    <div className="text-white/80">📁 <span className="text-green-400">ml_model/</span></div>
+                    <div className="text-white/80 ml-4">└── Modèles Random Forest & LightGBM</div>
+                    
+                    <div className="text-white/80">📁 <span className="text-yellow-400">prediction_api/</span></div>
+                    <div className="text-white/80 ml-4">└── API FastAPI de prédiction</div>
+                    
+                    <div className="text-white/80">📁 <span className="text-red-400">scrapy/</span></div>
+                    <div className="text-white/80 ml-4">└── Scripts de scraping Allociné/Dailymotion</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-xs">⚙️</span>
+                  </div>
+                  Stack technologique
+                </h4>
+                
+                <div className="space-y-3">
+                  {[
+                    { tech: 'Python', usage: 'Langage principal', color: 'bg-blue-500' },
+                    { tech: 'Django', usage: 'Framework web interface', color: 'bg-green-500' },
+                    { tech: 'FastAPI', usage: 'API de prédiction', color: 'bg-teal-500' },
+                    { tech: 'Scrapy', usage: 'Web scraping', color: 'bg-orange-500' },
+                    { tech: 'Scikit-learn', usage: 'Machine Learning', color: 'bg-purple-500' },
+                    { tech: 'PostgreSQL', usage: 'Base de données', color: 'bg-indigo-500' }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center gap-3 glass p-3 rounded-lg border border-white/20">
+                      <div className={`w-3 h-3 ${item.color} rounded-full`}></div>
+                      <span className="font-bold text-white text-sm">{item.tech}</span>
+                      <span className="text-white/60 text-xs">- {item.usage}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
