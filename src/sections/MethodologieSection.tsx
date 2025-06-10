@@ -614,23 +614,26 @@ const OutilsCollaboratifsContent: React.FC<{ tools: any[] }> = ({ tools }) => {
 
       {/* Navigation des outils */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-        {tools.map((tool, index) => (
-          <button
-            key={tool.name}
-            onClick={() => setSelectedTool(index)}
-            className={`p-4 rounded-xl transition-all duration-500 ${
-              selectedTool === index
-                ? 'bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] scale-105 shadow-2xl'
-                : 'glass border border-white/20 hover:border-white/40 hover:scale-105'
-            }`}
-          >
-            <div className={`w-12 h-12 bg-gradient-to-br ${tool.color} rounded-xl flex items-center justify-center mx-auto mb-3 transition-transform duration-300 ${selectedTool === index ? 'scale-110' : ''}`}>
-              <tool.icon size={24} className="text-white" />
-            </div>
-            <h4 className="font-bold text-white text-sm text-center">{tool.name}</h4>
-            <p className="text-white/60 text-xs text-center mt-1">{tool.category}</p>
-          </button>
-        ))}
+        {tools.map((tool, index) => {
+          const IconComponent = tool.icon;
+          return (
+            <button
+              key={tool.name}
+              onClick={() => setSelectedTool(index)}
+              className={`p-4 rounded-xl transition-all duration-500 ${
+                selectedTool === index
+                  ? 'bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] scale-105 shadow-2xl'
+                  : 'glass border border-white/20 hover:border-white/40 hover:scale-105'
+              }`}
+            >
+              <div className={`w-12 h-12 bg-gradient-to-br ${tool.color} rounded-xl flex items-center justify-center mx-auto mb-3 transition-transform duration-300 ${selectedTool === index ? 'scale-110' : ''}`}>
+                <IconComponent size={24} className="text-white" />
+              </div>
+              <h4 className="font-bold text-white text-sm text-center">{tool.name}</h4>
+              <p className="text-white/60 text-xs text-center mt-1">{tool.category}</p>
+            </button>
+          );
+        })}
       </div>
 
       {/* Détail de l'outil sélectionné */}
@@ -640,7 +643,10 @@ const OutilsCollaboratifsContent: React.FC<{ tools: any[] }> = ({ tools }) => {
           <div className="space-y-6">
             <div className="flex items-center gap-6 mb-6">
               <div className={`w-16 h-16 bg-gradient-to-br ${tools[selectedTool].color} rounded-2xl flex items-center justify-center shadow-2xl`}>
-                <tools[selectedTool].icon size={32} className="text-white" />
+                {(() => {
+                  const IconComponent = tools[selectedTool].icon;
+                  return <IconComponent size={32} className="text-white" />;
+                })()}
               </div>
               <div>
                 <h4 className="text-3xl font-display font-bold text-white mb-2">
