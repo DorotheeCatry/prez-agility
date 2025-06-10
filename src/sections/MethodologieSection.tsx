@@ -1,11 +1,13 @@
-import React from 'react';
-import { GitMerge, UserCheck, Repeat, Gauge, MessageSquare, Github, Users, Calendar, Settings, Zap, Clock, Target } from 'lucide-react';
+import React, { useState } from 'react';
+import { GitMerge, UserCheck, Repeat, Gauge, MessageSquare, Github, Users, Calendar, Settings, Zap, Clock, Target, CheckCircle, ArrowRight, Play, Pause, RotateCcw, Eye, FileText, TrendingUp } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
 }
 
 const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
+  const [activeProcess, setActiveProcess] = useState('sprint-planning');
+  
   const teamMembers = ['Eliandy', 'Dorothée', 'Nicolas', 'Maxime'];
   const roles = ['Scrum Master', 'Product Owner', 'Resp. ML', 'Développeur'];
   const sprints = [
@@ -14,6 +16,114 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
     { number: 3, focus: 'Application web', color: 'from-orange-500 to-red-600' },
     { number: 4, focus: 'Déploiement', color: 'from-purple-500 to-pink-600' }
   ];
+
+  const agileProcesses = {
+    'sprint-planning': {
+      title: 'Sprint Planning',
+      icon: Calendar,
+      color: 'from-blue-500 to-indigo-600',
+      definition: 'Réunion de planification où l\'équipe sélectionne les User Stories à réaliser pendant le sprint et estime l\'effort nécessaire.',
+      ourImplementation: {
+        frequency: 'Chaque lundi (début de sprint)',
+        duration: '30 minutes',
+        participants: 'Toute l\'équipe (4 développeurs)',
+        tools: 'Jira Timeline + Slack',
+        process: [
+          'Review du Product Backlog par le PO',
+          'Sélection des User Stories prioritaires',
+          'Estimation en story points (Planning Poker)',
+          'Définition du Sprint Goal',
+          'Répartition des tâches selon les rôles'
+        ]
+      },
+      benefits: ['Engagement équipe', 'Objectifs clairs', 'Estimation réaliste'],
+      challenges: ['Rotation des rôles', 'Apprentissage des outils', 'Estimation en contexte IA']
+    },
+    'daily-scrum': {
+      title: 'Daily Scrum',
+      icon: Clock,
+      color: 'from-green-500 to-emerald-600',
+      definition: 'Réunion quotidienne de synchronisation de 15 minutes maximum où chaque membre partage ses avancées, blocages et objectifs du jour.',
+      ourImplementation: {
+        frequency: 'Lundi à Vendredi',
+        duration: '10 minutes',
+        participants: 'Équipe complète',
+        tools: 'Slack #daily + Jira',
+        process: [
+          'Qu\'ai-je fait hier ?',
+          'Que vais-je faire aujourd\'hui ?',
+          'Quels sont mes blocages ?',
+          'Mise à jour des statuts Jira',
+          'Planification des points de synchronisation'
+        ]
+      },
+      benefits: ['Communication fluide', 'Détection rapide des blocages', 'Coordination équipe'],
+      challenges: ['Discipline quotidienne', 'Concision des échanges', 'Gestion des blocages techniques']
+    },
+    'sprint-review': {
+      title: 'Sprint Review',
+      icon: Eye,
+      color: 'from-orange-500 to-red-600',
+      definition: 'Démonstration des fonctionnalités développées pendant le sprint aux stakeholders pour recueillir des feedbacks et valider la valeur livrée.',
+      ourImplementation: {
+        frequency: 'Chaque mercredi (fin de sprint)',
+        duration: '45 minutes',
+        participants: 'Équipe + Formateurs (stakeholders)',
+        tools: 'Entretiens hebdomadaires + Démo live',
+        process: [
+          'Présentation du Sprint Goal atteint',
+          'Démonstration des fonctionnalités',
+          'Métriques de performance (ML)',
+          'Recueil des feedbacks stakeholders',
+          'Mise à jour du Product Backlog'
+        ]
+      },
+      benefits: ['Validation de la valeur', 'Feedback direct', 'Transparence'],
+      challenges: ['Préparation des démos', 'Gestion du temps', 'Adaptation aux retours']
+    },
+    'retrospective': {
+      title: 'Rétrospective',
+      icon: RotateCcw,
+      color: 'from-purple-500 to-pink-600',
+      definition: 'Réunion d\'amélioration continue où l\'équipe analyse ce qui a bien fonctionné, les difficultés rencontrées et définit des actions d\'amélioration.',
+      ourImplementation: {
+        frequency: 'Chaque vendredi (fin de sprint)',
+        duration: '60 minutes',
+        participants: 'Équipe interne uniquement',
+        tools: 'Confluence + Miro Board',
+        process: [
+          'What went well? (Points positifs)',
+          'What could be improved? (Difficultés)',
+          'What will we commit to improve? (Actions)',
+          'Documentation des enseignements',
+          'Planification des améliorations'
+        ]
+      },
+      benefits: ['Amélioration continue', 'Cohésion équipe', 'Apprentissage collectif'],
+      challenges: ['Honnêteté des retours', 'Mise en œuvre des actions', 'Suivi des améliorations']
+    },
+    'backlog-refinement': {
+      title: 'Backlog Refinement',
+      icon: FileText,
+      color: 'from-teal-500 to-cyan-600',
+      definition: 'Activité continue de raffinement du Product Backlog : ajout de détails aux User Stories, estimation, priorisation et découpage.',
+      ourImplementation: {
+        frequency: 'En continu + sessions dédiées',
+        duration: 'Variable (15-30 min)',
+        participants: 'PO + équipe technique',
+        tools: 'Jira + Confluence',
+        process: [
+          'Analyse des nouvelles User Stories',
+          'Définition des critères d\'acceptation',
+          'Estimation en story points',
+          'Découpage des stories complexes',
+          'Priorisation selon la valeur business'
+        ]
+      },
+      benefits: ['Backlog prêt', 'Stories bien définies', 'Estimation précise'],
+      challenges: ['Découpage en contexte IA', 'Définition des DoD', 'Gestion des dépendances']
+    }
+  };
 
   return (
     <div className="min-h-screen pt-24 lg:pt-20 relative overflow-hidden">
@@ -41,6 +151,181 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
               Organisation de l'équipe, rituels Scrum et outils collaboratifs 
               pour le projet de prédiction IA.
             </p>
+          </div>
+
+          {/* Processus Agile détaillés */}
+          <div className="mb-16">
+            <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+              Processus Agile en détail
+            </h3>
+            
+            {/* Navigation des processus */}
+            <div className="flex flex-wrap gap-4 mb-12 justify-center">
+              {Object.entries(agileProcesses).map(([key, process]) => (
+                <button 
+                  key={key}
+                  className={`btn transition-all duration-500 ${
+                    activeProcess === key 
+                      ? 'btn-primary scale-105' 
+                      : 'btn-outline hover:scale-105'
+                  }`}
+                  onClick={() => setActiveProcess(key)}
+                >
+                  <process.icon size={20} className="mr-2" />
+                  {process.title}
+                </button>
+              ))}
+            </div>
+
+            {/* Contenu du processus actif */}
+            {Object.entries(agileProcesses).map(([key, process]) => (
+              activeProcess === key && (
+                <div key={key} className="card card-glow scale-in">
+                  {/* Header du processus */}
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className={`w-16 h-16 bg-gradient-to-br ${process.color} rounded-2xl flex items-center justify-center shadow-2xl`}>
+                      <process.icon size={32} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-3xl font-display font-bold text-white mb-2">
+                        {process.title}
+                      </h4>
+                      <p className="text-white/70 text-lg leading-relaxed max-w-4xl">
+                        {process.definition}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    {/* Notre implémentation */}
+                    <div className="space-y-6">
+                      <h5 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                          <CheckCircle size={20} className="text-white" />
+                        </div>
+                        Notre implémentation
+                      </h5>
+
+                      {/* Détails de l'implémentation */}
+                      <div className="glass p-6 rounded-xl border border-white/20">
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          <div className="text-center p-4 bg-black/20 rounded-lg">
+                            <div className="text-2xl font-bold text-[var(--color-primary)] mb-1">
+                              {process.ourImplementation.frequency}
+                            </div>
+                            <div className="text-xs text-white/60">Fréquence</div>
+                          </div>
+                          <div className="text-center p-4 bg-black/20 rounded-lg">
+                            <div className="text-2xl font-bold text-[var(--color-secondary)] mb-1">
+                              {process.ourImplementation.duration}
+                            </div>
+                            <div className="text-xs text-white/60">Durée</div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div>
+                            <h6 className="font-bold text-white mb-2 flex items-center gap-2">
+                              <Users size={16} className="text-blue-400" />
+                              Participants
+                            </h6>
+                            <p className="text-white/80 text-sm">{process.ourImplementation.participants}</p>
+                          </div>
+                          
+                          <div>
+                            <h6 className="font-bold text-white mb-2 flex items-center gap-2">
+                              <Settings size={16} className="text-green-400" />
+                              Outils utilisés
+                            </h6>
+                            <p className="text-white/80 text-sm">{process.ourImplementation.tools}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Processus étape par étape */}
+                      <div className="glass p-6 rounded-xl border border-white/20">
+                        <h6 className="font-bold text-white mb-4 flex items-center gap-2">
+                          <ArrowRight size={16} className="text-orange-400" />
+                          Déroulement étape par étape
+                        </h6>
+                        <div className="space-y-3">
+                          {process.ourImplementation.process.map((step, index) => (
+                            <div key={index} className="flex items-start gap-3 group">
+                              <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white text-xs font-bold group-hover:scale-110 transition-transform duration-300">
+                                {index + 1}
+                              </div>
+                              <span className="text-white/80 text-sm leading-relaxed">{step}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bénéfices et défis */}
+                    <div className="space-y-6">
+                      <h5 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                          <TrendingUp size={20} className="text-white" />
+                        </div>
+                        Bénéfices & Défis
+                      </h5>
+
+                      {/* Bénéfices */}
+                      <div className="glass p-6 rounded-xl border border-green-400/30">
+                        <h6 className="font-bold text-green-400 mb-4 flex items-center gap-2">
+                          <CheckCircle size={20} />
+                          Bénéfices observés
+                        </h6>
+                        <div className="space-y-3">
+                          {process.benefits.map((benefit, index) => (
+                            <div key={index} className="flex items-center gap-3 group">
+                              <div className="w-2 h-2 bg-green-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
+                              <span className="text-white/80 text-sm">{benefit}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Défis */}
+                      <div className="glass p-6 rounded-xl border border-orange-400/30">
+                        <h6 className="font-bold text-orange-400 mb-4 flex items-center gap-2">
+                          <Target size={20} />
+                          Défis rencontrés
+                        </h6>
+                        <div className="space-y-3">
+                          {process.challenges.map((challenge, index) => (
+                            <div key={index} className="flex items-center gap-3 group">
+                              <div className="w-2 h-2 bg-orange-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
+                              <span className="text-white/80 text-sm">{challenge}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Illustration visuelle */}
+                      <div className="relative overflow-hidden rounded-2xl group">
+                        <img 
+                          src={
+                            key === 'sprint-planning' ? "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" :
+                            key === 'daily-scrum' ? "https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg" :
+                            key === 'sprint-review' ? "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg" :
+                            key === 'retrospective' ? "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg" :
+                            "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
+                          }
+                          alt={`${process.title} illustration`}
+                          className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+                          <p className="text-white font-medium text-sm">
+                            {process.title} en action dans notre équipe
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            ))}
           </div>
           
           {/* Team composition and role rotation */}
@@ -236,83 +521,6 @@ const MethodologieSection: React.FC<SectionProps> = ({ isActive }) => {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-          
-          {/* Scrum rituals */}
-          <div className="card card-glow scale-in delay-500">
-            <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-              Rituels Scrum appliqués
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { 
-                  name: 'Sprint Planning', 
-                  icon: Calendar, 
-                  color: 'from-[var(--color-secondary)] to-[var(--color-secondary-light)]',
-                  freq: 'Lundi',
-                  duration: '30 min',
-                  objective: 'Sélection des User Stories',
-                  support: 'Jira Timeline'
-                },
-                { 
-                  name: 'Daily Scrum', 
-                  icon: Clock, 
-                  color: 'from-[var(--color-primary)] to-[var(--color-primary-light)]',
-                  freq: 'Lun-Ven',
-                  duration: '10 min',
-                  objective: 'Synchronisation équipe',
-                  support: 'Slack #daily'
-                },
-                { 
-                  name: 'Sprint Review', 
-                  icon: Gauge, 
-                  color: 'from-[var(--color-accent-light)] to-blue-600',
-                  freq: 'Mercredi',
-                  duration: '45 min',
-                  objective: 'Démo et feedback',
-                  support: 'Entretien hebdomadaire'
-                },
-                { 
-                  name: 'Rétrospective', 
-                  icon: Repeat, 
-                  color: 'from-green-500 to-emerald-600',
-                  freq: 'Vendredi',
-                  duration: '60 min',
-                  objective: 'Bilan et amélioration',
-                  support: 'Confluence'
-                }
-              ].map((ritual, index) => (
-                <div key={ritual.name} className="glass p-6 rounded-xl border border-white/20 group hover:border-white/30 transition-all duration-300 hover:scale-105">
-                  <div className="text-center">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${ritual.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                      <ritual.icon size={28} className="text-white" />
-                    </div>
-                    
-                    <h4 className="text-lg font-bold text-white mb-4">{ritual.name}</h4>
-                    
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Fréquence:</span>
-                        <span className="text-white font-medium">{ritual.freq}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Durée:</span>
-                        <span className="text-white font-medium">{ritual.duration}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Objectif:</span>
-                        <span className="text-white font-medium text-right">{ritual.objective}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Support:</span>
-                        <span className="text-white font-medium">{ritual.support}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
