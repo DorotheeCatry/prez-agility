@@ -24,6 +24,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
         '"On reste focus, pas de discussion technique"',
         '"J\'ai noté un point à creuser avec..."',
         '"Si vous avez d\'autres sujets, restez après"'
+      ],
+      keywords: [
+        'Synchronisation', 'Timer', 'Blocages', 'Actions', 'Focus', 'Équipe'
       ]
     },
     { 
@@ -36,6 +39,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
         '"J\'ai validé les user stories du Sprint..."',
         '"Je prépare les critères d\'acceptation"',
         '"Pas de blocage de mon côté"'
+      ],
+      keywords: [
+        'User Stories', 'Backlog', 'Validation', 'Critères', 'Priorisation', 'Sprint Goal'
       ]
     },
     { 
@@ -48,6 +54,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
         '"J\'ai bossé sur le nettoyage des données"',
         '"Je commence le prétraitement pour..."',
         '"J\'ai un doute sur... je veux en discuter"'
+      ],
+      keywords: [
+        'Données', 'Modèle', 'Algorithme', 'Performance', 'Preprocessing', 'Métriques'
       ]
     },
     { 
@@ -60,6 +69,9 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
         '"J\'ai fini l\'intégration de..."',
         '"Je passe sur les tests unitaires"',
         '"Pas de blocage, tout roule !"'
+      ],
+      keywords: [
+        'Interface', 'Tests', 'Intégration', 'API', 'Frontend', 'Déploiement'
       ]
     }
   ];
@@ -92,7 +104,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       timeCode: '2:00',
       speaker: 'Eliandy',
       role: 'Développeur Full-Stack',
-      content: "Yes ! Hier, j'ai fini l'intégration de la page de visualisation des prédictions. Aujourd'hui, je passe sur les tests unitaires de cette partie. Pas de blocage, tout roule !",
+      content: "MOTS-CLÉS À UTILISER : Interface, Tests, Intégration, Pas de blocage, Fonctionnel",
       action: 'Réponse aux 3 questions',
       tools: 'Update statut Jira, commit GitHub visible'
     },
@@ -102,7 +114,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       timeCode: '4:00',
       speaker: 'Nicolas',
       role: 'Product Owner',
-      content: "Top ! Hier, j'ai validé les user stories du Sprint 3 et mis à jour le backlog. Aujourd'hui, je prépare les critères d'acceptation pour les nouvelles stories. Pas de blocage de mon côté non plus.",
+      content: "MOTS-CLÉS À UTILISER : User Stories, Backlog, Validation, Critères d'acceptation, Sprint",
       action: 'Update PO',
       tools: 'Jira backlog updated, Confluence DoD'
     },
@@ -112,7 +124,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       timeCode: '6:00',
       speaker: 'Maxime',
       role: 'Développeur ML',
-      content: "Hier, j'ai bossé sur le nettoyage des données pour les modèles. Aujourd'hui, je commence le prétraitement pour le modèle de prédiction. Petit blocage : j'ai un doute sur l'algorithme à utiliser, je veux en discuter avec Dorothée après.",
+      content: "MOTS-CLÉS À UTILISER : Données, Modèle, Algorithme, Blocage technique, Discussion après",
       action: 'Identification d\'un blocage',
       tools: 'Note blocage dans Jira, @mention Slack'
     },
@@ -563,10 +575,15 @@ const DialogueInteractifContent: React.FC<{
                 <div className="glass p-6 rounded-xl border border-[var(--color-primary)]/30">
                   <div className="flex items-center gap-2 mb-3">
                     <MessageSquare size={16} className="text-[var(--color-primary)]" />
-                    <span className="font-bold text-white text-sm">Dialogue</span>
+                    <span className="font-bold text-white text-sm">
+                      {currentDialogue?.speaker === 'Dorothée' ? 'Dialogue complet' : 'Mots-clés à utiliser'}
+                    </span>
                   </div>
                   <p className="text-white/90 leading-relaxed text-lg italic">
-                    "{currentDialogue?.content}"
+                    {currentDialogue?.speaker === 'Dorothée' 
+                      ? `"${currentDialogue?.content}"`
+                      : currentDialogue?.content
+                    }
                   </p>
                 </div>
 
@@ -656,11 +673,34 @@ const RolesMotsClesContent: React.FC<{ participants: any[] }> = ({ participants 
                 </ul>
               </div>
 
+              {/* Mots-clés à utiliser */}
+              <div className="glass p-4 rounded-xl border border-white/20">
+                <h6 className="font-bold text-white mb-3 flex items-center gap-2">
+                  <Zap size={14} className="text-yellow-400" />
+                  Mots-clés à utiliser
+                </h6>
+                <div className="flex flex-wrap gap-2">
+                  {participant.keywords.map((keyword: string, keyIndex: number) => (
+                    <span 
+                      key={keyIndex} 
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        participant.name === 'Dorothée' ? 'bg-red-500/20 text-red-400' :
+                        participant.name === 'Nicolas' ? 'bg-blue-500/20 text-blue-400' :
+                        participant.name === 'Maxime' ? 'bg-green-500/20 text-green-400' :
+                        'bg-purple-500/20 text-purple-400'
+                      }`}
+                    >
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               {/* Phrases clés */}
               <div className="glass p-4 rounded-xl border border-white/20">
                 <h6 className="font-bold text-white mb-3 flex items-center gap-2">
                   <MessageSquare size={14} className="text-blue-400" />
-                  Phrases clés à retenir
+                  Exemples de phrases
                 </h6>
                 <div className="space-y-2">
                   {participant.keyPhrases.map((phrase: string, phraseIndex: number) => (
@@ -688,21 +728,21 @@ const RolesMotsClesContent: React.FC<{ participants: any[] }> = ({ participants 
               )}
 
               {participant.name !== 'Dorothée' && (
-                <div className="glass p-4 rounded-xl border border-green-400/30">
-                  <h6 className="font-bold text-green-400 mb-2 flex items-center gap-2">
+                <div className="glass p-4 rounded-xl border border-orange-400/30">
+                  <h6 className="font-bold text-orange-400 mb-2 flex items-center gap-2">
                     <Target size={14} />
-                    Mots-clés à utiliser
+                    Structure recommandée
                   </h6>
-                  <div className="flex flex-wrap gap-2">
-                    {participant.name === 'Nicolas' && ['Validé', 'Backlog', 'Critères', 'Priorisé'].map((word, i) => (
-                      <span key={i} className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">{word}</span>
-                    ))}
-                    {participant.name === 'Maxime' && ['Nettoyage', 'Preprocessing', 'Modèle', 'Algorithme'].map((word, i) => (
-                      <span key={i} className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">{word}</span>
-                    ))}
-                    {participant.name === 'Eliandy' && ['Intégration', 'Tests', 'Interface', 'Déploiement'].map((word, i) => (
-                      <span key={i} className="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded-full">{word}</span>
-                    ))}
+                  <div className="space-y-2 text-xs text-white/80">
+                    <div className="p-2 bg-black/20 rounded">
+                      <strong>Hier :</strong> "J'ai [action] sur [sujet]"
+                    </div>
+                    <div className="p-2 bg-black/20 rounded">
+                      <strong>Aujourd'hui :</strong> "Je vais [action] [détail]"
+                    </div>
+                    <div className="p-2 bg-black/20 rounded">
+                      <strong>Blocage :</strong> "J'ai besoin de [aide/clarification]"
+                    </div>
                   </div>
                 </div>
               )}
