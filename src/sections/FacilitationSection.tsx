@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, X } from 'lucide-react';
+import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, X, Settings } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -74,7 +74,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Scrum Master',
       content: "Salut tout le monde ! C'est l'heure de notre Daily Scrum. Petit rappel rapide avant qu'on commence : Le Daily, c'est notre rituel d'équipe pour rester synchronisés. Chacun répond à 3 questions : Qu'est-ce que j'ai fait hier ? Que vais-je faire aujourd'hui ? Est-ce que j'ai un blocage ?",
       action: 'Cadrage du rituel',
-      tips: 'Rappel des règles, ton énergique, cadrage temporel'
+      tools: 'Ouverture Slack #daily, timer 10min visible'
     },
     {
       phase: 'Ouverture',
@@ -84,7 +84,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Scrum Master',
       content: "On reste focus, pas de discussion technique ici : on garde ça pour après. Nous avons 10 minutes maximum. Allez, on commence ! Eliandy, tu veux y aller ?",
       action: 'Lancement des tours de parole',
-      tips: 'Éviter les discussions techniques, désigner le premier'
+      tools: 'Désignation ordre de passage, prise de notes'
     },
     {
       phase: 'Tour de parole 1',
@@ -94,7 +94,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Développeur Full-Stack',
       content: "Yes ! Hier, j'ai fini l'intégration de la page de visualisation des prédictions. Aujourd'hui, je passe sur les tests unitaires de cette partie. Pas de blocage, tout roule !",
       action: 'Réponse aux 3 questions',
-      tips: 'Concis, factuel, positif'
+      tools: 'Update statut Jira, commit GitHub visible'
     },
     {
       phase: 'Tour de parole 2',
@@ -104,7 +104,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Product Owner',
       content: "Top ! Hier, j'ai validé les user stories du Sprint 3 et mis à jour le backlog. Aujourd'hui, je prépare les critères d'acceptation pour les nouvelles stories. Pas de blocage de mon côté non plus.",
       action: 'Update PO',
-      tips: 'Focus sur la valeur business, backlog'
+      tools: 'Jira backlog updated, Confluence DoD'
     },
     {
       phase: 'Tour de parole 3',
@@ -114,7 +114,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Développeur ML',
       content: "Hier, j'ai bossé sur le nettoyage des données pour les modèles. Aujourd'hui, je commence le prétraitement pour le modèle de prédiction. Petit blocage : j'ai un doute sur l'algorithme à utiliser, je veux en discuter avec Dorothée après.",
       action: 'Identification d\'un blocage',
-      tips: 'Honnêteté sur les difficultés, demande d\'aide'
+      tools: 'Note blocage dans Jira, @mention Slack'
     },
     {
       phase: 'Clôture',
@@ -124,7 +124,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Scrum Master',
       content: "Parfait ! Merci à tous pour vos updates. J'ai noté un point à creuser avec Maxime sur le choix d'algorithme. Si vous avez d'autres sujets, restez après le Daily. Sinon, bonne journée et bon courage à tous !",
       action: 'Synthèse et actions',
-      tips: 'Prise de notes visible, planification post-Daily'
+      tools: 'Création task Jira, planning post-Daily'
     },
     {
       phase: 'Conclusion pédagogique',
@@ -134,7 +134,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       role: 'Scrum Master',
       content: "Vous voyez, en 10 minutes, on a : synchronisé toute l'équipe, mis en lumière un blocage, et préparé l'action du jour. C'est ça l'esprit Agile : avancer ensemble, avec transparence et réactivité !",
       action: 'Explication pédagogique',
-      tips: 'Valorisation du rituel, bénéfices concrets'
+      tools: 'Récap dans Slack #daily, update board'
     }
   ];
 
@@ -581,10 +581,10 @@ const DialogueInteractifContent: React.FC<{
 
                   <div className="glass p-4 rounded-xl border border-white/20">
                     <div className="flex items-center gap-2 mb-2">
-                      <Star size={16} className="text-yellow-400" />
-                      <span className="font-bold text-white text-sm">Conseil</span>
+                      <Settings size={16} className="text-blue-400" />
+                      <span className="font-bold text-white text-sm">Outils</span>
                     </div>
-                    <p className="text-white/80 text-sm">{currentDialogue?.tips}</p>
+                    <p className="text-white/80 text-sm">{currentDialogue?.tools}</p>
                   </div>
                 </div>
               </div>
