@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar } from 'lucide-react';
+import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, X } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -64,11 +64,11 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
     }
   ];
 
-  // Script de dialogue Daily Scrum
+  // Script de dialogue Daily Scrum (10 minutes)
   const dailyScrumDialogue = [
     {
       phase: 'Ouverture',
-      duration: '1 min',
+      duration: '2 min',
       timeCode: '0:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
@@ -78,18 +78,18 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
     },
     {
       phase: 'Ouverture',
-      duration: '1 min',
-      timeCode: '0:30',
+      duration: '2 min',
+      timeCode: '1:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
-      content: "On reste focus, pas de discussion technique ici : on garde ça pour après. Allez, on commence ! Eliandy, tu veux y aller ?",
+      content: "On reste focus, pas de discussion technique ici : on garde ça pour après. Nous avons 10 minutes maximum. Allez, on commence ! Eliandy, tu veux y aller ?",
       action: 'Lancement des tours de parole',
       tips: 'Éviter les discussions techniques, désigner le premier'
     },
     {
       phase: 'Tour de parole 1',
       duration: '2 min',
-      timeCode: '1:00',
+      timeCode: '2:00',
       speaker: 'Eliandy',
       role: 'Développeur Full-Stack',
       content: "Yes ! Hier, j'ai fini l'intégration de la page de visualisation des prédictions. Aujourd'hui, je passe sur les tests unitaires de cette partie. Pas de blocage, tout roule !",
@@ -99,7 +99,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
     {
       phase: 'Tour de parole 2',
       duration: '2 min',
-      timeCode: '1:30',
+      timeCode: '4:00',
       speaker: 'Nicolas',
       role: 'Product Owner',
       content: "Top ! Hier, j'ai validé les user stories du Sprint 3 et mis à jour le backlog. Aujourd'hui, je prépare les critères d'acceptation pour les nouvelles stories. Pas de blocage de mon côté non plus.",
@@ -109,7 +109,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
     {
       phase: 'Tour de parole 3',
       duration: '2 min',
-      timeCode: '2:00',
+      timeCode: '6:00',
       speaker: 'Maxime',
       role: 'Développeur ML',
       content: "Hier, j'ai bossé sur le nettoyage des données pour les modèles. Aujourd'hui, je commence le prétraitement pour le modèle de prédiction. Petit blocage : j'ai un doute sur l'algorithme à utiliser, je veux en discuter avec Dorothée après.",
@@ -119,7 +119,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
     {
       phase: 'Clôture',
       duration: '1 min',
-      timeCode: '2:30',
+      timeCode: '8:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
       content: "Parfait ! Merci à tous pour vos updates. J'ai noté un point à creuser avec Maxime sur le choix d'algorithme. Si vous avez d'autres sujets, restez après le Daily. Sinon, bonne journée et bon courage à tous !",
@@ -129,10 +129,10 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
     {
       phase: 'Conclusion pédagogique',
       duration: '1 min',
-      timeCode: '3:00',
+      timeCode: '9:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
-      content: "Vous voyez, en 5 minutes, on a : synchronisé toute l'équipe, mis en lumière un blocage, et préparé l'action du jour. C'est ça l'esprit Agile : avancer ensemble, avec transparence et réactivité !",
+      content: "Vous voyez, en 10 minutes, on a : synchronisé toute l'équipe, mis en lumière un blocage, et préparé l'action du jour. C'est ça l'esprit Agile : avancer ensemble, avec transparence et réactivité !",
       action: 'Explication pédagogique',
       tips: 'Valorisation du rituel, bénéfices concrets'
     }
@@ -265,7 +265,7 @@ const DailyScrumOverviewContent: React.FC = () => {
               </h4>
               <p className="text-white/80 leading-relaxed mb-4">
                 Le Daily Scrum est le rituel le plus fréquent de notre équipe. Chaque matin, 
-                nous nous synchronisons en 5 minutes pour rester alignés sur nos objectifs.
+                nous nous synchronisons en 10 minutes pour rester alignés sur nos objectifs.
               </p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
@@ -311,7 +311,7 @@ const DailyScrumOverviewContent: React.FC = () => {
               </h4>
               <ul className="space-y-2">
                 {[
-                  'Maximum 15 minutes (nous : 5 minutes)',
+                  'Maximum 15 minutes (nous : 10 minutes)',
                   'Pas de discussion technique détaillée',
                   'Focus sur la synchronisation, pas la résolution',
                   'Tout le monde debout (énergie !)',
@@ -338,7 +338,7 @@ const DailyScrumOverviewContent: React.FC = () => {
                   Daily Scrum matinal
                 </h4>
                 <p className="text-white/90">
-                  Synchronisation quotidienne de l'équipe en 5 minutes
+                  Synchronisation quotidienne de l'équipe en 10 minutes
                 </p>
               </div>
             </div>
@@ -357,7 +357,7 @@ const DailyScrumOverviewContent: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-white/70">Durée :</span>
-                  <span className="text-white font-bold">5 minutes max</span>
+                  <span className="text-white font-bold">10 minutes max</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-white/70">Format :</span>
@@ -396,18 +396,18 @@ const DailyScrumOverviewContent: React.FC = () => {
       {/* Timeline d'un Daily type */}
       <div className="card card-glow scale-in delay-200">
         <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Déroulement d'un Daily type
+          Déroulement d'un Daily type (10 minutes)
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {[
             { time: '0:00', phase: 'Ouverture', desc: 'Rappel des règles', color: 'from-blue-500 to-indigo-600', icon: Coffee },
-            { time: '0:30', phase: 'Lancement', desc: 'Désignation 1er speaker', color: 'from-green-500 to-emerald-600', icon: PlayCircle },
-            { time: '1:00', phase: 'Tour 1', desc: 'Dev Full-Stack', color: 'from-purple-500 to-pink-600', icon: UserCheck },
-            { time: '1:30', phase: 'Tour 2', desc: 'Product Owner', color: 'from-orange-500 to-red-600', icon: Target },
-            { time: '2:00', phase: 'Tour 3', desc: 'Dev ML', color: 'from-teal-500 to-cyan-600', icon: Zap },
-            { time: '2:30', phase: 'Synthèse', desc: 'Actions & blocages', color: 'from-yellow-500 to-orange-600', icon: CheckCircle },
-            { time: '3:00', phase: 'Clôture', desc: 'Motivation équipe', color: 'from-pink-500 to-rose-600', icon: Star }
+            { time: '1:00', phase: 'Lancement', desc: 'Désignation 1er speaker', color: 'from-green-500 to-emerald-600', icon: PlayCircle },
+            { time: '2:00', phase: 'Tour 1', desc: 'Dev Full-Stack', color: 'from-purple-500 to-pink-600', icon: UserCheck },
+            { time: '4:00', phase: 'Tour 2', desc: 'Product Owner', color: 'from-orange-500 to-red-600', icon: Target },
+            { time: '6:00', phase: 'Tour 3', desc: 'Dev ML', color: 'from-teal-500 to-cyan-600', icon: Zap },
+            { time: '8:00', phase: 'Synthèse', desc: 'Actions & blocages', color: 'from-yellow-500 to-orange-600', icon: CheckCircle },
+            { time: '9:00', phase: 'Clôture', desc: 'Motivation équipe', color: 'from-pink-500 to-rose-600', icon: Star }
           ].map((step, index) => (
             <div key={index} className="text-center group">
               <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
@@ -445,7 +445,7 @@ const DialogueInteractifContent: React.FC<{
       <div className="card card-glow">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-display font-bold text-white">
-            Dialogue interactif - Daily Scrum
+            Dialogue interactif - Daily Scrum (10 min)
           </h3>
           <div className="flex items-center gap-4">
             <button
