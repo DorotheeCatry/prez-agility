@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, X, Settings, Info, MapPin } from 'lucide-react';
+import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, Info, AlertCircle, Lightbulb } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -11,90 +11,46 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
 
-  // Contexte du projet pour situer le dialogue
-  const projectContext = {
-    currentSprint: 3,
-    sprintGoal: "Développer l'interface utilisateur Django et l'API FastAPI",
-    weekDay: "Mercredi",
-    date: "15 Janvier 2025",
-    time: "9h00",
-    previousSprint: {
-      completed: ["Scraping Allociné stabilisé", "Modèles ML entraînés", "Première API fonctionnelle"],
-      challenges: ["Problèmes de performance sur le scraping", "Choix d'algorithme pour les embeddings"]
-    },
-    currentSprintProgress: {
-      completed: ["Interface Django initialisée", "Première page de visualisation"],
-      inProgress: ["Tests unitaires", "Intégration API-Frontend", "Preprocessing NLP"],
-      upcoming: ["Déploiement local", "Documentation utilisateur"]
-    }
-  };
-
   // Données des participants
   const participants = [
     { 
       name: 'Dorothée', 
       role: 'Scrum Master', 
       color: 'from-red-500 to-red-600',
-      avatar: '🧑‍🏫',
-      responsibilities: ['Animation du Daily', 'Gestion du temps', 'Identification des blocages'],
-      keyPhrases: [
-        '"C\'est l\'heure de notre Daily Scrum !"',
-        '"On reste focus, pas de discussion technique"',
-        '"J\'ai noté un point à creuser avec..."',
-        '"Si vous avez d\'autres sujets, restez après"'
-      ],
-      keywords: [
-        'Synchronisation', 'Timer', 'Blocages', 'Actions', 'Focus', 'Équipe'
-      ]
+      avatar: '👩‍💼',
+      responsibilities: ['Animation générale', 'Gestion du temps', 'Facilitation des échanges']
     },
     { 
       name: 'Nicolas', 
       role: 'Product Owner', 
       color: 'from-blue-500 to-blue-600',
-      avatar: '🧑‍🎨',
-      responsibilities: ['Validation User Stories', 'Mise à jour backlog', 'Critères d\'acceptation'],
-      keyPhrases: [
-        '"J\'ai validé les user stories du Sprint..."',
-        '"Je prépare les critères d\'acceptation"',
-        '"Pas de blocage de mon côté"'
-      ],
-      keywords: [
-        'User Stories', 'Backlog', 'Validation', 'Critères', 'Priorisation', 'Sprint Goal'
-      ]
+      avatar: '👨‍💻',
+      responsibilities: ['Vision produit', 'Priorisation', 'Critères d\'acceptation']
     },
     { 
       name: 'Maxime', 
       role: 'Développeur ML', 
       color: 'from-green-500 to-green-600',
-      avatar: '👨‍🔧',
-      responsibilities: ['Développement modèles', 'Preprocessing données', 'Tests ML'],
-      keyPhrases: [
-        '"J\'ai bossé sur le nettoyage des données"',
-        '"Je commence le prétraitement pour..."',
-        '"J\'ai un doute sur... je veux en discuter"'
-      ],
-      keywords: [
-        'Données', 'Modèle', 'Algorithme', 'Performance', 'Preprocessing', 'Métriques'
-      ]
+      avatar: '🧑‍🔬',
+      responsibilities: ['Démonstration technique', 'Métriques ML', 'Performance modèles']
     },
     { 
       name: 'Eliandy', 
       role: 'Développeur Full-Stack', 
       color: 'from-purple-500 to-purple-600',
-      avatar: '👩‍💻',
-      responsibilities: ['Interface utilisateur', 'Tests unitaires', 'Intégration'],
-      keyPhrases: [
-        '"J\'ai fini l\'intégration de..."',
-        '"Je passe sur les tests unitaires"',
-        '"Pas de blocage, tout roule !"'
-      ],
-      keywords: [
-        'Interface', 'Tests', 'Intégration', 'API', 'Frontend', 'Déploiement'
-      ]
+      avatar: '👨‍💻',
+      responsibilities: ['Interface utilisateur', 'API', 'Intégration']
+    },
+    { 
+      name: 'Jury', 
+      role: 'Stakeholders', 
+      color: 'from-yellow-500 to-orange-500',
+      avatar: '👥',
+      responsibilities: ['Feedback', 'Questions', 'Validation']
     }
   ];
 
-  // Script de dialogue Daily Scrum (10 minutes)
+  // Script de dialogue interactif pour Daily Scrum
   const dailyScrumDialogue = [
     {
       phase: 'Ouverture',
@@ -102,69 +58,59 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       timeCode: '0:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
-      content: "Salut tout le monde ! C'est l'heure de notre Daily Scrum. Petit rappel rapide avant qu'on commence : Le Daily, c'est notre rituel d'équipe pour rester synchronisés. Chacun répond à 3 questions : Qu'est-ce que j'ai fait hier ? Que vais-je faire aujourd'hui ? Est-ce que j'ai un blocage ?",
-      action: 'Cadrage du rituel',
-      tools: 'Ouverture Slack #daily, timer 10min visible'
+      content: "Salut tout le monde ! C'est l'heure de notre Daily Scrum. Petit rappel rapide avant qu'on commence : Le Daily, c'est notre rituel d'équipe pour rester synchronisés. Chacun répond à 3 questions : Qu'est-ce que j'ai fait hier ? Que vais-je faire aujourd'hui ? Est-ce que j'ai un blocage ? On reste focus, pas de discussion technique ici : on garde ça pour après. Allez, on commence ! Nicolas, tu veux y aller ?",
+      action: 'Cadrage et lancement du Daily',
+      outils: 'Jira ouvert, Slack #daily, chronomètre 10min'
     },
     {
-      phase: 'Ouverture',
-      duration: '2 min',
-      timeCode: '1:00',
-      speaker: 'Dorothée',
-      role: 'Scrum Master',
-      content: "On reste focus, pas de discussion technique ici : on garde ça pour après. Nous avons 10 minutes maximum. Allez, on commence ! Eliandy, tu veux y aller ?",
-      action: 'Lancement des tours de parole',
-      tools: 'Désignation ordre de passage, prise de notes'
-    },
-    {
-      phase: 'Tour de parole 1',
-      duration: '2 min',
+      phase: 'Tour de table',
+      duration: '6 min',
       timeCode: '2:00',
-      speaker: 'Eliandy',
-      role: 'Développeur Full-Stack',
-      content: "MOTS-CLÉS À UTILISER : Interface, Tests, Intégration, Pas de blocage, Fonctionnel",
-      action: 'Réponse aux 3 questions',
-      tools: 'Update statut Jira, commit GitHub visible'
-    },
-    {
-      phase: 'Tour de parole 2',
-      duration: '2 min',
-      timeCode: '4:00',
       speaker: 'Nicolas',
       role: 'Product Owner',
-      content: "MOTS-CLÉS À UTILISER : User Stories, Backlog, Validation, Critères d'acceptation, Sprint",
-      action: 'Update PO',
-      tools: 'Jira backlog updated, Confluence DoD'
+      content: 'MOTS-CLÉS : Backlog refinement - User Stories Sprint 3 - Critères acceptation - Priorisation features - Validation stakeholders',
+      action: 'Partage avancement PO',
+      outils: 'Update statut stories Jira, notes Confluence'
     },
     {
-      phase: 'Tour de parole 3',
-      duration: '2 min',
-      timeCode: '6:00',
+      phase: 'Tour de table',
+      duration: '6 min',
+      timeCode: '4:00',
       speaker: 'Maxime',
       role: 'Développeur ML',
-      content: "MOTS-CLÉS À UTILISER : Données, Modèle, Algorithme, Blocage technique, Discussion après",
-      action: 'Identification d\'un blocage',
-      tools: 'Note blocage dans Jira, @mention Slack'
+      content: 'MOTS-CLÉS : Feature engineering - Modèle LightGBM - Métriques performance - Preprocessing données - Embeddings acteurs',
+      action: 'Partage avancement ML',
+      outils: 'Update tâches techniques Jira, commit GitHub'
+    },
+    {
+      phase: 'Tour de table',
+      duration: '6 min',
+      timeCode: '6:00',
+      speaker: 'Eliandy',
+      role: 'Développeur Full-Stack',
+      content: 'MOTS-CLÉS : Interface Django - API FastAPI - Intégration frontend-backend - Formulaires prédiction - Documentation API',
+      action: 'Partage avancement développement',
+      outils: 'Update stories Jira, push branches GitHub'
+    },
+    {
+      phase: 'Identification blocages',
+      duration: '1 min',
+      timeCode: '8:00',
+      speaker: 'Maxime',
+      role: 'Développeur ML',
+      content: 'MOTS-CLÉS : Blocage tokeniseur NLP - Choix algorithme - Performance modèle - Besoin aide équipe',
+      action: 'Signalement blocage technique',
+      outils: 'Création ticket blocage Jira, planification point technique'
     },
     {
       phase: 'Clôture',
       duration: '1 min',
-      timeCode: '8:00',
-      speaker: 'Dorothée',
-      role: 'Scrum Master',
-      content: "Parfait ! Merci à tous pour vos updates. J'ai noté un point à creuser avec Maxime sur le choix d'algorithme. Si vous avez d'autres sujets, restez après le Daily. Sinon, bonne journée et bon courage à tous !",
-      action: 'Synthèse et actions',
-      tools: 'Création task Jira, planning post-Daily'
-    },
-    {
-      phase: 'Conclusion pédagogique',
-      duration: '1 min',
       timeCode: '9:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
-      content: "Vous voyez, en 10 minutes, on a : synchronisé toute l'équipe, mis en lumière un blocage, et préparé l'action du jour. C'est ça l'esprit Agile : avancer ensemble, avec transparence et réactivité !",
-      action: 'Explication pédagogique',
-      tools: 'Récap dans Slack #daily, update board'
+      content: "Parfait ! Merci à tous pour vos updates. J'ai noté un point à creuser avec Maxime sur le tokeniseur. Si vous avez d'autres sujets, restez après le Daily. Sinon, bonne journée et bon courage à tous ! Vous voyez, en 10 minutes, on a : synchronisé toute l'équipe, mis en lumière un blocage, et préparé l'action du jour. C'est ça l'esprit Agile : avancer ensemble, avec transparence et réactivité !",
+      action: 'Synthèse et clôture',
+      outils: 'Mise à jour tableau Jira, notes actions Slack'
     }
   ];
 
@@ -211,28 +157,28 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
           {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-blue-600/20 rounded-full border border-white/20 backdrop-blur-sm fade-in mb-6">
-              <Clock size={16} className="text-indigo-400" />
-              <span className="text-sm font-medium text-white">Daily Scrum - Le rituel le plus fréquent</span>
+              <Users size={16} className="text-indigo-400" />
+              <span className="text-sm font-medium text-white">Animation Daily Scrum</span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 fade-in delay-200">
               <span className="gradient-text">C4: Animation</span>
               <br />
-              <span className="text-white">du Daily Scrum</span>
+              <span className="text-white">d'un Daily Scrum</span>
             </h2>
             
             <p className="text-xl text-white/80 max-w-4xl mx-auto fade-in delay-400 leading-relaxed">
-              Démonstration interactive du rituel quotidien : dialogue, rôles et bonnes pratiques
+              Démonstration interactive d'un Daily Scrum : le rituel le plus fréquent de Scrum
             </p>
           </div>
 
           {/* Navigation principale */}
           <div className="flex flex-wrap gap-4 mb-12 justify-center">
             {[
-              { id: 'overview', label: 'Le Daily Scrum', icon: Eye, color: 'from-blue-500 to-indigo-600' },
-              { id: 'context', label: 'Contexte du dialogue', icon: Info, color: 'from-orange-500 to-red-600' },
+              { id: 'overview', label: 'Vue d\'ensemble', icon: Eye, color: 'from-blue-500 to-indigo-600' },
+              { id: 'contexte', label: 'Contexte du dialogue', icon: Info, color: 'from-orange-500 to-red-600' },
               { id: 'dialogue', label: 'Dialogue interactif', icon: MessageSquare, color: 'from-green-500 to-emerald-600' },
-              { id: 'roles', label: 'Rôles & Mots-clés', icon: Users, color: 'from-purple-500 to-pink-600' }
+              { id: 'roles', label: 'Rôles & Responsabilités', icon: Users, color: 'from-purple-500 to-pink-600' }
             ].map((tab) => (
               <button 
                 key={tab.id}
@@ -251,11 +197,11 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
 
           {/* Contenu selon l'onglet actif */}
           {activeDemo === 'overview' && (
-            <DailyScrumOverviewContent />
+            <OverviewContent />
           )}
 
-          {activeDemo === 'context' && (
-            <ProjectContextContent context={projectContext} />
+          {activeDemo === 'contexte' && (
+            <ContexteDialogueContent />
           )}
 
           {activeDemo === 'dialogue' && (
@@ -268,12 +214,11 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
               onPlayPause={handlePlayPause}
               onReset={resetDialogue}
               getCurrentSpeaker={getCurrentSpeaker}
-              context={projectContext}
             />
           )}
 
           {activeDemo === 'roles' && (
-            <RolesMotsClesContent participants={participants} />
+            <RolesResponsabilitesContent participants={participants} />
           )}
         </div>
       </section>
@@ -281,229 +226,13 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
   );
 };
 
-// Nouveau composant pour le contexte du projet
-const ProjectContextContent: React.FC<{ context: any }> = ({ context }) => {
+// Composant Vue d'ensemble
+const OverviewContent: React.FC = () => {
   return (
     <div className="space-y-12">
       <div className="card card-glow scale-in">
         <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Contexte du Daily Scrum
-        </h3>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Situation actuelle */}
-          <div className="space-y-6">
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                  <MapPin size={20} className="text-white" />
-                </div>
-                Où nous en sommes
-              </h4>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-black/20 rounded-lg">
-                  <span className="text-white/70">Sprint actuel :</span>
-                  <span className="text-white font-bold">Sprint {context.currentSprint}/4</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-black/20 rounded-lg">
-                  <span className="text-white/70">Date :</span>
-                  <span className="text-white font-bold">{context.weekDay} {context.date}</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-black/20 rounded-lg">
-                  <span className="text-white/70">Heure :</span>
-                  <span className="text-white font-bold">{context.time}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-[var(--color-primary)]/30">
-              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg flex items-center justify-center">
-                  <Target size={20} className="text-white" />
-                </div>
-                Sprint Goal actuel
-              </h4>
-              <p className="text-white/90 leading-relaxed text-lg font-medium bg-[var(--color-primary)]/10 p-4 rounded-lg border border-[var(--color-primary)]/20">
-                "{context.sprintGoal}"
-              </p>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                  <CheckCircle size={20} className="text-white" />
-                </div>
-                Sprint précédent - Acquis
-              </h4>
-              <div className="space-y-2">
-                {context.previousSprint.completed.map((item: string, index: number) => (
-                  <div key={index} className="flex items-center gap-3 p-2 bg-green-500/10 rounded-lg">
-                    <CheckCircle size={16} className="text-green-400" />
-                    <span className="text-white/80 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Progression actuelle */}
-          <div className="space-y-6">
-            <div className="glass p-6 rounded-xl border border-green-400/30">
-              <h4 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-3">
-                <CheckCircle size={20} />
-                ✅ Terminé cette semaine
-              </h4>
-              <div className="space-y-2">
-                {context.currentSprintProgress.completed.map((item: string, index: number) => (
-                  <div key={index} className="flex items-center gap-3 p-2 bg-green-500/10 rounded-lg">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span className="text-white/80 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-orange-400/30">
-              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
-                <Clock size={20} />
-                🔄 En cours aujourd'hui
-              </h4>
-              <div className="space-y-2">
-                {context.currentSprintProgress.inProgress.map((item: string, index: number) => (
-                  <div key={index} className="flex items-center gap-3 p-2 bg-orange-500/10 rounded-lg">
-                    <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-blue-400/30">
-              <h4 className="text-xl font-bold text-blue-400 mb-4 flex items-center gap-3">
-                <ArrowRight size={20} />
-                📋 À venir cette semaine
-              </h4>
-              <div className="space-y-2">
-                {context.currentSprintProgress.upcoming.map((item: string, index: number) => (
-                  <div key={index} className="flex items-center gap-3 p-2 bg-blue-500/10 rounded-lg">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span className="text-white/80 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-red-400/30">
-              <h4 className="text-xl font-bold text-red-400 mb-4 flex items-center gap-3">
-                <Zap size={20} />
-                ⚠️ Défis du sprint précédent
-              </h4>
-              <div className="space-y-2">
-                {context.previousSprint.challenges.map((item: string, index: number) => (
-                  <div key={index} className="flex items-center gap-3 p-2 bg-red-500/10 rounded-lg">
-                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                    <span className="text-white/80 text-sm">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Attentes du Daily */}
-      <div className="card card-glow scale-in delay-200">
-        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Ce qu'on attend de ce Daily
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-              <CheckCircle size={32} className="text-white" />
-            </div>
-            <h4 className="text-xl font-bold text-white mb-4">Synchronisation</h4>
-            <p className="text-white/80 text-sm leading-relaxed">
-              Faire le point sur l'avancement de chacun et s'assurer que tout le monde 
-              est aligné sur les priorités du jour.
-            </p>
-          </div>
-
-          <div className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-              <Zap size={32} className="text-white" />
-            </div>
-            <h4 className="text-xl font-bold text-white mb-4">Blocages</h4>
-            <p className="text-white/80 text-sm leading-relaxed">
-              Identifier rapidement les obstacles techniques ou organisationnels 
-              pour planifier des sessions de résolution.
-            </p>
-          </div>
-
-          <div className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-              <Users size={32} className="text-white" />
-            </div>
-            <h4 className="text-xl font-bold text-white mb-4">Collaboration</h4>
-            <p className="text-white/80 text-sm leading-relaxed">
-              Identifier les opportunités de collaboration et planifier 
-              les points de synchronisation nécessaires.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Conseils pour les participants */}
-      <div className="card card-glow scale-in delay-300">
-        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Conseils pour bien participer
-        </h3>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <h4 className="text-xl font-bold text-green-400 mb-4">✅ Bonnes pratiques</h4>
-            {[
-              "Préparer ses 3 réponses avant le Daily",
-              "Être concis et factuel dans ses réponses",
-              "Mentionner les dépendances avec les autres",
-              "Signaler les blocages même mineurs",
-              "Proposer son aide si on a des compétences utiles"
-            ].map((tip, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
-                <CheckCircle size={16} className="text-green-400 mt-1 flex-shrink-0" />
-                <span className="text-white/80 text-sm leading-relaxed">{tip}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-xl font-bold text-orange-400 mb-4">💡 Astuces spécifiques</h4>
-            {[
-              "Utiliser les mots-clés de votre rôle pour structurer",
-              "Mentionner les commits GitHub ou tâches Jira",
-              "Être transparent sur les difficultés rencontrées",
-              "Proposer des créneaux pour les discussions techniques",
-              "Célébrer les petites victoires de l'équipe"
-            ].map((tip, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
-                <Star size={16} className="text-orange-400 mt-1 flex-shrink-0" />
-                <span className="text-white/80 text-sm leading-relaxed">{tip}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Composant Vue d'ensemble du Daily Scrum
-const DailyScrumOverviewContent: React.FC = () => {
-  return (
-    <div className="space-y-12">
-      <div className="card card-glow scale-in">
-        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Le Daily Scrum : Notre rituel quotidien
+          Qu'est-ce qu'un Daily Scrum ?
         </h3>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -513,26 +242,12 @@ const DailyScrumOverviewContent: React.FC = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                   <Target size={20} className="text-white" />
                 </div>
-                Pourquoi le Daily ?
+                Objectif principal
               </h4>
-              <p className="text-white/80 leading-relaxed mb-4">
-                Le Daily Scrum est le rituel le plus fréquent de notre équipe. Chaque matin, 
-                nous nous synchronisons en 10 minutes pour rester alignés sur nos objectifs.
+              <p className="text-white/80 leading-relaxed">
+                Synchroniser quotidiennement l'équipe, identifier les blocages rapidement 
+                et maintenir la transparence sur l'avancement du sprint.
               </p>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <CheckCircle size={16} className="text-green-400" />
-                  <span className="text-white/80 text-sm">Synchronisation quotidienne</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle size={16} className="text-green-400" />
-                  <span className="text-white/80 text-sm">Identification rapide des blocages</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle size={16} className="text-green-400" />
-                  <span className="text-white/80 text-sm">Transparence et collaboration</span>
-                </div>
-              </div>
             </div>
 
             <div className="glass p-6 rounded-xl border border-white/20">
@@ -540,38 +255,42 @@ const DailyScrumOverviewContent: React.FC = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
                   <Clock size={20} className="text-white" />
                 </div>
-                Les 3 questions magiques
+                Format et timing
               </h4>
-              <div className="space-y-4">
-                {[
-                  { q: "Qu'est-ce que j'ai fait hier ?", desc: "Partage des réalisations", color: "text-blue-400" },
-                  { q: "Que vais-je faire aujourd'hui ?", desc: "Engagement sur les objectifs", color: "text-green-400" },
-                  { q: "Est-ce que j'ai un blocage ?", desc: "Identification des obstacles", color: "text-orange-400" }
-                ].map((item, index) => (
-                  <div key={index} className="p-3 bg-black/20 rounded-lg">
-                    <h5 className={`font-bold ${item.color} mb-1`}>{index + 1}. {item.q}</h5>
-                    <p className="text-white/60 text-sm">{item.desc}</p>
-                  </div>
-                ))}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Durée :</span>
+                  <span className="text-white font-bold">10 minutes maximum</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Fréquence :</span>
+                  <span className="text-white font-bold">Tous les jours ouvrés</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Participants :</span>
+                  <span className="text-white font-bold">Équipe de développement</span>
+                </div>
               </div>
             </div>
 
-            <div className="glass p-6 rounded-xl border border-orange-400/30">
-              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
-                <Zap size={20} />
-                Règles d'or du Daily
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                  <CheckCircle size={20} className="text-white" />
+                </div>
+                Les 3 questions clés
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {[
-                  'Maximum 15 minutes (nous : 10 minutes)',
-                  'Pas de discussion technique détaillée',
-                  'Focus sur la synchronisation, pas la résolution',
-                  'Tout le monde debout (énergie !)',
-                  'Même heure, même lieu, chaque jour'
-                ].map((rule, index) => (
+                  'Qu\'ai-je fait hier ?',
+                  'Que vais-je faire aujourd\'hui ?',
+                  'Ai-je des blocages ?'
+                ].map((question, index) => (
                   <li key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                    <span className="text-white/80 text-sm">{rule}</span>
+                    <div className="w-6 h-6 bg-purple-400/20 rounded-full flex items-center justify-center">
+                      <span className="text-purple-400 font-bold text-sm">{index + 1}</span>
+                    </div>
+                    <span className="text-white/80 text-sm font-medium">{question}</span>
                   </li>
                 ))}
               </ul>
@@ -587,57 +306,28 @@ const DailyScrumOverviewContent: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                 <h4 className="text-xl font-display font-bold text-white mb-2">
-                  Daily Scrum matinal
+                  Daily Scrum quotidien
                 </h4>
                 <p className="text-white/90">
-                  Synchronisation quotidienne de l'équipe en 10 minutes
+                  Synchronisation rapide et efficace de l'équipe
                 </p>
               </div>
             </div>
 
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                  <TrendingUp size={20} className="text-white" />
-                </div>
-                Notre adaptation
-              </h4>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Fréquence :</span>
-                  <span className="text-white font-bold">Lundi à Vendredi, 9h00</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Durée :</span>
-                  <span className="text-white font-bold">10 minutes max</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Format :</span>
-                  <span className="text-white font-bold">Présentiel + Slack #daily</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Animation :</span>
-                  <span className="text-white font-bold">Scrum Master du sprint</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg flex items-center justify-center">
-                  <Star size={20} className="text-white" />
-                </div>
-                Bénéfices observés
+            <div className="glass p-6 rounded-xl border border-orange-400/30">
+              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
+                <Zap size={20} />
+                Pourquoi c'est le rituel le plus important ?
               </h4>
               <div className="space-y-3">
                 <p className="text-white/80 text-sm leading-relaxed">
-                  <strong className="text-green-400">Détection rapide :</strong> Identification des blocages avant qu'ils ne deviennent critiques
+                  <strong>Fréquence :</strong> Quotidien = 20 Daily par sprint vs 1 seule Sprint Review
                 </p>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  <strong className="text-blue-400">Coordination :</strong> Évitement des doublons et optimisation des collaborations
+                  <strong>Impact :</strong> Détection rapide des problèmes, coordination continue
                 </p>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  <strong className="text-purple-400">Motivation :</strong> Dynamique d'équipe et sentiment d'appartenance renforcés
+                  <strong>Apprentissage :</strong> Maîtriser le Daily = maîtriser 80% de Scrum
                 </p>
               </div>
             </div>
@@ -645,29 +335,61 @@ const DailyScrumOverviewContent: React.FC = () => {
         </div>
       </div>
 
-      {/* Timeline d'un Daily type */}
+      {/* Structure du Daily Scrum */}
       <div className="card card-glow scale-in delay-200">
         <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Déroulement d'un Daily type (10 minutes)
+          Structure de notre Daily Scrum
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
           {[
-            { time: '0:00', phase: 'Ouverture', desc: 'Rappel des règles', color: 'from-blue-500 to-indigo-600', icon: Coffee },
-            { time: '1:00', phase: 'Lancement', desc: 'Désignation 1er speaker', color: 'from-green-500 to-emerald-600', icon: PlayCircle },
-            { time: '2:00', phase: 'Tour 1', desc: 'Dev Full-Stack', color: 'from-purple-500 to-pink-600', icon: UserCheck },
-            { time: '4:00', phase: 'Tour 2', desc: 'Product Owner', color: 'from-orange-500 to-red-600', icon: Target },
-            { time: '6:00', phase: 'Tour 3', desc: 'Dev ML', color: 'from-teal-500 to-cyan-600', icon: Zap },
-            { time: '8:00', phase: 'Synthèse', desc: 'Actions & blocages', color: 'from-yellow-500 to-orange-600', icon: CheckCircle },
-            { time: '9:00', phase: 'Clôture', desc: 'Motivation équipe', color: 'from-pink-500 to-rose-600', icon: Star }
-          ].map((step, index) => (
-            <div key={index} className="text-center group">
-              <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                <step.icon size={24} className="text-white" />
+            {
+              phase: 'Ouverture',
+              duration: '2 min',
+              icon: Coffee,
+              color: 'from-blue-500 to-indigo-600',
+              activities: ['Cadrage', 'Rappel règles', 'Lancement']
+            },
+            {
+              phase: 'Tour de table',
+              duration: '6 min',
+              icon: Users,
+              color: 'from-green-500 to-emerald-600',
+              activities: ['3 questions', 'Chaque membre', 'Synchronisation']
+            },
+            {
+              phase: 'Blocages',
+              duration: '1 min',
+              icon: AlertCircle,
+              color: 'from-orange-500 to-red-600',
+              activities: ['Identification', 'Signalement', 'Planification']
+            },
+            {
+              phase: 'Actions',
+              duration: '1 min',
+              icon: Target,
+              color: 'from-purple-500 to-pink-600',
+              activities: ['Points techniques', 'Rendez-vous', 'Suivi']
+            },
+            {
+              phase: 'Clôture',
+              duration: '< 1 min',
+              icon: CheckCircle,
+              color: 'from-teal-500 to-cyan-600',
+              activities: ['Synthèse', 'Motivation', 'Fin']
+            }
+          ].map((phase, index) => (
+            <div key={index} className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
+              <div className={`w-16 h-16 bg-gradient-to-br ${phase.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <phase.icon size={28} className="text-white" />
               </div>
-              <div className="text-lg font-bold text-[var(--color-primary)] mb-1">{step.time}</div>
-              <h4 className="text-sm font-bold text-white mb-2">{step.phase}</h4>
-              <p className="text-xs text-white/70">{step.desc}</p>
+              <h4 className="text-lg font-bold text-white mb-2">{phase.phase}</h4>
+              <p className="text-[var(--color-secondary)] font-bold mb-4">{phase.duration}</p>
+              <ul className="space-y-1">
+                {phase.activities.map((activity, actIndex) => (
+                  <li key={actIndex} className="text-white/70 text-sm">{activity}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
@@ -676,7 +398,254 @@ const DailyScrumOverviewContent: React.FC = () => {
   );
 };
 
-// Composant Dialogue Interactif (mis à jour avec contexte)
+// Composant Contexte du dialogue
+const ContexteDialogueContent: React.FC = () => {
+  return (
+    <div className="space-y-12">
+      <div className="card card-glow scale-in">
+        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center flex items-center justify-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center">
+            <Info size={24} className="text-white" />
+          </div>
+          Contexte du dialogue Daily Scrum
+        </h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Situation actuelle */}
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-blue-400/30">
+              <h4 className="text-xl font-bold text-blue-400 mb-4 flex items-center gap-3">
+                <Calendar size={20} />
+                Situation actuelle
+              </h4>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Sprint en cours :</span>
+                  <span className="text-white font-bold">Sprint 3 / 4</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Moment :</span>
+                  <span className="text-white font-bold">Milieu de sprint</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Heure :</span>
+                  <span className="text-white font-bold">9h00 - Daily matinal</span>
+                </div>
+              </div>
+              
+              <div className="mt-6 p-4 bg-blue-500/10 rounded-lg border border-blue-400/20">
+                <h5 className="font-bold text-blue-400 mb-2">Sprint Goal actuel</h5>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  "Développer l'interface utilisateur Django et l'API FastAPI pour permettre 
+                  aux utilisateurs de faire des prédictions de popularité de films"
+                </p>
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-green-400/30">
+              <h4 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-3">
+                <CheckCircle size={20} />
+                Ce qui a été fait cette semaine
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  'Interface Django initialisée avec structure MVC',
+                  'Première page de visualisation des prédictions créée',
+                  'API FastAPI connectée aux modèles ML',
+                  'Intégration des données scrappées dans l\'interface'
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-white/80 text-sm leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* État d'avancement */}
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-orange-400/30">
+              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
+                <Clock size={20} />
+                En cours aujourd'hui
+              </h4>
+              <div className="space-y-4">
+                <div className="p-3 bg-orange-500/10 rounded-lg border border-orange-400/20">
+                  <h5 className="font-bold text-orange-400 text-sm mb-1">Nicolas (PO)</h5>
+                  <p className="text-white/70 text-xs">Refinement du backlog, critères d'acceptation</p>
+                </div>
+                <div className="p-3 bg-green-500/10 rounded-lg border border-green-400/20">
+                  <h5 className="font-bold text-green-400 text-sm mb-1">Maxime (ML)</h5>
+                  <p className="text-white/70 text-xs">Feature engineering, optimisation modèles</p>
+                </div>
+                <div className="p-3 bg-purple-500/10 rounded-lg border border-purple-400/20">
+                  <h5 className="font-bold text-purple-400 text-sm mb-1">Eliandy (Dev)</h5>
+                  <p className="text-white/70 text-xs">Intégration frontend-backend, formulaires</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-purple-400/30">
+              <h4 className="text-xl font-bold text-purple-400 mb-4 flex items-center gap-3">
+                <Target size={20} />
+                À venir cette semaine
+              </h4>
+              <ul className="space-y-2">
+                {[
+                  'Finalisation de l\'interface utilisateur',
+                  'Documentation de l\'API FastAPI',
+                  'Déploiement local de l\'application',
+                  'Préparation de la Sprint Review'
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-yellow-400/30">
+              <h4 className="text-xl font-bold text-yellow-400 mb-4 flex items-center gap-3">
+                <Lightbulb size={20} />
+                Acquis du sprint précédent
+              </h4>
+              <div className="space-y-3">
+                <div>
+                  <h5 className="font-bold text-green-400 text-sm mb-2">✅ Réussites</h5>
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Scraping Allociné stabilisé, modèles ML entraînés avec bonnes performances, 
+                    première version de l'API fonctionnelle
+                  </p>
+                </div>
+                <div>
+                  <h5 className="font-bold text-orange-400 text-sm mb-2">⚠️ Défis</h5>
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Problèmes de performance sur le scraping, choix d'algorithme pour les embeddings, 
+                    gestion des données manquantes
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Conseils pour les participants */}
+      <div className="card card-glow scale-in delay-200">
+        <h3 className="text-2xl font-display font-bold text-white mb-8 text-center">
+          Conseils pour bien participer au Daily
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              role: 'Scrum Master',
+              color: 'from-red-500 to-red-600',
+              icon: UserCheck,
+              tips: [
+                'Garder le timing (10 min max)',
+                'Faciliter sans diriger',
+                'Noter les blocages',
+                'Planifier les points techniques'
+              ]
+            },
+            {
+              role: 'Product Owner',
+              color: 'from-blue-500 to-blue-600',
+              icon: Target,
+              tips: [
+                'Focus sur la valeur business',
+                'Clarifier les priorités',
+                'Valider les orientations',
+                'Préparer les critères'
+              ]
+            },
+            {
+              role: 'Développeur ML',
+              color: 'from-green-500 to-green-600',
+              icon: Zap,
+              tips: [
+                'Partager les métriques',
+                'Expliquer les blocages techniques',
+                'Proposer des solutions',
+                'Collaborer sur les algorithmes'
+              ]
+            },
+            {
+              role: 'Développeur Full-Stack',
+              color: 'from-purple-500 to-purple-600',
+              icon: Monitor,
+              tips: [
+                'Montrer les avancées visuelles',
+                'Signaler les intégrations',
+                'Partager les difficultés',
+                'Coordonner avec l\'équipe'
+              ]
+            }
+          ].map((roleInfo, index) => (
+            <div key={index} className="glass p-6 rounded-xl border border-white/20 group hover:scale-105 transition-all duration-300">
+              <div className={`w-12 h-12 bg-gradient-to-br ${roleInfo.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                <roleInfo.icon size={24} className="text-white" />
+              </div>
+              <h4 className="text-lg font-bold text-white mb-4 text-center">{roleInfo.role}</h4>
+              <ul className="space-y-2">
+                {roleInfo.tips.map((tip, tipIndex) => (
+                  <li key={tipIndex} className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-white/60 rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-white/80 text-xs leading-relaxed">{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Attentes du Daily */}
+      <div className="card card-glow scale-in delay-300">
+        <h3 className="text-2xl font-display font-bold text-white mb-6 text-center">
+          Qu'attendre de ce Daily Scrum ?
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Users size={32} className="text-white" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-3">Synchronisation</h4>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Chaque membre partage son avancement et ses plans, créant une vision commune de l'état du sprint.
+            </p>
+          </div>
+          
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <AlertCircle size={32} className="text-white" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-3">Identification des blocages</h4>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Détection rapide des obstacles techniques ou organisationnels pour une résolution immédiate.
+            </p>
+          </div>
+          
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Target size={32} className="text-white" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-3">Planification collaborative</h4>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Organisation des collaborations nécessaires et des points techniques à approfondir.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Composant Dialogue Interactif
 const DialogueInteractifContent: React.FC<{
   dialogue: any[];
   participants: any[];
@@ -686,40 +655,18 @@ const DialogueInteractifContent: React.FC<{
   onPlayPause: () => void;
   onReset: () => void;
   getCurrentSpeaker: () => any;
-  context: any;
-}> = ({ dialogue, participants, currentStep, setCurrentStep, isPlaying, onPlayPause, onReset, getCurrentSpeaker, context }) => {
+}> = ({ dialogue, participants, currentStep, setCurrentStep, isPlaying, onPlayPause, onReset, getCurrentSpeaker }) => {
   
   const currentDialogue = dialogue[currentStep];
   const currentSpeaker = getCurrentSpeaker();
 
   return (
     <div className="space-y-8">
-      {/* Contexte du dialogue */}
-      <div className="card card-glow">
-        <h3 className="text-2xl font-display font-bold text-white mb-6 text-center">
-          📍 Situation : {context.weekDay} {context.date} - {context.time} - Sprint {context.currentSprint}/4
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="glass p-4 rounded-xl border border-blue-400/30 text-center">
-            <h4 className="font-bold text-blue-400 mb-2">Sprint Goal</h4>
-            <p className="text-white/80 text-sm">{context.sprintGoal}</p>
-          </div>
-          <div className="glass p-4 rounded-xl border border-green-400/30 text-center">
-            <h4 className="font-bold text-green-400 mb-2">Hier terminé</h4>
-            <p className="text-white/80 text-sm">{context.currentSprintProgress.completed.length} tâches</p>
-          </div>
-          <div className="glass p-4 rounded-xl border border-orange-400/30 text-center">
-            <h4 className="font-bold text-orange-400 mb-2">En cours</h4>
-            <p className="text-white/80 text-sm">{context.currentSprintProgress.inProgress.length} tâches</p>
-          </div>
-        </div>
-      </div>
-
       {/* Contrôles de lecture */}
       <div className="card card-glow">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-display font-bold text-white">
-            Dialogue interactif - Daily Scrum (10 min)
+            Dialogue interactif - Daily Scrum
           </h3>
           <div className="flex items-center gap-4">
             <button
@@ -754,7 +701,7 @@ const DialogueInteractifContent: React.FC<{
         </div>
 
         {/* Navigation par étapes */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-6">
           {dialogue.map((step, index) => (
             <button
               key={index}
@@ -784,7 +731,7 @@ const DialogueInteractifContent: React.FC<{
               Participants
             </h4>
             <div className="space-y-4">
-              {participants.map((participant, index) => (
+              {participants.slice(0, -1).map((participant, index) => (
                 <div 
                   key={index} 
                   className={`glass p-4 rounded-xl border transition-all duration-500 ${
@@ -838,15 +785,25 @@ const DialogueInteractifContent: React.FC<{
                   <div className="flex items-center gap-2 mb-3">
                     <MessageSquare size={16} className="text-[var(--color-primary)]" />
                     <span className="font-bold text-white text-sm">
-                      {currentDialogue?.speaker === 'Dorothée' ? 'Dialogue complet' : 'Mots-clés à utiliser'}
+                      {currentDialogue?.content.startsWith('MOTS-CLÉS') ? 'Mots-clés pour improviser' : 'Dialogue'}
                     </span>
                   </div>
-                  <p className="text-white/90 leading-relaxed text-lg italic">
-                    {currentDialogue?.speaker === 'Dorothée' 
-                      ? `"${currentDialogue?.content}"`
-                      : currentDialogue?.content
-                    }
-                  </p>
+                  {currentDialogue?.content.startsWith('MOTS-CLÉS') ? (
+                    <div className="space-y-3">
+                      <p className="text-white/70 text-sm mb-3">Utilisez ces mots-clés pour construire votre intervention :</p>
+                      <div className="flex flex-wrap gap-2">
+                        {currentDialogue?.content.replace('MOTS-CLÉS : ', '').split(' - ').map((keyword: string, index: number) => (
+                          <span key={index} className="px-3 py-1 bg-[var(--color-primary)]/20 text-[var(--color-primary)] rounded-full text-sm border border-[var(--color-primary)]/30">
+                            {keyword.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-white/90 leading-relaxed text-lg italic">
+                      "{currentDialogue?.content}"
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -860,10 +817,10 @@ const DialogueInteractifContent: React.FC<{
 
                   <div className="glass p-4 rounded-xl border border-white/20">
                     <div className="flex items-center gap-2 mb-2">
-                      <Settings size={16} className="text-blue-400" />
+                      <Monitor size={16} className="text-blue-400" />
                       <span className="font-bold text-white text-sm">Outils</span>
                     </div>
-                    <p className="text-white/80 text-sm">{currentDialogue?.tools}</p>
+                    <p className="text-white/80 text-sm">{currentDialogue?.outils}</p>
                   </div>
                 </div>
               </div>
@@ -900,16 +857,16 @@ const DialogueInteractifContent: React.FC<{
   );
 };
 
-// Composant Rôles et Mots-clés (inchangé)
-const RolesMotsClesContent: React.FC<{ participants: any[] }> = ({ participants }) => {
+// Composant Rôles et Responsabilités
+const RolesResponsabilitesContent: React.FC<{ participants: any[] }> = ({ participants }) => {
   return (
     <div className="space-y-12">
       <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-        Rôles et mots-clés pour vos Daily Scrums
+        Rôles et responsabilités dans le Daily Scrum
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {participants.map((participant, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {participants.slice(0, -1).map((participant, index) => (
           <div key={index} className="card card-glow scale-in" style={{ animationDelay: `${index * 200}ms` }}>
             <div className="text-center mb-6">
               <div className={`w-20 h-20 bg-gradient-to-br ${participant.color} rounded-full flex items-center justify-center text-4xl mx-auto mb-4`}>
@@ -919,168 +876,127 @@ const RolesMotsClesContent: React.FC<{ participants: any[] }> = ({ participants 
               <p className="text-[var(--color-secondary)] font-semibold">{participant.role}</p>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-                  <CheckCircle size={16} className="text-green-400" />
-                  Responsabilités clés
-                </h5>
-                <ul className="space-y-2">
-                  {participant.responsibilities.map((resp: string, respIndex: number) => (
-                    <li key={respIndex} className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-white/80 text-sm leading-relaxed">{resp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="space-y-4">
+              <h5 className="font-bold text-white mb-3 flex items-center gap-2">
+                <CheckCircle size={16} className="text-green-400" />
+                Responsabilités clés
+              </h5>
+              <ul className="space-y-3">
+                {participant.responsibilities.map((resp: string, respIndex: number) => (
+                  <li key={respIndex} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-white/80 text-sm leading-relaxed">{resp}</span>
+                  </li>
+                ))}
+              </ul>
 
-              {/* Mots-clés à utiliser */}
-              <div className="glass p-4 rounded-xl border border-white/20">
-                <h6 className="font-bold text-white mb-3 flex items-center gap-2">
-                  <Zap size={14} className="text-yellow-400" />
-                  Mots-clés à utiliser
-                </h6>
-                <div className="flex flex-wrap gap-2">
-                  {participant.keywords.map((keyword: string, keyIndex: number) => (
-                    <span 
-                      key={keyIndex} 
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        participant.name === 'Dorothée' ? 'bg-red-500/20 text-red-400' :
-                        participant.name === 'Nicolas' ? 'bg-blue-500/20 text-blue-400' :
-                        participant.name === 'Maxime' ? 'bg-green-500/20 text-green-400' :
-                        'bg-purple-500/20 text-purple-400'
-                      }`}
-                    >
-                      {keyword}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Phrases clés */}
-              <div className="glass p-4 rounded-xl border border-white/20">
-                <h6 className="font-bold text-white mb-3 flex items-center gap-2">
+              {/* Phrases clés selon le rôle */}
+              <div className="glass p-4 rounded-xl border border-white/20 mt-6">
+                <h6 className="font-bold text-white mb-2 flex items-center gap-2">
                   <MessageSquare size={14} className="text-blue-400" />
-                  Exemples de phrases
+                  Phrases clés
                 </h6>
                 <div className="space-y-2">
-                  {participant.keyPhrases.map((phrase: string, phraseIndex: number) => (
-                    <p key={phraseIndex} className="text-white/70 text-xs italic bg-black/20 p-2 rounded">
-                      {phrase}
-                    </p>
-                  ))}
+                  {participant.name === 'Dorothée' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"C'est l'heure de notre Daily Scrum..."</p>
+                      <p className="text-white/70 text-xs italic">"J'ai noté un point à creuser..."</p>
+                      <p className="text-white/70 text-xs italic">"Avez-vous des blocages ?"</p>
+                    </>
+                  )}
+                  {participant.name === 'Nicolas' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"J'ai validé les User Stories..."</p>
+                      <p className="text-white/70 text-xs italic">"Je prépare les critères d'acceptation..."</p>
+                      <p className="text-white/70 text-xs italic">"Pas de blocage de mon côté"</p>
+                    </>
+                  )}
+                  {participant.name === 'Maxime' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"J'ai bossé sur le feature engineering..."</p>
+                      <p className="text-white/70 text-xs italic">"Je commence le preprocessing..."</p>
+                      <p className="text-white/70 text-xs italic">"J'ai un doute sur l'algorithme..."</p>
+                    </>
+                  )}
+                  {participant.name === 'Eliandy' && (
+                    <>
+                      <p className="text-white/70 text-xs italic">"J'ai fini l'intégration de la page..."</p>
+                      <p className="text-white/70 text-xs italic">"Je passe sur l'API FastAPI..."</p>
+                      <p className="text-white/70 text-xs italic">"Tout roule de mon côté !"</p>
+                    </>
+                  )}
                 </div>
               </div>
-
-              {/* Conseils spécifiques */}
-              {participant.name === 'Dorothée' && (
-                <div className="glass p-4 rounded-xl border border-[var(--color-primary)]/30">
-                  <h6 className="font-bold text-[var(--color-primary)] mb-2 flex items-center gap-2">
-                    <Star size={14} />
-                    Conseils Scrum Master
-                  </h6>
-                  <ul className="space-y-1 text-xs text-white/80">
-                    <li>• Garder l'énergie haute dès le matin</li>
-                    <li>• Noter visiblement les blocages</li>
-                    <li>• Recadrer si ça dérive en technique</li>
-                    <li>• Encourager la participation de tous</li>
-                  </ul>
-                </div>
-              )}
-
-              {participant.name !== 'Dorothée' && (
-                <div className="glass p-4 rounded-xl border border-orange-400/30">
-                  <h6 className="font-bold text-orange-400 mb-2 flex items-center gap-2">
-                    <Target size={14} />
-                    Structure recommandée
-                  </h6>
-                  <div className="space-y-2 text-xs text-white/80">
-                    <div className="p-2 bg-black/20 rounded">
-                      <strong>Hier :</strong> "J'ai [action] sur [sujet]"
-                    </div>
-                    <div className="p-2 bg-black/20 rounded">
-                      <strong>Aujourd'hui :</strong> "Je vais [action] [détail]"
-                    </div>
-                    <div className="p-2 bg-black/20 rounded">
-                      <strong>Blocage :</strong> "J'ai besoin de [aide/clarification]"
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Guide pratique */}
+      {/* Bonnes pratiques */}
       <div className="card card-glow scale-in delay-500">
         <h4 className="text-2xl font-display font-bold text-white mb-6 text-center">
-          Guide pratique pour animer un Daily
+          Bonnes pratiques pour le Daily Scrum
         </h4>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="glass p-6 rounded-xl border border-green-400/30">
-            <h5 className="font-bold text-green-400 mb-4 flex items-center gap-2">
-              <CheckCircle size={16} />
-              À faire
-            </h5>
-            <ul className="space-y-2">
-              {[
-                'Commencer à l\'heure pile',
-                'Rappeler les 3 questions',
-                'Maintenir l\'énergie',
-                'Noter les blocages',
-                'Planifier les points post-Daily'
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-white/80 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-green-400/30">
+              <h5 className="font-bold text-green-400 mb-4 flex items-center gap-2">
+                <CheckCircle size={16} />
+                À faire
+              </h5>
+              <ul className="space-y-2">
+                {[
+                  'Rester concis et factuel (30 sec par personne max)',
+                  'Se concentrer sur les 3 questions essentielles',
+                  'Signaler les blocages sans entrer dans le détail',
+                  'Écouter activement les autres membres',
+                  'Planifier les points techniques après le Daily'
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-red-400/30">
+              <h5 className="font-bold text-red-400 mb-4 flex items-center gap-2">
+                <AlertCircle size={16} />
+                À éviter
+              </h5>
+              <ul className="space-y-2">
+                {[
+                  'Entrer dans les détails techniques',
+                  'Résoudre les problèmes pendant le Daily',
+                  'Faire du reporting au Scrum Master',
+                  'Dépasser le temps imparti (10 min)',
+                  'Transformer en réunion de décision'
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="glass p-6 rounded-xl border border-red-400/30">
-            <h5 className="font-bold text-red-400 mb-4 flex items-center gap-2">
-              <X size={16} />
-              À éviter
-            </h5>
-            <ul className="space-y-2">
-              {[
-                'Laisser dériver en réunion technique',
-                'Dépasser 15 minutes',
-                'Résoudre les problèmes sur place',
-                'Oublier de noter les actions',
-                'Monopoliser la parole'
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  <span className="text-white/80 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="glass p-6 rounded-xl border border-blue-400/30">
-            <h5 className="font-bold text-blue-400 mb-4 flex items-center gap-2">
-              <Zap size={16} />
-              Astuces pro
-            </h5>
-            <ul className="space-y-2">
-              {[
-                'Utiliser un timer visible',
-                'Alterner l\'ordre de passage',
-                'Célébrer les petites victoires',
-                'Poser des questions ouvertes',
-                'Créer un rituel d\'équipe'
-              ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  <span className="text-white/80 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="relative overflow-hidden rounded-2xl group">
+            <img 
+              src="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg"
+              alt="Daily Scrum en équipe"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+              <h4 className="text-xl font-display font-bold text-white mb-2">
+                Daily Scrum efficace
+              </h4>
+              <p className="text-white/90">
+                Communication claire, synchronisation rapide et identification des blocages
+              </p>
+            </div>
           </div>
         </div>
       </div>
