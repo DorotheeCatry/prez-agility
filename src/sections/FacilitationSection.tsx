@@ -17,167 +17,131 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
       name: 'Dorothée', 
       role: 'Scrum Master', 
       color: 'from-red-500 to-red-600',
-      avatar: '👩‍💼',
-      responsibilities: ['Animation générale', 'Gestion du temps', 'Facilitation des échanges']
+      avatar: '🧑‍🏫',
+      responsibilities: ['Animation du Daily', 'Gestion du temps', 'Identification des blocages'],
+      keyPhrases: [
+        '"C\'est l\'heure de notre Daily Scrum !"',
+        '"On reste focus, pas de discussion technique"',
+        '"J\'ai noté un point à creuser avec..."',
+        '"Si vous avez d\'autres sujets, restez après"'
+      ]
     },
     { 
       name: 'Nicolas', 
       role: 'Product Owner', 
       color: 'from-blue-500 to-blue-600',
-      avatar: '👨‍💻',
-      responsibilities: ['Vision produit', 'Priorisation', 'Critères d\'acceptation']
+      avatar: '🧑‍🎨',
+      responsibilities: ['Validation User Stories', 'Mise à jour backlog', 'Critères d\'acceptation'],
+      keyPhrases: [
+        '"J\'ai validé les user stories du Sprint..."',
+        '"Je prépare les critères d\'acceptation"',
+        '"Pas de blocage de mon côté"'
+      ]
     },
     { 
       name: 'Maxime', 
       role: 'Développeur ML', 
       color: 'from-green-500 to-green-600',
-      avatar: '🧑‍🔬',
-      responsibilities: ['Démonstration technique', 'Métriques ML', 'Performance modèles']
+      avatar: '👨‍🔧',
+      responsibilities: ['Développement modèles', 'Preprocessing données', 'Tests ML'],
+      keyPhrases: [
+        '"J\'ai bossé sur le nettoyage des données"',
+        '"Je commence le prétraitement pour..."',
+        '"J\'ai un doute sur... je veux en discuter"'
+      ]
     },
     { 
       name: 'Eliandy', 
       role: 'Développeur Full-Stack', 
       color: 'from-purple-500 to-purple-600',
-      avatar: '👨‍💻',
-      responsibilities: ['Interface utilisateur', 'API', 'Intégration']
-    },
-    { 
-      name: 'Jury', 
-      role: 'Stakeholders', 
-      color: 'from-yellow-500 to-orange-500',
-      avatar: '👥',
-      responsibilities: ['Feedback', 'Questions', 'Validation']
+      avatar: '👩‍💻',
+      responsibilities: ['Interface utilisateur', 'Tests unitaires', 'Intégration'],
+      keyPhrases: [
+        '"J\'ai fini l\'intégration de..."',
+        '"Je passe sur les tests unitaires"',
+        '"Pas de blocage, tout roule !"'
+      ]
     }
   ];
 
-  // Script de dialogue interactif
-  const sprintReviewDialogue = [
+  // Script de dialogue Daily Scrum
+  const dailyScrumDialogue = [
     {
       phase: 'Ouverture',
-      duration: '2 min',
+      duration: '1 min',
       timeCode: '0:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
-      content: "Bonjour à tous ! Bienvenue à notre Sprint Review du Sprint 4. Je suis Dorothée, votre Scrum Master aujourd'hui. Nous avons 15 minutes pour vous présenter ce que nous avons livré et recueillir vos précieux feedbacks.",
-      action: 'Présentation du cadre',
-      tips: 'Ton chaleureux, cadrage temporel clair'
+      content: "Salut tout le monde ! C'est l'heure de notre Daily Scrum. Petit rappel rapide avant qu'on commence : Le Daily, c'est notre rituel d'équipe pour rester synchronisés. Chacun répond à 3 questions : Qu'est-ce que j'ai fait hier ? Que vais-je faire aujourd'hui ? Est-ce que j'ai un blocage ?",
+      action: 'Cadrage du rituel',
+      tips: 'Rappel des règles, ton énergique, cadrage temporel'
     },
     {
       phase: 'Ouverture',
-      duration: '2 min',
+      duration: '1 min',
       timeCode: '0:30',
-      speaker: 'Nicolas',
-      role: 'Product Owner',
-      content: "En tant que Product Owner, je rappelle notre Sprint Goal : livrer une application complète de prédiction de popularité des films avec interface utilisateur et API fonctionnelle. Nous allons vous montrer concrètement ce qui a été réalisé.",
-      action: 'Rappel des objectifs',
-      tips: 'Vision produit claire, lien avec la valeur business'
-    },
-    {
-      phase: 'Démonstration',
-      duration: '6 min',
-      timeCode: '2:00',
-      speaker: 'Eliandy',
-      role: 'Développeur Full-Stack',
-      content: "Je vais vous faire une démonstration live de notre dashboard Django. Voici l'interface principale où un exploitant de cinéma peut saisir les informations d'un film...",
-      action: 'Démonstration en direct',
-      tips: 'Manipulation réelle, cas d\'usage concret'
-    },
-    {
-      phase: 'Démonstration',
-      duration: '6 min',
-      timeCode: '4:00',
-      speaker: 'Eliandy',
-      role: 'Développeur Full-Stack',
-      content: "Regardez, je saisis 'Dune 2' avec Denis Villeneuve comme réalisateur, Timothée Chalamet au casting... Notre modèle prédit 2.3 millions d'entrées en première semaine !",
-      action: 'Exemple concret',
-      tips: 'Données réelles, résultat immédiat'
-    },
-    {
-      phase: 'Démonstration',
-      duration: '6 min',
-      timeCode: '5:30',
-      speaker: 'Maxime',
-      role: 'Développeur ML',
-      content: "Cette prédiction s'appuie sur notre modèle LightGBM entraîné sur 5000+ films. Voici nos métriques : RMSE de 0.23 et R² de 0.78. Les features les plus importantes sont le budget, le genre et l'engagement sur les trailers.",
-      action: 'Explication technique',
-      tips: 'Métriques claires, vulgarisation adaptée'
-    },
-    {
-      phase: 'Démonstration',
-      duration: '6 min',
-      timeCode: '7:00',
-      speaker: 'Jury',
-      role: 'Stakeholders',
-      content: "Très impressionnant ! Comment gérez-vous les films sans données historiques ? Et quelle est la fiabilité pour les films d'auteur versus les blockbusters ?",
-      action: 'Questions techniques',
-      tips: 'Engagement du jury, questions pertinentes'
-    },
-    {
-      phase: 'Échanges',
-      duration: '4 min',
-      timeCode: '8:00',
-      speaker: 'Maxime',
-      role: 'Développeur ML',
-      content: "Excellente question ! Pour les nouveaux réalisateurs, nous utilisons des embeddings basés sur les genres et collaborations passées. Pour les films d'auteur, notre modèle est effectivement moins précis - c'est une limitation que nous documentons.",
-      action: 'Réponse technique honnête',
-      tips: 'Transparence sur les limites, solutions proposées'
-    },
-    {
-      phase: 'Échanges',
-      duration: '4 min',
-      timeCode: '9:30',
-      speaker: 'Nicolas',
-      role: 'Product Owner',
-      content: "C'est exactement le type de feedback qu'on recherche ! Nous pourrions ajouter un indicateur de confiance de la prédiction selon le type de film. Qu'en pensez-vous ?",
-      action: 'Proposition d\'amélioration',
-      tips: 'Transformation du feedback en User Story'
-    },
-    {
-      phase: 'Échanges',
-      duration: '4 min',
-      timeCode: '11:00',
-      speaker: 'Jury',
-      role: 'Stakeholders',
-      content: "Parfait ! Et pour l'utilisation pratique, est-ce que vous avez prévu une API pour intégrer ça dans nos systèmes existants ?",
-      action: 'Question d\'intégration',
-      tips: 'Préoccupation business réelle'
-    },
-    {
-      phase: 'Échanges',
-      duration: '4 min',
-      timeCode: '11:30',
-      speaker: 'Eliandy',
-      role: 'Développeur Full-Stack',
-      content: "Absolument ! Notre API FastAPI est déjà fonctionnelle. Voici la documentation Swagger avec tous les endpoints. Vous pouvez faire des appels REST pour obtenir des prédictions en temps réel.",
-      action: 'Démonstration API',
-      tips: 'Preuve technique, documentation prête'
-    },
-    {
-      phase: 'Clôture',
-      duration: '3 min',
-      timeCode: '13:00',
       speaker: 'Dorothée',
       role: 'Scrum Master',
-      content: "Merci pour ces échanges très riches ! Je note : indicateur de confiance, amélioration pour films d'auteur, et documentation API étendue. Ces points enrichiront notre Product Backlog.",
-      action: 'Synthèse des feedbacks',
-      tips: 'Prise de notes visible, engagement sur le suivi'
+      content: "On reste focus, pas de discussion technique ici : on garde ça pour après. Allez, on commence ! Eliandy, tu veux y aller ?",
+      action: 'Lancement des tours de parole',
+      tips: 'Éviter les discussions techniques, désigner le premier'
+    },
+    {
+      phase: 'Tour de parole 1',
+      duration: '2 min',
+      timeCode: '1:00',
+      speaker: 'Eliandy',
+      role: 'Développeur Full-Stack',
+      content: "Yes ! Hier, j'ai fini l'intégration de la page de visualisation des prédictions. Aujourd'hui, je passe sur les tests unitaires de cette partie. Pas de blocage, tout roule !",
+      action: 'Réponse aux 3 questions',
+      tips: 'Concis, factuel, positif'
+    },
+    {
+      phase: 'Tour de parole 2',
+      duration: '2 min',
+      timeCode: '1:30',
+      speaker: 'Nicolas',
+      role: 'Product Owner',
+      content: "Top ! Hier, j'ai validé les user stories du Sprint 3 et mis à jour le backlog. Aujourd'hui, je prépare les critères d'acceptation pour les nouvelles stories. Pas de blocage de mon côté non plus.",
+      action: 'Update PO',
+      tips: 'Focus sur la valeur business, backlog'
+    },
+    {
+      phase: 'Tour de parole 3',
+      duration: '2 min',
+      timeCode: '2:00',
+      speaker: 'Maxime',
+      role: 'Développeur ML',
+      content: "Hier, j'ai bossé sur le nettoyage des données pour les modèles. Aujourd'hui, je commence le prétraitement pour le modèle de prédiction. Petit blocage : j'ai un doute sur l'algorithme à utiliser, je veux en discuter avec Dorothée après.",
+      action: 'Identification d\'un blocage',
+      tips: 'Honnêteté sur les difficultés, demande d\'aide'
     },
     {
       phase: 'Clôture',
-      duration: '3 min',
-      timeCode: '14:30',
-      speaker: 'Nicolas',
-      role: 'Product Owner',
-      content: "En résumé, nous avons livré un produit fonctionnel qui répond au besoin initial. Vos retours nous donnent une roadmap claire pour les prochaines itérations. Merci pour votre engagement !",
-      action: 'Conclusion et perspectives',
-      tips: 'Bilan positif, ouverture sur l\'avenir'
+      duration: '1 min',
+      timeCode: '2:30',
+      speaker: 'Dorothée',
+      role: 'Scrum Master',
+      content: "Parfait ! Merci à tous pour vos updates. J'ai noté un point à creuser avec Maxime sur le choix d'algorithme. Si vous avez d'autres sujets, restez après le Daily. Sinon, bonne journée et bon courage à tous !",
+      action: 'Synthèse et actions',
+      tips: 'Prise de notes visible, planification post-Daily'
+    },
+    {
+      phase: 'Conclusion pédagogique',
+      duration: '1 min',
+      timeCode: '3:00',
+      speaker: 'Dorothée',
+      role: 'Scrum Master',
+      content: "Vous voyez, en 5 minutes, on a : synchronisé toute l'équipe, mis en lumière un blocage, et préparé l'action du jour. C'est ça l'esprit Agile : avancer ensemble, avec transparence et réactivité !",
+      action: 'Explication pédagogique',
+      tips: 'Valorisation du rituel, bénéfices concrets'
     }
   ];
 
   // Auto-play functionality
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (autoPlay && isPlaying && currentDialogueStep < sprintReviewDialogue.length - 1) {
+    if (autoPlay && isPlaying && currentDialogueStep < dailyScrumDialogue.length - 1) {
       interval = setInterval(() => {
         setCurrentDialogueStep(prev => prev + 1);
       }, 4000);
@@ -201,7 +165,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
   };
 
   const getCurrentSpeaker = () => {
-    const current = sprintReviewDialogue[currentDialogueStep];
+    const current = dailyScrumDialogue[currentDialogueStep];
     return participants.find(p => p.name === current?.speaker || p.role === current?.role);
   };
 
@@ -217,27 +181,27 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
           {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-blue-600/20 rounded-full border border-white/20 backdrop-blur-sm fade-in mb-6">
-              <Users size={16} className="text-indigo-400" />
-              <span className="text-sm font-medium text-white">Animation Sprint Review</span>
+              <Clock size={16} className="text-indigo-400" />
+              <span className="text-sm font-medium text-white">Daily Scrum - Le rituel le plus fréquent</span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-6 fade-in delay-200">
               <span className="gradient-text">C4: Animation</span>
               <br />
-              <span className="text-white">d'une Sprint Review</span>
+              <span className="text-white">du Daily Scrum</span>
             </h2>
             
             <p className="text-xl text-white/80 max-w-4xl mx-auto fade-in delay-400 leading-relaxed">
-              Démonstration interactive d'une Sprint Review : dialogue, rôles et bonnes pratiques
+              Démonstration interactive du rituel quotidien : dialogue, rôles et bonnes pratiques
             </p>
           </div>
 
           {/* Navigation principale */}
           <div className="flex flex-wrap gap-4 mb-12 justify-center">
             {[
-              { id: 'overview', label: 'Vue d\'ensemble', icon: Eye, color: 'from-blue-500 to-indigo-600' },
+              { id: 'overview', label: 'Le Daily Scrum', icon: Eye, color: 'from-blue-500 to-indigo-600' },
               { id: 'dialogue', label: 'Dialogue interactif', icon: MessageSquare, color: 'from-green-500 to-emerald-600' },
-              { id: 'roles', label: 'Rôles & Responsabilités', icon: Users, color: 'from-purple-500 to-pink-600' }
+              { id: 'roles', label: 'Rôles & Mots-clés', icon: Users, color: 'from-purple-500 to-pink-600' }
             ].map((tab) => (
               <button 
                 key={tab.id}
@@ -256,12 +220,12 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
 
           {/* Contenu selon l'onglet actif */}
           {activeDemo === 'overview' && (
-            <OverviewContent />
+            <DailyScrumOverviewContent />
           )}
 
           {activeDemo === 'dialogue' && (
             <DialogueInteractifContent 
-              dialogue={sprintReviewDialogue}
+              dialogue={dailyScrumDialogue}
               participants={participants}
               currentStep={currentDialogueStep}
               setCurrentStep={setCurrentDialogueStep}
@@ -273,7 +237,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
           )}
 
           {activeDemo === 'roles' && (
-            <RolesResponsabilitesContent participants={participants} />
+            <RolesMotsClesContent participants={participants} />
           )}
         </div>
       </section>
@@ -281,13 +245,13 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
   );
 };
 
-// Composant Vue d'ensemble
-const OverviewContent: React.FC = () => {
+// Composant Vue d'ensemble du Daily Scrum
+const DailyScrumOverviewContent: React.FC = () => {
   return (
     <div className="space-y-12">
       <div className="card card-glow scale-in">
         <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Qu'est-ce qu'une Sprint Review ?
+          Le Daily Scrum : Notre rituel quotidien
         </h3>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -297,12 +261,26 @@ const OverviewContent: React.FC = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                   <Target size={20} className="text-white" />
                 </div>
-                Objectif principal
+                Pourquoi le Daily ?
               </h4>
-              <p className="text-white/80 leading-relaxed">
-                Démontrer les fonctionnalités développées pendant le sprint aux stakeholders, 
-                recueillir leurs feedbacks et valider que la valeur livrée correspond aux attentes.
+              <p className="text-white/80 leading-relaxed mb-4">
+                Le Daily Scrum est le rituel le plus fréquent de notre équipe. Chaque matin, 
+                nous nous synchronisons en 5 minutes pour rester alignés sur nos objectifs.
               </p>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={16} className="text-green-400" />
+                  <span className="text-white/80 text-sm">Synchronisation quotidienne</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={16} className="text-green-400" />
+                  <span className="text-white/80 text-sm">Identification rapide des blocages</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={16} className="text-green-400" />
+                  <span className="text-white/80 text-sm">Transparence et collaboration</span>
+                </div>
+              </div>
             </div>
 
             <div className="glass p-6 rounded-xl border border-white/20">
@@ -310,41 +288,38 @@ const OverviewContent: React.FC = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
                   <Clock size={20} className="text-white" />
                 </div>
-                Format et timing
+                Les 3 questions magiques
               </h4>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Durée :</span>
-                  <span className="text-white font-bold">15 minutes</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Fréquence :</span>
-                  <span className="text-white font-bold">Fin de chaque sprint</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Participants :</span>
-                  <span className="text-white font-bold">Équipe + Stakeholders</span>
-                </div>
+              <div className="space-y-4">
+                {[
+                  { q: "Qu'est-ce que j'ai fait hier ?", desc: "Partage des réalisations", color: "text-blue-400" },
+                  { q: "Que vais-je faire aujourd'hui ?", desc: "Engagement sur les objectifs", color: "text-green-400" },
+                  { q: "Est-ce que j'ai un blocage ?", desc: "Identification des obstacles", color: "text-orange-400" }
+                ].map((item, index) => (
+                  <div key={index} className="p-3 bg-black/20 rounded-lg">
+                    <h5 className={`font-bold ${item.color} mb-1`}>{index + 1}. {item.q}</h5>
+                    <p className="text-white/60 text-sm">{item.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                  <CheckCircle size={20} className="text-white" />
-                </div>
-                Livrables attendus
+            <div className="glass p-6 rounded-xl border border-orange-400/30">
+              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
+                <Zap size={20} />
+                Règles d'or du Daily
               </h4>
               <ul className="space-y-2">
                 {[
-                  'Démonstration des fonctionnalités terminées',
-                  'Métriques de performance et qualité',
-                  'Feedbacks structurés des stakeholders',
-                  'Mise à jour du Product Backlog'
-                ].map((item, index) => (
+                  'Maximum 15 minutes (nous : 5 minutes)',
+                  'Pas de discussion technique détaillée',
+                  'Focus sur la synchronisation, pas la résolution',
+                  'Tout le monde debout (énergie !)',
+                  'Même heure, même lieu, chaque jour'
+                ].map((rule, index) => (
                   <li key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span className="text-white/80 text-sm">{item}</span>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{rule}</span>
                   </li>
                 ))}
               </ul>
@@ -354,37 +329,63 @@ const OverviewContent: React.FC = () => {
           <div className="space-y-6">
             <div className="relative overflow-hidden rounded-2xl group">
               <img 
-                src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg"
-                alt="Sprint Review en action"
+                src="https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg"
+                alt="Daily Scrum en action"
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                 <h4 className="text-xl font-display font-bold text-white mb-2">
-                  Sprint Review collaborative
+                  Daily Scrum matinal
                 </h4>
                 <p className="text-white/90">
-                  Échange direct entre l'équipe de développement et les stakeholders
+                  Synchronisation quotidienne de l'équipe en 5 minutes
                 </p>
               </div>
             </div>
 
-            <div className="glass p-6 rounded-xl border border-orange-400/30">
-              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
-                <Zap size={20} />
-                Spécificités de notre contexte
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                  <TrendingUp size={20} className="text-white" />
+                </div>
+                Notre adaptation
+              </h4>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Fréquence :</span>
+                  <span className="text-white font-bold">Lundi à Vendredi, 9h00</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Durée :</span>
+                  <span className="text-white font-bold">5 minutes max</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Format :</span>
+                  <span className="text-white font-bold">Présentiel + Slack #daily</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/70">Animation :</span>
+                  <span className="text-white font-bold">Scrum Master du sprint</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg flex items-center justify-center">
+                  <Star size={20} className="text-white" />
+                </div>
+                Bénéfices observés
               </h4>
               <div className="space-y-3">
                 <p className="text-white/80 text-sm leading-relaxed">
-                  <strong>Contexte pédagogique :</strong> Formateurs comme stakeholders, 
-                  rotation des rôles d'animation, apprentissage des rituels Scrum.
+                  <strong className="text-green-400">Détection rapide :</strong> Identification des blocages avant qu'ils ne deviennent critiques
                 </p>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  <strong>Projet IA :</strong> Démonstration de modèles ML, métriques techniques, 
-                  vulgarisation pour un public non-technique.
+                  <strong className="text-blue-400">Coordination :</strong> Évitement des doublons et optimisation des collaborations
                 </p>
                 <p className="text-white/80 text-sm leading-relaxed">
-                  <strong>Équipe apprenante :</strong> Chaque membre découvre l'animation, 
-                  apprentissage par la pratique des soft skills.
+                  <strong className="text-purple-400">Motivation :</strong> Dynamique d'équipe et sentiment d'appartenance renforcés
                 </p>
               </div>
             </div>
@@ -392,54 +393,29 @@ const OverviewContent: React.FC = () => {
         </div>
       </div>
 
-      {/* Structure de la Sprint Review */}
+      {/* Timeline d'un Daily type */}
       <div className="card card-glow scale-in delay-200">
         <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-          Structure de notre Sprint Review
+          Déroulement d'un Daily type
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {[
-            {
-              phase: 'Ouverture',
-              duration: '2 min',
-              icon: Coffee,
-              color: 'from-blue-500 to-indigo-600',
-              activities: ['Accueil', 'Cadrage', 'Objectifs']
-            },
-            {
-              phase: 'Démonstration',
-              duration: '6 min',
-              icon: Monitor,
-              color: 'from-green-500 to-emerald-600',
-              activities: ['Demo live', 'Cas d\'usage', 'Métriques']
-            },
-            {
-              phase: 'Échanges',
-              duration: '4 min',
-              icon: MessageSquare,
-              color: 'from-orange-500 to-red-600',
-              activities: ['Questions', 'Feedbacks', 'Discussions']
-            },
-            {
-              phase: 'Clôture',
-              duration: '3 min',
-              icon: CheckCircle,
-              color: 'from-purple-500 to-pink-600',
-              activities: ['Synthèse', 'Actions', 'Remerciements']
-            }
-          ].map((phase, index) => (
-            <div key={index} className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
-              <div className={`w-16 h-16 bg-gradient-to-br ${phase.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <phase.icon size={28} className="text-white" />
+            { time: '0:00', phase: 'Ouverture', desc: 'Rappel des règles', color: 'from-blue-500 to-indigo-600', icon: Coffee },
+            { time: '0:30', phase: 'Lancement', desc: 'Désignation 1er speaker', color: 'from-green-500 to-emerald-600', icon: PlayCircle },
+            { time: '1:00', phase: 'Tour 1', desc: 'Dev Full-Stack', color: 'from-purple-500 to-pink-600', icon: UserCheck },
+            { time: '1:30', phase: 'Tour 2', desc: 'Product Owner', color: 'from-orange-500 to-red-600', icon: Target },
+            { time: '2:00', phase: 'Tour 3', desc: 'Dev ML', color: 'from-teal-500 to-cyan-600', icon: Zap },
+            { time: '2:30', phase: 'Synthèse', desc: 'Actions & blocages', color: 'from-yellow-500 to-orange-600', icon: CheckCircle },
+            { time: '3:00', phase: 'Clôture', desc: 'Motivation équipe', color: 'from-pink-500 to-rose-600', icon: Star }
+          ].map((step, index) => (
+            <div key={index} className="text-center group">
+              <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <step.icon size={24} className="text-white" />
               </div>
-              <h4 className="text-lg font-bold text-white mb-2">{phase.phase}</h4>
-              <p className="text-[var(--color-secondary)] font-bold mb-4">{phase.duration}</p>
-              <ul className="space-y-1">
-                {phase.activities.map((activity, actIndex) => (
-                  <li key={actIndex} className="text-white/70 text-sm">{activity}</li>
-                ))}
-              </ul>
+              <div className="text-lg font-bold text-[var(--color-primary)] mb-1">{step.time}</div>
+              <h4 className="text-sm font-bold text-white mb-2">{step.phase}</h4>
+              <p className="text-xs text-white/70">{step.desc}</p>
             </div>
           ))}
         </div>
@@ -448,7 +424,7 @@ const OverviewContent: React.FC = () => {
   );
 };
 
-// Composant Dialogue Interactif
+// Composant Dialogue Interactif (réutilisé et adapté)
 const DialogueInteractifContent: React.FC<{
   dialogue: any[];
   participants: any[];
@@ -469,7 +445,7 @@ const DialogueInteractifContent: React.FC<{
       <div className="card card-glow">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-display font-bold text-white">
-            Dialogue interactif - Sprint Review
+            Dialogue interactif - Daily Scrum
           </h3>
           <div className="flex items-center gap-4">
             <button
@@ -504,7 +480,7 @@ const DialogueInteractifContent: React.FC<{
         </div>
 
         {/* Navigation par étapes */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 mb-6">
           {dialogue.map((step, index) => (
             <button
               key={index}
@@ -645,16 +621,16 @@ const DialogueInteractifContent: React.FC<{
   );
 };
 
-// Composant Rôles et Responsabilités
-const RolesResponsabilitesContent: React.FC<{ participants: any[] }> = ({ participants }) => {
+// Composant Rôles et Mots-clés
+const RolesMotsClesContent: React.FC<{ participants: any[] }> = ({ participants }) => {
   return (
     <div className="space-y-12">
       <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
-        Rôles et responsabilités dans la Sprint Review
+        Rôles et mots-clés pour vos Daily Scrums
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {participants.slice(0, -1).map((participant, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {participants.map((participant, index) => (
           <div key={index} className="card card-glow scale-in" style={{ animationDelay: `${index * 200}ms` }}>
             <div className="text-center mb-6">
               <div className={`w-20 h-20 bg-gradient-to-br ${participant.color} rounded-full flex items-center justify-center text-4xl mx-auto mb-4`}>
@@ -664,126 +640,145 @@ const RolesResponsabilitesContent: React.FC<{ participants: any[] }> = ({ partic
               <p className="text-[var(--color-secondary)] font-semibold">{participant.role}</p>
             </div>
 
-            <div className="space-y-4">
-              <h5 className="font-bold text-white mb-3 flex items-center gap-2">
-                <CheckCircle size={16} className="text-green-400" />
-                Responsabilités clés
-              </h5>
-              <ul className="space-y-3">
-                {participant.responsibilities.map((resp: string, respIndex: number) => (
-                  <li key={respIndex} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-white/80 text-sm leading-relaxed">{resp}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="space-y-6">
+              <div>
+                <h5 className="font-bold text-white mb-3 flex items-center gap-2">
+                  <CheckCircle size={16} className="text-green-400" />
+                  Responsabilités clés
+                </h5>
+                <ul className="space-y-2">
+                  {participant.responsibilities.map((resp: string, respIndex: number) => (
+                    <li key={respIndex} className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="text-white/80 text-sm leading-relaxed">{resp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-              {/* Phrases clés selon le rôle */}
-              <div className="glass p-4 rounded-xl border border-white/20 mt-6">
-                <h6 className="font-bold text-white mb-2 flex items-center gap-2">
+              {/* Phrases clés */}
+              <div className="glass p-4 rounded-xl border border-white/20">
+                <h6 className="font-bold text-white mb-3 flex items-center gap-2">
                   <MessageSquare size={14} className="text-blue-400" />
-                  Phrases clés
+                  Phrases clés à retenir
                 </h6>
                 <div className="space-y-2">
-                  {participant.name === 'Dorothée' && (
-                    <>
-                      <p className="text-white/70 text-xs italic">"Nous avons 15 minutes pour..."</p>
-                      <p className="text-white/70 text-xs italic">"Je note vos feedbacks pour..."</p>
-                      <p className="text-white/70 text-xs italic">"Avez-vous des questions ?"</p>
-                    </>
-                  )}
-                  {participant.name === 'Nicolas' && (
-                    <>
-                      <p className="text-white/70 text-xs italic">"Notre Sprint Goal était..."</p>
-                      <p className="text-white/70 text-xs italic">"Cette fonctionnalité apporte..."</p>
-                      <p className="text-white/70 text-xs italic">"Nous pourrions ajouter..."</p>
-                    </>
-                  )}
-                  {participant.name === 'Maxime' && (
-                    <>
-                      <p className="text-white/70 text-xs italic">"Nos métriques montrent..."</p>
-                      <p className="text-white/70 text-xs italic">"Le modèle prédit..."</p>
-                      <p className="text-white/70 text-xs italic">"Voici les performances..."</p>
-                    </>
-                  )}
-                  {participant.name === 'Eliandy' && (
-                    <>
-                      <p className="text-white/70 text-xs italic">"Voici une démonstration..."</p>
-                      <p className="text-white/70 text-xs italic">"L'interface permet de..."</p>
-                      <p className="text-white/70 text-xs italic">"L'API est documentée..."</p>
-                    </>
-                  )}
+                  {participant.keyPhrases.map((phrase: string, phraseIndex: number) => (
+                    <p key={phraseIndex} className="text-white/70 text-xs italic bg-black/20 p-2 rounded">
+                      {phrase}
+                    </p>
+                  ))}
                 </div>
               </div>
+
+              {/* Conseils spécifiques */}
+              {participant.name === 'Dorothée' && (
+                <div className="glass p-4 rounded-xl border border-[var(--color-primary)]/30">
+                  <h6 className="font-bold text-[var(--color-primary)] mb-2 flex items-center gap-2">
+                    <Star size={14} />
+                    Conseils Scrum Master
+                  </h6>
+                  <ul className="space-y-1 text-xs text-white/80">
+                    <li>• Garder l'énergie haute dès le matin</li>
+                    <li>• Noter visiblement les blocages</li>
+                    <li>• Recadrer si ça dérive en technique</li>
+                    <li>• Encourager la participation de tous</li>
+                  </ul>
+                </div>
+              )}
+
+              {participant.name !== 'Dorothée' && (
+                <div className="glass p-4 rounded-xl border border-green-400/30">
+                  <h6 className="font-bold text-green-400 mb-2 flex items-center gap-2">
+                    <Target size={14} />
+                    Mots-clés à utiliser
+                  </h6>
+                  <div className="flex flex-wrap gap-2">
+                    {participant.name === 'Nicolas' && ['Validé', 'Backlog', 'Critères', 'Priorisé'].map((word, i) => (
+                      <span key={i} className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">{word}</span>
+                    ))}
+                    {participant.name === 'Maxime' && ['Nettoyage', 'Preprocessing', 'Modèle', 'Algorithme'].map((word, i) => (
+                      <span key={i} className="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">{word}</span>
+                    ))}
+                    {participant.name === 'Eliandy' && ['Intégration', 'Tests', 'Interface', 'Déploiement'].map((word, i) => (
+                      <span key={i} className="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs rounded-full">{word}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Stakeholders */}
+      {/* Guide pratique */}
       <div className="card card-glow scale-in delay-500">
         <h4 className="text-2xl font-display font-bold text-white mb-6 text-center">
-          Rôle des Stakeholders (Jury)
+          Guide pratique pour animer un Daily
         </h4>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h5 className="font-bold text-white mb-4 flex items-center gap-2">
-                <Eye size={16} className="text-blue-400" />
-                Attitude attendue
-              </h5>
-              <ul className="space-y-2">
-                {[
-                  'Écoute active et bienveillante',
-                  'Questions constructives et pertinentes',
-                  'Feedback orienté valeur business',
-                  'Suggestions d\'amélioration concrètes'
-                ].map((item, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span className="text-white/80 text-sm">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="glass p-6 rounded-xl border border-white/20">
-              <h5 className="font-bold text-white mb-4 flex items-center gap-2">
-                <MessageSquare size={16} className="text-green-400" />
-                Types de questions efficaces
-              </h5>
-              <div className="space-y-3">
-                <div className="p-3 bg-black/20 rounded-lg">
-                  <p className="text-green-400 text-sm font-bold mb-1">Questions de clarification :</p>
-                  <p className="text-white/70 text-xs italic">"Comment gérez-vous les cas où... ?"</p>
-                </div>
-                <div className="p-3 bg-black/20 rounded-lg">
-                  <p className="text-blue-400 text-sm font-bold mb-1">Questions d'usage :</p>
-                  <p className="text-white/70 text-xs italic">"Dans quel contexte utiliserait-on... ?"</p>
-                </div>
-                <div className="p-3 bg-black/20 rounded-lg">
-                  <p className="text-purple-400 text-sm font-bold mb-1">Questions d'évolution :</p>
-                  <p className="text-white/70 text-xs italic">"Avez-vous prévu d'ajouter... ?"</p>
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="glass p-6 rounded-xl border border-green-400/30">
+            <h5 className="font-bold text-green-400 mb-4 flex items-center gap-2">
+              <CheckCircle size={16} />
+              À faire
+            </h5>
+            <ul className="space-y-2">
+              {[
+                'Commencer à l\'heure pile',
+                'Rappeler les 3 questions',
+                'Maintenir l\'énergie',
+                'Noter les blocages',
+                'Planifier les points post-Daily'
+              ].map((item, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span className="text-white/80 text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl group">
-            <img 
-              src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
-              alt="Stakeholders en Sprint Review"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-              <h4 className="text-xl font-display font-bold text-white mb-2">
-                Engagement des stakeholders
-              </h4>
-              <p className="text-white/90">
-                Participation active et feedback constructif pour l'amélioration continue
-              </p>
-            </div>
+          <div className="glass p-6 rounded-xl border border-red-400/30">
+            <h5 className="font-bold text-red-400 mb-4 flex items-center gap-2">
+              <X size={16} />
+              À éviter
+            </h5>
+            <ul className="space-y-2">
+              {[
+                'Laisser dériver en réunion technique',
+                'Dépasser 15 minutes',
+                'Résoudre les problèmes sur place',
+                'Oublier de noter les actions',
+                'Monopoliser la parole'
+              ].map((item, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                  <span className="text-white/80 text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="glass p-6 rounded-xl border border-blue-400/30">
+            <h5 className="font-bold text-blue-400 mb-4 flex items-center gap-2">
+              <Zap size={16} />
+              Astuces pro
+            </h5>
+            <ul className="space-y-2">
+              {[
+                'Utiliser un timer visible',
+                'Alterner l\'ordre de passage',
+                'Célébrer les petites victoires',
+                'Poser des questions ouvertes',
+                'Créer un rituel d\'équipe'
+              ].map((item, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span className="text-white/80 text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
