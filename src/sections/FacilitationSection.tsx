@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, X, Settings } from 'lucide-react';
+import { MessageSquare, Users, PlayCircle, Clock, Target, CheckCircle, Monitor, Mic, Video, Star, Zap, ArrowRight, Pause, RotateCcw, Volume2, UserCheck, Eye, FileText, TrendingUp, Award, Coffee, Calendar, X, Settings, Info, MapPin } from 'lucide-react';
 
 interface SectionProps {
   isActive: boolean;
@@ -10,6 +10,24 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
   const [currentDialogueStep, setCurrentDialogueStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [autoPlay, setAutoPlay] = useState(false);
+
+  // Contexte du projet pour situer le dialogue
+  const projectContext = {
+    currentSprint: 3,
+    sprintGoal: "Développer l'interface utilisateur Django et l'API FastAPI",
+    weekDay: "Mercredi",
+    date: "15 Janvier 2025",
+    time: "9h00",
+    previousSprint: {
+      completed: ["Scraping Allociné stabilisé", "Modèles ML entraînés", "Première API fonctionnelle"],
+      challenges: ["Problèmes de performance sur le scraping", "Choix d'algorithme pour les embeddings"]
+    },
+    currentSprintProgress: {
+      completed: ["Interface Django initialisée", "Première page de visualisation"],
+      inProgress: ["Tests unitaires", "Intégration API-Frontend", "Preprocessing NLP"],
+      upcoming: ["Déploiement local", "Documentation utilisateur"]
+    }
+  };
 
   // Données des participants
   const participants = [
@@ -212,6 +230,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
           <div className="flex flex-wrap gap-4 mb-12 justify-center">
             {[
               { id: 'overview', label: 'Le Daily Scrum', icon: Eye, color: 'from-blue-500 to-indigo-600' },
+              { id: 'context', label: 'Contexte du dialogue', icon: Info, color: 'from-orange-500 to-red-600' },
               { id: 'dialogue', label: 'Dialogue interactif', icon: MessageSquare, color: 'from-green-500 to-emerald-600' },
               { id: 'roles', label: 'Rôles & Mots-clés', icon: Users, color: 'from-purple-500 to-pink-600' }
             ].map((tab) => (
@@ -235,6 +254,10 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
             <DailyScrumOverviewContent />
           )}
 
+          {activeDemo === 'context' && (
+            <ProjectContextContent context={projectContext} />
+          )}
+
           {activeDemo === 'dialogue' && (
             <DialogueInteractifContent 
               dialogue={dailyScrumDialogue}
@@ -245,6 +268,7 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
               onPlayPause={handlePlayPause}
               onReset={resetDialogue}
               getCurrentSpeaker={getCurrentSpeaker}
+              context={projectContext}
             />
           )}
 
@@ -253,6 +277,222 @@ const FacilitationSection: React.FC<SectionProps> = ({ isActive }) => {
           )}
         </div>
       </section>
+    </div>
+  );
+};
+
+// Nouveau composant pour le contexte du projet
+const ProjectContextContent: React.FC<{ context: any }> = ({ context }) => {
+  return (
+    <div className="space-y-12">
+      <div className="card card-glow scale-in">
+        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+          Contexte du Daily Scrum
+        </h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Situation actuelle */}
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <MapPin size={20} className="text-white" />
+                </div>
+                Où nous en sommes
+              </h4>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center p-3 bg-black/20 rounded-lg">
+                  <span className="text-white/70">Sprint actuel :</span>
+                  <span className="text-white font-bold">Sprint {context.currentSprint}/4</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-black/20 rounded-lg">
+                  <span className="text-white/70">Date :</span>
+                  <span className="text-white font-bold">{context.weekDay} {context.date}</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-black/20 rounded-lg">
+                  <span className="text-white/70">Heure :</span>
+                  <span className="text-white font-bold">{context.time}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-[var(--color-primary)]/30">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-lg flex items-center justify-center">
+                  <Target size={20} className="text-white" />
+                </div>
+                Sprint Goal actuel
+              </h4>
+              <p className="text-white/90 leading-relaxed text-lg font-medium bg-[var(--color-primary)]/10 p-4 rounded-lg border border-[var(--color-primary)]/20">
+                "{context.sprintGoal}"
+              </p>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-white/20">
+              <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                  <CheckCircle size={20} className="text-white" />
+                </div>
+                Sprint précédent - Acquis
+              </h4>
+              <div className="space-y-2">
+                {context.previousSprint.completed.map((item: string, index: number) => (
+                  <div key={index} className="flex items-center gap-3 p-2 bg-green-500/10 rounded-lg">
+                    <CheckCircle size={16} className="text-green-400" />
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Progression actuelle */}
+          <div className="space-y-6">
+            <div className="glass p-6 rounded-xl border border-green-400/30">
+              <h4 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-3">
+                <CheckCircle size={20} />
+                ✅ Terminé cette semaine
+              </h4>
+              <div className="space-y-2">
+                {context.currentSprintProgress.completed.map((item: string, index: number) => (
+                  <div key={index} className="flex items-center gap-3 p-2 bg-green-500/10 rounded-lg">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-orange-400/30">
+              <h4 className="text-xl font-bold text-orange-400 mb-4 flex items-center gap-3">
+                <Clock size={20} />
+                🔄 En cours aujourd'hui
+              </h4>
+              <div className="space-y-2">
+                {context.currentSprintProgress.inProgress.map((item: string, index: number) => (
+                  <div key={index} className="flex items-center gap-3 p-2 bg-orange-500/10 rounded-lg">
+                    <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-blue-400/30">
+              <h4 className="text-xl font-bold text-blue-400 mb-4 flex items-center gap-3">
+                <ArrowRight size={20} />
+                📋 À venir cette semaine
+              </h4>
+              <div className="space-y-2">
+                {context.currentSprintProgress.upcoming.map((item: string, index: number) => (
+                  <div key={index} className="flex items-center gap-3 p-2 bg-blue-500/10 rounded-lg">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="glass p-6 rounded-xl border border-red-400/30">
+              <h4 className="text-xl font-bold text-red-400 mb-4 flex items-center gap-3">
+                <Zap size={20} />
+                ⚠️ Défis du sprint précédent
+              </h4>
+              <div className="space-y-2">
+                {context.previousSprint.challenges.map((item: string, index: number) => (
+                  <div key={index} className="flex items-center gap-3 p-2 bg-red-500/10 rounded-lg">
+                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                    <span className="text-white/80 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Attentes du Daily */}
+      <div className="card card-glow scale-in delay-200">
+        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+          Ce qu'on attend de ce Daily
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <CheckCircle size={32} className="text-white" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-4">Synchronisation</h4>
+            <p className="text-white/80 text-sm leading-relaxed">
+              Faire le point sur l'avancement de chacun et s'assurer que tout le monde 
+              est aligné sur les priorités du jour.
+            </p>
+          </div>
+
+          <div className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Zap size={32} className="text-white" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-4">Blocages</h4>
+            <p className="text-white/80 text-sm leading-relaxed">
+              Identifier rapidement les obstacles techniques ou organisationnels 
+              pour planifier des sessions de résolution.
+            </p>
+          </div>
+
+          <div className="glass p-6 rounded-xl border border-white/20 text-center group hover:scale-105 transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Users size={32} className="text-white" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-4">Collaboration</h4>
+            <p className="text-white/80 text-sm leading-relaxed">
+              Identifier les opportunités de collaboration et planifier 
+              les points de synchronisation nécessaires.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Conseils pour les participants */}
+      <div className="card card-glow scale-in delay-300">
+        <h3 className="text-3xl font-display font-bold text-white mb-8 text-center">
+          Conseils pour bien participer
+        </h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <h4 className="text-xl font-bold text-green-400 mb-4">✅ Bonnes pratiques</h4>
+            {[
+              "Préparer ses 3 réponses avant le Daily",
+              "Être concis et factuel dans ses réponses",
+              "Mentionner les dépendances avec les autres",
+              "Signaler les blocages même mineurs",
+              "Proposer son aide si on a des compétences utiles"
+            ].map((tip, index) => (
+              <div key={index} className="flex items-start gap-3 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                <CheckCircle size={16} className="text-green-400 mt-1 flex-shrink-0" />
+                <span className="text-white/80 text-sm leading-relaxed">{tip}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-xl font-bold text-orange-400 mb-4">💡 Astuces spécifiques</h4>
+            {[
+              "Utiliser les mots-clés de votre rôle pour structurer",
+              "Mentionner les commits GitHub ou tâches Jira",
+              "Être transparent sur les difficultés rencontrées",
+              "Proposer des créneaux pour les discussions techniques",
+              "Célébrer les petites victoires de l'équipe"
+            ].map((tip, index) => (
+              <div key={index} className="flex items-start gap-3 p-3 bg-orange-500/10 rounded-lg border border-orange-500/20">
+                <Star size={16} className="text-orange-400 mt-1 flex-shrink-0" />
+                <span className="text-white/80 text-sm leading-relaxed">{tip}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -436,7 +676,7 @@ const DailyScrumOverviewContent: React.FC = () => {
   );
 };
 
-// Composant Dialogue Interactif (réutilisé et adapté)
+// Composant Dialogue Interactif (mis à jour avec contexte)
 const DialogueInteractifContent: React.FC<{
   dialogue: any[];
   participants: any[];
@@ -446,13 +686,35 @@ const DialogueInteractifContent: React.FC<{
   onPlayPause: () => void;
   onReset: () => void;
   getCurrentSpeaker: () => any;
-}> = ({ dialogue, participants, currentStep, setCurrentStep, isPlaying, onPlayPause, onReset, getCurrentSpeaker }) => {
+  context: any;
+}> = ({ dialogue, participants, currentStep, setCurrentStep, isPlaying, onPlayPause, onReset, getCurrentSpeaker, context }) => {
   
   const currentDialogue = dialogue[currentStep];
   const currentSpeaker = getCurrentSpeaker();
 
   return (
     <div className="space-y-8">
+      {/* Contexte du dialogue */}
+      <div className="card card-glow">
+        <h3 className="text-2xl font-display font-bold text-white mb-6 text-center">
+          📍 Situation : {context.weekDay} {context.date} - {context.time} - Sprint {context.currentSprint}/4
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="glass p-4 rounded-xl border border-blue-400/30 text-center">
+            <h4 className="font-bold text-blue-400 mb-2">Sprint Goal</h4>
+            <p className="text-white/80 text-sm">{context.sprintGoal}</p>
+          </div>
+          <div className="glass p-4 rounded-xl border border-green-400/30 text-center">
+            <h4 className="font-bold text-green-400 mb-2">Hier terminé</h4>
+            <p className="text-white/80 text-sm">{context.currentSprintProgress.completed.length} tâches</p>
+          </div>
+          <div className="glass p-4 rounded-xl border border-orange-400/30 text-center">
+            <h4 className="font-bold text-orange-400 mb-2">En cours</h4>
+            <p className="text-white/80 text-sm">{context.currentSprintProgress.inProgress.length} tâches</p>
+          </div>
+        </div>
+      </div>
+
       {/* Contrôles de lecture */}
       <div className="card card-glow">
         <div className="flex items-center justify-between mb-6">
@@ -638,7 +900,7 @@ const DialogueInteractifContent: React.FC<{
   );
 };
 
-// Composant Rôles et Mots-clés
+// Composant Rôles et Mots-clés (inchangé)
 const RolesMotsClesContent: React.FC<{ participants: any[] }> = ({ participants }) => {
   return (
     <div className="space-y-12">
